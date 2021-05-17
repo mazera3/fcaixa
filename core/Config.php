@@ -2,8 +2,8 @@
 session_start();
 ob_start();
 
-define('URLADM', 'http://192.168.1.2/biblivre/');
-define('URL', 'http://192.168.1.2/biblivre/');
+define('URLADM', 'http://192.168.1.2/bibelivre/');
+define('URL', 'http://192.168.1.2/bibelivre/');
 
 define('CONTROLER', 'Home');
 define('METODO', 'index');
