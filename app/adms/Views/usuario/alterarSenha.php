@@ -17,7 +17,7 @@
         <form method="POST" action="">            
             <div class="form-group">
                 <label>Senha</label>
-                <input name="senha" type="password" class="form-control" placeholder="Senha com mínimo 6 caracteres">
+                <input name="senha" type="password" class="form-control" placeholder="Senha com mínimo 4 caracteres">
             </div>
             <p>
                 <span class="text-danger">* </span>Campo obrigatório

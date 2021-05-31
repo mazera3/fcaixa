@@ -41,8 +41,8 @@ class AdmsValSenha
 
     private function valExtensSenha()
     {
-        if ((strlen($this->Senha)) < 6) {
-            $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: A senha deve ter no mínimo 6 caracteres!</div>";
+        if ((strlen($this->Senha)) < 4) {
+            $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: A senha deve ter no mínimo 4 caracteres!</div>";
             $this->Resultado = false;
         } else {
             $this->Resultado = true;

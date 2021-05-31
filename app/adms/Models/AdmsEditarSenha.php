@@ -30,7 +30,7 @@ class AdmsEditarSenha
         $validaUsuario = new \App\adms\Models\helper\AdmsRead();
         $validaUsuario->fullRead("SELECT user.id FROM adms_usuarios user
                 INNER JOIN adms_niveis_acessos nivac ON nivac.id=user.adms_niveis_acesso_id
-                WHERE user.id =:id AND nivac.ordem >:ordem LIMIT :limit", "id=" . $this->DadosId . "&ordem=".$_SESSION['ordem_nivac']."&limit=1");
+                WHERE user.id =:id AND nivac.ordem >=:ordem LIMIT :limit", "id=" . $this->DadosId . "&ordem=".$_SESSION['ordem_nivac']."&limit=1");
         $this->DadosUsuario = $validaUsuario->getResultado();
         if (!empty($this->DadosUsuario)) {
             $this->Resultado = true;
