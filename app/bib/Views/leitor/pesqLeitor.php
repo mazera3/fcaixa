@@ -108,6 +108,7 @@ if (!defined('URL')) {
                 </thead>
                 <tbody>
                     <?php
+                    if (!empty($this->Dados['listLeitor'])) {
                     foreach ($this->Dados['listLeitor'] as $leitor) {
                         extract($leitor);
                         ?>
@@ -156,6 +157,7 @@ if (!defined('URL')) {
                             </td>
                         </tr>
                         <?php
+                    }
                     }
                     ?>
 

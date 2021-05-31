@@ -12,7 +12,7 @@ if (!defined('URL')) {
  *
  * @copyright (c) year, Édio Mazera
  */
-class VerLeitor {
+    class VerLeitor {
 
     private $Dados;
     private $DadosId;
@@ -30,6 +30,7 @@ class VerLeitor {
             $botao = [
                 'list_leitor' => ['menu_controller' => 'leitores', 'menu_metodo' => 'listar'],
                 'edit_leitor' => ['menu_controller' => 'editar-leitor', 'menu_metodo' => 'edit-leitor'],
+                'qrcode_leitor' => ['menu_controller' => 'ver-leitor', 'menu_metodo' => 'ver-leitor'],
                 'del_leitor' => ['menu_controller' => 'apagar-leitor', 'menu_metodo' => 'apagar-leitor'],
                 'ret_copia' => ['menu_controller' => 'retirar-copia', 'menu_metodo' => 'retirar-copia'],
                 'list_emp' => ['menu_controller' => 'listar-emprestimos', 'menu_metodo' => 'listar-emprestimos'],
@@ -63,6 +64,12 @@ class VerLeitor {
                 // Histórico
                 $listHist = new \App\bib\Models\BibRetirarCopia();
                 $this->Dados['listHist'] = $listHist->listarHist($this->LeitorId);
+            }
+            $this->LeitorId = filter_input(INPUT_GET, "qr", FILTER_SANITIZE_NUMBER_INT);
+            if (!empty($this->LeitorId)) {
+                // Qr Code
+                $qrcode = new \App\bib\Models\BibQrCodeLeitor();
+                $qrcode->geraQrCode($this->LeitorId);
             }
 
             $carregarView = new \App\bib\core\ConfigView("bib/Views/leitor/verLeitor", $this->Dados);

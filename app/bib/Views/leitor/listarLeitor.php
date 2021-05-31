@@ -11,33 +11,11 @@ if (!defined('URL')) {
                 <h2 class="display-4 titulo">Listar Leitores</h2>
             </div>
             <?php
-            if ($this->Dados['botao']['list_leitor']) {
-                ?>
-                <a href="<?php echo URLADM . 'leitores/listar/?st=1'; ?>">
-                    <div class="p-2">
-                        <button class="btn btn-outline-dark btn-sm">
-                            Somente Ativos
-                        </button>
-                    </div>
-                </a>
-                <?php
-            }
-            if ($this->Dados['botao']['list_leitor']) {
-                ?>
-                <a href="<?php echo URLADM . 'leitores/listar/?st=5'; ?>">
-                    <div class="p-2">
-                        <button class="btn btn-outline-dark btn-sm">
-                            Listar Todos
-                        </button>
-                    </div>
-                </a>
-                <?php
-            }
             if ($this->Dados['botao']['pesq_leitor']) {
                 ?>
                 <a href="<?php echo URLADM . 'pesq-leitor/listar'; ?>">
                     <div class="p-2">
-                        <button class="btn btn-info btn-sm">
+                        <button class="btn btn-outline-dark btn-sm">
                             Pesquisar Leitor
                         </button>
                     </div>
@@ -55,18 +33,50 @@ if (!defined('URL')) {
                 </a>
                 <?php
             }
-            if ($this->Dados['botao']['imp_leitor']) {
+            if ($this->Dados['botao']['sincronizar']) {
                 ?>
-                <a href="<?php echo URLADM . 'importar-leitor/importar'; ?>">
+                <a href="<?php echo URLADM . 'leitores/listar/?sinc=true'; ?>">
                     <div class="p-2">
-                        <button class="btn btn-outline-success btn-sm">
-                            Carregar XML/CSV
+                        <button class="btn btn-outline-warning btn-sm">
+                            Sincronizar
                         </button>
                     </div>
                 </a>
                 <?php
             }
             ?>
+            <div class="p-5"></div>
+            <div class="p-5"></div>
+            <div class="p-2">
+                <div class="btn-group dropleft">
+                    <button type="button" class="btn btn-outline-primary btn-sm dropdown-toggle" data-toggle="dropdown">
+                        Opções                
+                    </button>
+
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        <?php
+                        if ($this->Dados['botao']['xls']) {
+                            echo "<li><a href='" . URLADM . "leitores/listar/?xls=1'>Baixar Relatório XLS</a></li> ";
+                        }
+                        if ($this->Dados['botao']['pdf']) {
+                            echo "<li><a href='" . URLADM . "leitores/listar/?pdf=1'>Baixar Relatório PDF</a></li> ";
+                        }
+                        if ($this->Dados['botao']['imp_leitor']) {
+                            echo "<li><a href='" . URLADM . "importar-leitor/importar'>Carregar XML/CSV</a></li> ";
+                        }
+                        if ($this->Dados['botao']['list_leitor']) {
+                            echo "<li><a href='" . URLADM . "leitores/listar/?st=5'>Listar Todos</a></li> ";
+                        }
+                        if ($this->Dados['botao']['list_leitor']) {
+                            echo "<li><a href='" . URLADM . "leitores/listar/?st=1'>Listar Ativos</a></li> ";
+                        }
+                        if ($this->Dados['botao']['sincronizar']) {
+                            echo "<li><a href='" . URLADM . "leitores/listar/?sinc=true'>Sincronizar Reservas</a></li> ";
+                        }
+                        ?>
+                    </ul>
+                </div>
+            </div>
         </div>
         <?php
         if (empty($this->Dados['listLeitor'])) {

@@ -17,6 +17,21 @@ if (!defined('URL')) {
                 }
                 ?>                
             </div>
+            <div class="btn-group dropleft">
+                <button type="button" class="btn btn-outline-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="fas fa-print" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></span>
+                </button>                    
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                    <?php
+                    if ($this->Dados['botao']['xls']) {
+                        echo "<li><a href='" . URLADM . "autores/listar/?xls=1'>Baixar Relatório XLS</a></li> ";
+                    }
+                    if ($this->Dados['botao']['pdf']) {
+                        echo "<li><a href='" . URLADM . "autores/listar/?pdf=1'>Baixar Relatório PDF</a></li> ";
+                    }
+                    ?>  
+                </ul>
+            </div>
         </div>
         <?php
         if (empty($this->Dados['listAut'])) {
@@ -34,8 +49,9 @@ if (!defined('URL')) {
             unset($_SESSION['msg']);
         }
         foreach ($this->Dados['qtAut'] as $qt) {
-        extract($qt);}
-        echo 'Foram encontrados '.$num_result . ' registros.'
+            extract($qt);
+        }
+        echo 'Foram encontrados ' . $num_result . ' registros.'
         ?>
         <div class="table-responsive">
             <table class="table table-striped table-hover table-bordered table-sm">

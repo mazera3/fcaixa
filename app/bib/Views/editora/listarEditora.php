@@ -17,7 +17,21 @@ if (!defined('URL')) {
                 }
                 ?>                
             </div>
-
+            <div class="btn-group dropleft">
+                <button type="button" class="btn btn-outline-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="fas fa-print" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></span>
+                </button>                    
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                    <?php
+                    if ($this->Dados['botao']['xls']) {
+                        echo "<li><a href='" . URLADM . "editoras/listar/?xls=1'>Baixar Relatório XLS</a></li> ";
+                    }
+                    if ($this->Dados['botao']['pdf']) {
+                        echo "<li><a href='" . URLADM . "editoras/listar/?pdf=1'>Baixar Relatório PDF</a></li> ";
+                    }
+                    ?>  
+                </ul>
+            </div>
         </div>
         <?php
         if (empty($this->Dados['listEd'])) {
@@ -54,7 +68,7 @@ if (!defined('URL')) {
                         <tr>
                             <th><?php echo $ed_id; ?></th>
                             <td><?php echo $editora; ?></td>
-                            <td><?php echo $nome_uf . ' (' .$uf .') - '. $nome_pais . ' (' .$sigla . ')'; ?></td>
+                            <td><?php echo $nome_uf . ' (' . $uf . ') - ' . $nome_pais . ' (' . $sigla . ')'; ?></td>
                             <td><?php
                                 if (!empty($logo_imagem)) {
                                     echo "<img src='" . URLADM . "app/bib/assets/imagens/editora/" . $ed_id . "/" . $logo_imagem . "' witdh='30' height='30'>";

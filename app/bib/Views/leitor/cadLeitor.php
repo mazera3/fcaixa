@@ -111,7 +111,7 @@ if (isset($this->Dados['form'][0])) {
                     <!-- Municipio -->
                     <div class="col">
                         <label>Municipio</label>
-                        <span tabindex="0" data-toggle="tooltip" data-placement="top" data-html="true" title="Municipio: Caso o municipio não esteja na lista, <a href='<?php echo URLADM . 'cadastrar-municipio/cad-municipio' ;?>' target='_blank'>cadastre um novo aqui</a>">
+                        <span tabindex="0" data-toggle="tooltip" data-placement="top" data-html="true" title="Municipio: Caso o municipio não esteja na lista, <a href='<?php echo URLADM . 'cadastrar-municipio/cad-municipio'; ?>' target='_blank'>cadastre um novo aqui</a>">
                             <i class="fas fa-question-circle"></i>
                         </span>
                         <select name="id_mun" id="id_mun" class="form-control">
@@ -131,7 +131,7 @@ if (isset($this->Dados['form'][0])) {
                     <!-- Bairro -->
                     <div class="col">
                         <label>Bairro</label>
-                        <span tabindex="0" data-toggle="tooltip" data-placement="top" data-html="true" title="Bairro: Caso o bairro não esteja na lista, <a href='<?php echo URLADM . 'cadastrar-bairro/cad-bairro' ;?>' target='_blank'>cadastre um novo aqui</a>">
+                        <span tabindex="0" data-toggle="tooltip" data-placement="top" data-html="true" title="Bairro: Caso o bairro não esteja na lista, <a href='<?php echo URLADM . 'cadastrar-bairro/cad-bairro'; ?>' target='_blank'>cadastre um novo aqui</a>">
                             <i class="fas fa-question-circle"></i>
                         </span>
                         <select name="bairro_id" id="bairro" class="form-control">
@@ -201,12 +201,22 @@ if (isset($this->Dados['form'][0])) {
                 <div class="form-group">
                     <label><span class="text-danger"></span> Foto (150x150)</label>
                     <input name="imagem_nova" type="file" onchange="previewImagem();">
+                    <?php
+                    if ($this->Dados['botao']['capturar_leitor']) {
+                        ?>
+                        <button type="button" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#fotoModal">
+                            Tirar Foto
+                        </button>
+                        <?php
+                    }
+                    ?>
                 </div>
+
                 <div class="form-group">
                     <?php
                     $imagem_antiga = URLADM . 'app/bib/assets/imagens/leitor/preview_img.png';
                     ?>
-                    <img src="<?php echo $imagem_antiga; ?>" alt="Imagem do leitor" id="preview-user" class="img-thumbnail" style="width: 150px; height: 150px;">
+                    <img src="<?php echo $imagem_antiga; ?>" alt="Imagem do leitor" id="preview-user" class="img-thumbnail" style="width: 150px; height: 150px;" data-toggle="modal" data-target="#fotoModal">
                 </div>
                 <input name="CadLeitor" type="submit" class="btn btn-warning" value="Salvar">
             </div>
@@ -215,4 +225,75 @@ if (isset($this->Dados['form'][0])) {
     <p>
         <span class="text-danger">⋇ Campo obrigatório</span>
     </p>
+</div>
+
+<!-- janela Modal de captura da foto -->
+<?php
+if ($this->Dados['botao']['capturar_leitor']) {
+    ?>
+    <span class="endereco" data-enderecocad_1="<?php echo URLADM; ?>camera/camera"></span>
+    <div class="modal fade addModal" id="fotoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Tirar Foto</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <span id="msg"></span>
+
+                    <div class="form-control webcam-start" id="webcam-control">
+                        <label class="form-switch">
+                            <input type="checkbox" id="webcam-switch">
+                            <i></i> 
+                            <span id="webcam-caption">Iniciar Câmera</span>
+                        </label>      
+                        <button id="cameraFlip" class="btn d-none"></button>                  
+                    </div>
+
+                    <div id="errorMsg" class="col-6 col-md-6 alert-danger d-none">
+                        Falha ao iniciar a câmera, dê permissão para acessar a câmera. <br/>
+                        Se você estiver navegando em mídias sociais integradas a navegadores, deverá abrir a página em Sarafi (iPhone) / Chrome (Android)
+                        <button id="closeError" class="btn btn-primary ml-3">OK</button>
+                    </div>
+                    <div class="md-modal md-effect-6">
+                        <div id="app-panel" class="app-panel md-content row p-0 m-0">     
+                            <div id="webcam-container" class="webcam-container col-6 d-none p-0 m-0">
+                                <video id="webcam" autoplay playsinline width="320" height="240"></video>
+                                <canvas id="canvas" class="d-none"></canvas>
+                                <div class="flash"></div>
+                                <audio id="snapSound" src="<?php echo URLADM . 'app/bib/assets/audio/snap.wav'; ?>" preload="auto"></audio>
+                            </div>
+                            <div id="cameraControls" class="cameraControls">
+                                <a href="#" id="exit-app" title="Sair do App" class="d-none"><i class="material-icons">exit_to_app</i></a>
+                                <a href="#" id="take-photo" title="Tirar fotos"><i class="material-icons">camera_alt</i></a>
+                                <a href="#" id="download-photo" download="<?php echo 'foto.png'; ?>" target="_blank" title="Salvar Foto" class="d-none"><i class="material-icons">file_download</i></a>  
+                                <a href="#" id="resume-camera"  title="Resumo Camera" class="d-none"><i class="material-icons">camera_front</i></a>
+                            </div>
+                        </div>        
+                    </div>
+                    <div class="md-overlay"></div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php
+}
+?>
+<div class="modal fade" id="addSucessoModal_1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-success">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h2 class="text-success text-center">Foto tirada com sucesso!</h2>
+            </div>
+        </div>
+    </div>
 </div>

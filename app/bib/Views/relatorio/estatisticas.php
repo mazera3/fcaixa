@@ -3,8 +3,6 @@ if (!defined('URL')) {
     header("Location: /");
     exit();
 }
-?>
-<?php
 foreach ($this->Dados['contarLeitor'] as $leitor) {
     extract($leitor);
 }
@@ -24,16 +22,24 @@ foreach ($this->Dados['contarAtrasos'] as $atrasos) {
 <div class="content p-1">
     <!-- Inicio das estatisticas -->
     <div class="list-group-item">
+        <div class="mr-auto p-2">
+            <h2 class="titulo"><i class="fas fa-chart-line fa-1x"></i> Estatísticas</h2>
+        </div>
         <div class="d-flex">
-            <div class="mr-auto p-2">
-                <h2 class="display-4 titulo"><i class="fas fa-chart-line fa-1x"></i> Estatísticas</h2>
-            </div>
-            <div class="p-2">
-                <?php
-                if ($this->Dados['botao']['imprimir']) {
-                    echo "<a href='" . URLADM . "imprimir/imprimir/1' class='btn btn-outline-dark btn-sm'>Imprimir</a> ";
-                }
-                ?>                
+            <div class="btn-group dropleft ml-auto">
+                <button type="button" class="btn btn-outline-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Download
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                    <?php
+                    if ($this->Dados['botao']['xls']) {
+                        echo "<li><a href='" . URLADM . "estatisticas/listar/?xls=1'>Baixar Relatório XLS</a></li> ";
+                    }
+                    if ($this->Dados['botao']['pdf']) {
+                        echo "<li><a href='" . URLADM . "estatisticas/listar/?pdf=1'>Baixar Relatório PDF</a></li> ";
+                    }
+                    ?>
+                </ul>
             </div>
         </div>
         <?php

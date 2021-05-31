@@ -22,23 +22,25 @@ class PesquisarCopias {
 
     private $Dados;
     private $DadosForm;
+    private $DadosCodBar;
     private $PageId;
 
     public function listar($PageId = null) {
         $this->PageId = (int) $PageId ? $PageId : 1;
         $botao = [
-            'cad_copia' => ['menu_controller' => 'cadastrar-copia','menu_metodo' => 'cad-copia'],
-            'list_copia' => ['menu_controller' => 'copias','menu_metodo' => 'listar'],
-            'vis_copia' => ['menu_controller' => 'ver-copia','menu_metodo' => 'ver-copia'],
-            'edit_copia' => ['menu_controller' => 'editar-copia','menu_metodo' => 'edit-copia'],
-            'del_copia' => ['menu_controller' => 'apagar-copia','menu_metodo' => 'apagar-copia']];
+            'cad_copia' => ['menu_controller' => 'cadastrar-copia', 'menu_metodo' => 'cad-copia'],
+            'list_copia' => ['menu_controller' => 'copias', 'menu_metodo' => 'listar'],
+            'cod_bar' => ['menu_controller' => 'copias', 'menu_metodo' => 'listar'],
+            'vis_copia' => ['menu_controller' => 'ver-copia', 'menu_metodo' => 'ver-copia'],
+            'edit_copia' => ['menu_controller' => 'editar-copia', 'menu_metodo' => 'edit-copia'],
+            'del_copia' => ['menu_controller' => 'apagar-copia', 'menu_metodo' => 'apagar-copia']];
 
         $listarBotao = new \App\adms\Models\AdmsBotao();
         $this->Dados['botao'] = $listarBotao->valBotao($botao);
 
         $listarMenu = new \App\adms\Models\AdmsMenu();
         $this->Dados['menu'] = $listarMenu->itemMenu();
-       
+
         $this->DadosForm = filter_input_array(INPUT_POST, FILTER_DEFAULT);
         if (!empty($this->DadosForm['PesqCopia'])) {
             unset($this->DadosForm['PesqCopia']);
@@ -50,6 +52,13 @@ class PesquisarCopias {
             $this->DadosForm['sub_titulo'] = filter_input(INPUT_GET, 'sub_titulo', FILTER_DEFAULT);
             $this->DadosForm['chamada'] = filter_input(INPUT_GET, 'chamada', FILTER_DEFAULT);
             $this->DadosForm['chave'] = filter_input(INPUT_GET, 'chave', FILTER_DEFAULT);
+        }
+        $this->DadosCodBar = filter_input_array(INPUT_POST, FILTER_DEFAULT);
+        if (!empty($this->DadosCodBar['CodBarCopia'])) {
+            unset($this->DadosCodBar['CodBarCopia']);
+            // Code Bar
+            $codeBar = new \App\bib\Models\BibCodeBarras();
+            $codeBar->geraCodeBarras($this->DadosCodBar);
         }
 
         $pesquisarCopias = new \App\bib\Models\BibPesquisarCopia();

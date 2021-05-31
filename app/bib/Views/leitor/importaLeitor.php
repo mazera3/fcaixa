@@ -37,7 +37,7 @@ if (!defined('URL')) {
         <form method="POST" action="" enctype="multipart/form-data">
             <label>Arquivo XML</label>
             <input type="file" name="xml"><br><br>
-            <input type="submit"  value="Enviar XML">
+            <input type="submit" name="EnviarXml" value="Enviar XML">
         </form>
     </div>
     <hr>
@@ -49,7 +49,7 @@ if (!defined('URL')) {
         <form method="POST" action="" enctype="multipart/form-data">
             <label>Arquivo CSV</label>
             <input type="file" name="csv"><br><br>
-            <input type="submit"  value="Enviar CSV">
+            <input type="submit" name="EnviarCsv" value="Enviar CSV">
         </form>
     </div>
     <!-- Modal para XML -->

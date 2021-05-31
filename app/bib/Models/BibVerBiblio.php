@@ -21,12 +21,12 @@ class BibVerBiblio {
         $this->DadosId = (int) $DadosId;
         $verBiblio = new \App\adms\Models\helper\AdmsRead();
         $verBiblio->fullRead("SELECT bib.*, 
-            sit.nome nome_sit, cr.cor cor_cr,
+            sit.nome nome_sit, cr.cor cor_cr, uf.uf,
             mat.descricao material, col.descricao colecao, ed.editora, aut.autor
                 FROM bib_biblio bib
-                
                 INNER JOIN bib_autores aut ON aut.aut_id=bib.autor_id
                 INNER JOIN bib_editora ed ON ed.ed_id=bib.editora_id
+                INNER JOIN bib_uf uf ON uf.uf_id=ed.id_uf
                 INNER JOIN bib_colecao col ON col.col_id=bib.colecao_id
                 INNER JOIN bib_tipo_material mat ON mat.cod_id=bib.tipo_material_id
                 INNER JOIN bib_sits_biblio sit ON sit.id=bib.sit_id

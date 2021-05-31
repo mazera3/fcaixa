@@ -18,9 +18,11 @@ class ImportarBibliografia {
 
     public function importar() {
 
-        $this->Dados['xml'] = ($_FILES['xml'] ? $_FILES['xml'] : null);
-        $this->Dados['csv'] = ($_FILES['csv'] ? $_FILES['csv'] : null);
-
+        $this->Dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
+        if (!empty($this->Dados['EnviarXml']) OR!empty($this->Dados['EnviarCsv'])) {
+            $this->Dados['csv'] = ($_FILES['csv'] ? $_FILES['csv'] : null);
+            $this->Dados['xml'] = ($_FILES['xml'] ? $_FILES['xml'] : null);
+        }
         if (!empty($this->Dados['xml'])) {
             $import = new \App\bib\Models\BibImportarBiblio();
             $import->importarXml($this->Dados['xml']);
@@ -44,7 +46,8 @@ class ImportarBibliografia {
         }
     }
 
-    private function importarViewPriv() {
+    private
+            function importarViewPriv() {
         $botao = ['list_bibliografia' => ['menu_controller' => 'bibliografias', 'menu_metodo' => 'listar']];
         $listarBotao = new \App\adms\Models\AdmsBotao();
         $this->Dados['botao'] = $listarBotao->valBotao($botao);

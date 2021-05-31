@@ -54,7 +54,7 @@ class BibReservarCopia {
             $this->Dados[0]['id_res'] = $this->LeitorId;
             $this->Dados[0]['data_res'] = date("Y-m-d");
             // Reserva por um dia após a devolução
-            $this->Dados[0]['data_lib'] = date('Y-m-d', strtotime("+1 days",strtotime($this->Dados[0]['data_dev'])));
+            $this->Dados[0]['data_lib'] = date('Y-m-d', strtotime("+1 days", strtotime($this->Dados[0]['data_dev'])));
             $this->Dados[0]['modified'] = date("Y-m-d H:i:s");
             $this->upCopia();
         } elseif ($this->Dados[0]['sit_res'] == 2 AND $this->Dados[0]['id_res'] == $this->LeitorId) {
@@ -84,6 +84,27 @@ class BibReservarCopia {
         } else {
             $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: Não foi possível reservar a cópia!</div>";
             $this->Resultado = false;
+        }
+    }
+
+    public function sinCopia() {
+        $verCopia = new \App\adms\Models\helper\AdmsRead();
+        $verCopia->fullRead("SELECT cp.* FROM bib_copia cp
+                WHERE cp.sit_res =:sit_res AND
+                DATEDIFF(CURDATE(),data_lib) > 0", "sit_res=2");
+        $this->Dados = $verCopia->getResultado();
+        if ($this->Dados) {
+            foreach ($this->Dados as $val) {
+                extract($val);
+                $this->Dados[0]['sit_res'] = 1;
+                $this->Dados[0]['id_res'] = null;
+                $this->Dados[0]['data_res'] = null;
+                $this->Dados[0]['data_lib'] = null;
+                $upCopia = new \App\adms\Models\helper\AdmsUpdate();
+                $upCopia->exeUpdate("bib_copia", $this->Dados[0], "WHERE cop_id =:cop_id", "cop_id={$cop_id}");
+            }
+        } else {
+            $_SESSION['msg'] = "<div class='alert alert-info'>Reservas sincronizadas!</div>";
         }
     }
 

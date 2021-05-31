@@ -7,15 +7,23 @@ if (!defined('URL')) {
 <div class="content p-1">
     <div class="list-group-item">
         <div class="d-flex">
-            <div class="mr-auto p-2">
-                <h2 class="display-4 titulo">Histórico de Retiradas</h2>
+            <div class="mr-auto">
+                <h2 class="titulo">Histórico de Retiradas</h2>
             </div>
-            <div class="p-2">
-                <?php
-                if ($this->Dados['botao']['imprimir']) {
-                    echo "<a href='" . URLADM . "imprimir/imprimir/1' class='btn btn-outline-dark btn-sm'>Imprimir</a> ";
-                }
-                ?>                
+            <div class="btn-group dropleft">
+                <button type="button" class="btn btn-outline-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="fas fa-print" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></span>
+                </button>                    
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                    <?php
+                    if ($this->Dados['botao']['xls']) {
+                        echo "<li><a href='" . URLADM . "relatorio-historico/listar/?xls=1'>Baixar Relatório XLS</a></li> ";
+                    }
+                    if ($this->Dados['botao']['pdf']) {
+                        echo "<li><a href='" . URLADM . "relatorio-historico/listar/?pdf=1'>Baixar Relatório PDF</a></li> ";
+                    }
+                    ?>  
+                </ul>
             </div>
         </div>
         <?php
@@ -53,7 +61,7 @@ if (!defined('URL')) {
                         ?>
                         <tr>
                             <td><?php echo date('d/M/Y H:i', strtotime($criado)); ?></td>
-                            <td><?php echo $primeiro_nome.' '.$ultimo_nome; ?></td>
+                            <td><?php echo $primeiro_nome . ' ' . $ultimo_nome; ?></td>
                             <td><?php echo $cod_bar; ?></td>
                             <td><?php echo $titulo; ?></td>
                             <td><?php echo $autor; ?></td>

@@ -17,10 +17,11 @@ class ImportarLeitor {
     private $Dados;
 
     public function importar() {
-
-        $this->Dados['xml'] = ($_FILES['xml'] ? $_FILES['xml'] : null);
-        $this->Dados['csv'] = ($_FILES['csv'] ? $_FILES['csv'] : null);
-
+        $this->Dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
+        if (!empty($this->Dados['EnviarXml']) OR !empty($this->Dados['EnviarCsv'])) {
+            $this->Dados['csv'] = ($_FILES['csv'] ? $_FILES['csv'] : null);
+            $this->Dados['xml'] = ($_FILES['xml'] ? $_FILES['xml'] : null);
+        }
         if (!empty($this->Dados['xml'])) {
             $import = new \App\bib\Models\BibImportarLeitor();
             $import->importarXml($this->Dados['xml']);
@@ -31,6 +32,7 @@ class ImportarLeitor {
                 $this->importarViewPriv();
             }
         } elseif (!empty($this->Dados['csv'])) {
+
             $import = new \App\bib\Models\BibImportarLeitor();
             $import->importarCsv($this->Dados['csv']);
             if ($import->getResultado()) {

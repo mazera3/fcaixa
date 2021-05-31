@@ -22,14 +22,13 @@ class Opac
     public function listar($PageId = null)
     {
 
-        $botao = ['cad_bibliografia' => ['menu_controller' => 'cadastrar-bibliografia', 
-                    'menu_metodo' => 'cad-bibliografia'],
-            'vis_bibliografia' => ['menu_controller' => 'ver-bibliografia', 
-                'menu_metodo' => 'ver-bibliografia'],
-            'edit_bibliografia' => ['menu_controller' => 'editar-bibliografia', 
-                'menu_metodo' => 'edit-bibliografia'],
-            'del_bibliografia' => ['menu_controller' => 'apagar-bibliografia', 
-                'menu_metodo' => 'apagar-bibliografia']];
+        $botao = [
+            'cad_bibliografia' => ['menu_controller' => 'cadastrar-bibliografia', 'menu_metodo' => 'cad-bibliografia'],
+            'list_bibliografia' => ['menu_controller' => 'bibliografias', 'menu_metodo' => 'listar'],
+            'vis_bibliografia' => ['menu_controller' => 'ver-bibliografia', 'menu_metodo' => 'ver-bibliografia'],
+            'edit_bibliografia' => ['menu_controller' => 'editar-bibliografia', 'menu_metodo' => 'edit-bibliografia'],
+            'del_bibliografia' => ['menu_controller' => 'apagar-bibliografia', 'menu_metodo' => 'apagar-bibliografia']
+            ];
         $listarBotao = new \App\adms\Models\AdmsBotao();
         $this->Dados['botao'] = $listarBotao->valBotao($botao);
 

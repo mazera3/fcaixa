@@ -58,6 +58,9 @@ if (!empty($this->Dados['dados_leitor'][0])) {
                             <td class="text-center">
                                 <span class="d-none d-md-block">
                                     <?php
+                                    if ($this->Dados['botao']['qrcode_leitor']) {
+                                        echo "<a href='" . URLADM . "ver-leitor/ver-leitor/$leitor_id?qr=$leitor_id' class='btn btn-outline-success btn-sm' title='Imprimir Carteira'><i class='fas fa-qrcode'></i></a> ";
+                                    }
                                     if ($this->Dados['botao']['edit_leitor']) {
                                         echo "<a href='" . URLADM . "editar-leitor/edit-leitor/$leitor_id' class='btn btn-outline-warning btn-sm' title='Editar'><i class='fas fa-edit'></i></a> ";
                                     }
@@ -120,6 +123,7 @@ if (!empty($this->Dados['dados_leitor'][0])) {
                     </thead>
                     <tbody>
                         <?php
+                        if (!empty($this->Dados['verEmp'])) {
                         foreach ($this->Dados['verEmp'] as $emp) {
                             extract($emp);
                             ?>
@@ -174,6 +178,7 @@ if (!empty($this->Dados['dados_leitor'][0])) {
                                 </td>
                             </tr>
                             <?php
+                        }
                         }
                         ?>
                     </tbody>
@@ -232,6 +237,7 @@ if (!empty($this->Dados['dados_leitor'][0])) {
                     </thead>
                     <tbody>
                         <?php
+                        if (!empty($this->Dados['listCopia'])) {
                         foreach ($this->Dados['listCopia'] as $cp) {
                             extract($cp);
                             ?>
@@ -284,11 +290,12 @@ if (!empty($this->Dados['dados_leitor'][0])) {
                             </tr>
                             <?php
                         }
+                        }
                         ?>
                     </tbody>
                 </table>
                 <?php
-                echo $this->Dados['paginacao'];
+                //echo $this->Dados['paginacao'];
                 if (empty($this->Dados['listCopia'])) {
                     ?>
                     <div class="alert alert-warning" role="alert">
@@ -324,6 +331,7 @@ if (!empty($this->Dados['dados_leitor'][0])) {
                     </thead>
                     <tbody>
                         <?php
+                        if (!empty($this->Dados['listHist'])) {
                         foreach ($this->Dados['listHist'] as $his) {
                             extract($his);
                             ?>
@@ -335,6 +343,7 @@ if (!empty($this->Dados['dados_leitor'][0])) {
                                 <td class="d-none d-sm-table-cell"><?php echo date('d/M/Y', strtotime($created)); ?></td>
                             </tr>
                             <?php
+                        }
                         }
                         ?>
                     </tbody>

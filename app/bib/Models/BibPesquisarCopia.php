@@ -58,7 +58,7 @@ class BibPesquisarCopia {
 
     public function listarCopia($PageId = null) {
         $this->PageId = (int) $PageId;
-        $paginacao = new \App\bib\Models\helper\BibPaginacao(URLADM . 'copias/listar');
+        $paginacao = new \App\bib\Models\helper\BibPaginacao(URLADM . 'pesquisar-copias/listar');
         $paginacao->condicao($this->PageId, $this->LimiteResultado);
         $paginacao->paginacao("SELECT COUNT(cop_id) AS num_result FROM bib_copia");
         $this->ResultadoPg = $paginacao->getResultado();
@@ -78,7 +78,7 @@ class BibPesquisarCopia {
 
     // pesquisa somente por código de barras
     private function pesquisarBiblioCodBar() {
-        $paginacao = new \App\bib\Models\helper\BibPaginacao(URLADM . 'copias/listar', '?cod_bar=' . $this->Dados['cod_bar']);
+        $paginacao = new \App\bib\Models\helper\BibPaginacao(URLADM . 'pesquisar-copias/listar', '?cod_bar=' . $this->Dados['cod_bar']);
         $paginacao->condicao($this->PageId, $this->LimiteResultado);
         $paginacao->paginacao("SELECT COUNT(cop_id) AS num_result FROM bib_copia
                 WHERE cod_bar LIKE '%' :cod_bar '%' ", "cod_bar={$this->Dados['cod_bar']}");
@@ -99,7 +99,7 @@ class BibPesquisarCopia {
 
 // pesquisa somente o titulo
     private function pesquisarBiblioTitulo() {
-        $paginacao = new \App\bib\Models\helper\BibPaginacao(URLADM . 'copias/listar', '?titulo=' . $this->Dados['titulo']);
+        $paginacao = new \App\bib\Models\helper\BibPaginacao(URLADM . 'pesquisar-copias/listar', '?titulo=' . $this->Dados['titulo']);
         $paginacao->condicao($this->PageId, $this->LimiteResultado);
         $paginacao->paginacao("SELECT COUNT(cop.cop_id) AS num_result FROM bib_copia cop
                 INNER JOIN bib_biblio bib ON bib.bib_id=cop.cop_bib_id
@@ -121,7 +121,7 @@ class BibPesquisarCopia {
 
 // pesquisa somente autor
     private function pesquisarBiblioAutor() {
-        $paginacao = new \App\bib\Models\helper\BibPaginacao(URLADM . 'copias/listar', '?autor=' . $this->Dados['autor']);
+        $paginacao = new \App\bib\Models\helper\BibPaginacao(URLADM . 'pesquisar-copias/listar', '?autor=' . $this->Dados['autor']);
         $paginacao->condicao($this->PageId, $this->LimiteResultado);
         $paginacao->paginacao("SELECT COUNT(cop.cop_id) AS num_result FROM bib_copia cop
                 INNER JOIN bib_biblio bib ON bib.bib_id=cop.cop_bib_id
@@ -144,7 +144,7 @@ class BibPesquisarCopia {
 
 // pesquisa somente por sub_titulo
     private function pesquisarBiblioSubtitulo() {
-        $paginacao = new \App\bib\Models\helper\BibPaginacao(URLADM . 'copias/listar', '?sub_titulo=' . $this->Dados['sub_titulo']);
+        $paginacao = new \App\bib\Models\helper\BibPaginacao(URLADM . 'pesquisar-copias/listar', '?sub_titulo=' . $this->Dados['sub_titulo']);
         $paginacao->condicao($this->PageId, $this->LimiteResultado);
         $paginacao->paginacao("SELECT COUNT(cop.cop_id) AS num_result FROM bib_copia cop
                 INNER JOIN bib_biblio bib ON bib.bib_id=cop.cop_bib_id
@@ -166,7 +166,7 @@ class BibPesquisarCopia {
 
 // pesquisa somente por chamada
     private function pesquisarBiblioChamada() {
-        $paginacao = new \App\bib\Models\helper\BibPaginacao(URLADM . 'copias/listar', '?chamada=' . $this->Dados['chamada']);
+        $paginacao = new \App\bib\Models\helper\BibPaginacao(URLADM . 'pesquisar-copias/listar', '?chamada=' . $this->Dados['chamada']);
         $paginacao->condicao($this->PageId, $this->LimiteResultado);
         $paginacao->paginacao("SELECT COUNT(cop.cop_id) AS num_result FROM bib_copia cop
                 INNER JOIN bib_biblio bib ON bib.bib_id=cop.cop_bib_id
@@ -188,7 +188,7 @@ class BibPesquisarCopia {
 
 // pesquisa por palavra chave
     public function pesquisarBiblioChave() {
-        $paginacao = new \App\bib\Models\helper\BibPaginacao(URLADM . 'copias/listar', '?chave=' . $this->Dados['chave']);
+        $paginacao = new \App\bib\Models\helper\BibPaginacao(URLADM . 'pesquisar-copias/listar', '?chave=' . $this->Dados['chave']);
         $paginacao->condicao($this->PageId, $this->LimiteResultado);
         $paginacao->paginacao("SELECT COUNT(cop.cop_id) AS num_result
             FROM bib_copia cop

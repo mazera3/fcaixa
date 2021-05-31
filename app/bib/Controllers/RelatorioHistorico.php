@@ -12,19 +12,34 @@ if (!defined('URL')) {
  *
  * @copyright (c) year, Édio Mazera
  */
-class RelatorioHistorico
-{
+class RelatorioHistorico {
 
     private $Dados;
     private $PageId;
+    private $DadosPdf;
+    private $DadosXls;
 
-    public function listar($PageId = null)
-    {
+    public function listar($PageId = null) {
+
+        //$this->DadosId = (int) $DadosId;
         $this->PageId = (int) $PageId ? $PageId : 1;
 
         $botao = [
-            'imprimir' => ['menu_controller' => 'imprimir', 'menu_metodo' => 'imprimir']
-            ];
+            'pdf' => ['menu_controller' => 'relatorio-historico', 'menu_metodo' => 'listar'],
+            'xls' => ['menu_controller' => 'relatorio-historico', 'menu_metodo' => 'listar']
+        ];
+
+        $this->DadosPdf = filter_input(INPUT_GET, "pdf", FILTER_SANITIZE_NUMBER_INT);
+        if (!empty($this->DadosPdf)) {
+            $imprime = new \App\bib\Models\BibPdfHistorico();
+            $imprime->pdf($this->DadosPdf);
+        }
+        $this->DadosXls = filter_input(INPUT_GET, "xls", FILTER_SANITIZE_NUMBER_INT);
+        if (!empty($this->DadosXls)) {
+            $imprime = new \App\bib\Models\BibXlsHistorico();
+            $imprime->xls($this->DadosXls);
+        }
+
         $listarBotao = new \App\adms\Models\AdmsBotao();
         $this->Dados['botao'] = $listarBotao->valBotao($botao);
 

@@ -16,6 +16,18 @@
     "require": {
         "phpmailer/phpmailer": "^6.0",
         "php": "^7.4",
-        "chillerlan/php-qrcode": "^4.2"
+        "chillerlan/php-qrcode": "^4.2",
+        "dompdf/dompdf": "^1.0",
+        "ext-dom": "*",
+        "ext-mbstring": "*",
+        "phenx/php-font-lib": "^0.5.2",
+        "phenx/php-svg-lib": "^0.3.3",
+        "picqer/php-barcode-generator": "^2.2.0"
+    },
+    "suggest": {
+        "ext-gd": "Needed to process images",
+        "ext-imagick": "Improves image processing performance",
+        "ext-gmagick": "Improves image processing performance",
+        "ext-zlib": "Needed for pdf stream compression"
     }
 }

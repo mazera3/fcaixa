@@ -42,7 +42,10 @@ class CadastrarLeitor
         $listarSelect = new \App\bib\Models\BibCadastrarLeitor();
         $this->Dados['select'] = $listarSelect->listarCadastrar();
        
-        $botao = ['list_leitor' => ['menu_controller' => 'leitores', 'menu_metodo' => 'listar']];
+        $botao = [
+            'list_leitor' => ['menu_controller' => 'leitores', 'menu_metodo' => 'listar'],
+            'capturar_leitor' => ['menu_controller' => 'camera', 'menu_metodo' => 'camera']
+            ];
         $listarBotao = new \App\adms\Models\AdmsBotao();
         $this->Dados['botao'] = $listarBotao->valBotao($botao);
         

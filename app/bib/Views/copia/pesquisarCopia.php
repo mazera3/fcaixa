@@ -98,82 +98,94 @@ if (!defined('URL')) {
             unset($_SESSION['msg']);
         }
         ?>
-        <div class="table-responsive">
-            <table class="table table-striped table-hover table-bordered table-sm">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th class="d-none d-sm-table-cell">Titulo</th>
-                        <th class="d-none d-sm-table-cell">Subtitulo</th>
-                        <th class="d-none d-sm-table-cell">Autor</th>
-                        <th class="d-none d-sm-table-cell">Editora</th>
-                        <th class="d-none d-sm-table-cell">Código de Barras</th>
-                        <th class="d-none d-sm-table-cell">Chamada</th>
-                        <th class="d-none d-lg-table-cell">Situação</th>
-                        <th class="text-center">Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    //var_dump($this->Dados['listCopia']);
-                    foreach ($this->Dados['listCopia'] as $copia) {
-                        extract($copia);
-                        ?>
+        <form method="POST" action="">
+            <div class="table-responsive">
+                <table class="table table-striped table-hover table-bordered table-sm">
+                    <thead>
                         <tr>
-                            <th><?php echo $cop_id; ?></th>
-                            <td class="d-none d-sm-table-cell"><?php echo $titulo; ?></td>
-                            <td class="d-none d-sm-table-cell"><?php echo $sub_titulo; ?></td>
-                            <td class="d-none d-sm-table-cell"><?php echo $autor; ?></td>
-                            <td class="d-none d-sm-table-cell"><?php echo $editora; ?></td>
-                            <td class="d-none d-sm-table-cell"><?php echo $cod_bar; ?></td>
-                            <td class="d-none d-sm-table-cell"><?php echo $chamada; ?></td>
-                            <td class="d-none d-lg-table-cell">
-                                <span class="badge badge-<?php echo $cor_cr; ?>"><?php echo $nome_stc; ?></span>
-                            </td>
-                            <td class="text-center">
-                                <span class="d-none d-md-block">
-                                    <?php
-                                    if ($this->Dados['botao']['vis_copia']) {
-                                        echo "<a href='" . URLADM . "ver-copia/ver-copia/$cop_id' class='btn btn-outline-primary btn-sm'>Visualizar</a> ";
-                                    }
-                                    if ($this->Dados['botao']['edit_copia']) {
-                                        echo "<a href='" . URLADM . "editar-copia/edit-copia/$cop_id' class='btn btn-outline-warning btn-sm'>Editar</a> ";
-                                    }
-                                    if ($this->Dados['botao']['del_copia']) {
-                                        echo "<a href='" . URLADM . "apagar-copia/apagar-copia/$cop_id' class='btn btn-outline-danger btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?'>Apagar</a> ";
-                                    }
-                                    ?>
-                                </span>
-                                <div class="dropdown d-block d-md-none">
-                                    <button class="btn btn-primary dropdown-toggle btn-sm" type="button" id="acoesListar" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Ações
-                                    </button>
-                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="acoesListar">
-                                        <?php
-                                        if ($this->Dados['botao']['vis_copia']) {
-                                            echo "<a class='dropdown-item' href='" . URLADM . "ver-copia/ver-copia/$cop_id'>Visualizar</a>";
-                                        }
-                                        if ($this->Dados['botao']['edit_copia']) {
-                                            echo "<a class='dropdown-item' href='" . URLADM . "editar-copia/edit-copia/$cop_id'>Editar</a>";
-                                        }
-                                        if ($this->Dados['botao']['del_copia']) {
-                                            echo "<a class='dropdown-item' href='" . URLADM . "apagar-copia/apagar-copia/$cop_id' data-confirm='Tem certeza de que deseja excluir o item selecionado?'>Apagar</a>";
-                                        }
-                                        ?>
-
-                                    </div>
-                                </div>
-                            </td>
+                            <th class="text-center"><i class="fas fa-barcode"></i></th>
+                            <th>ID</th>
+                            <th class="d-none d-sm-table-cell">Titulo</th>
+                            <th class="d-none d-sm-table-cell">Subtitulo</th>
+                            <th class="d-none d-sm-table-cell">Autor</th>
+                            <th class="d-none d-sm-table-cell">Editora</th>
+                            <th class="d-none d-sm-table-cell">Código de Barras</th>
+                            <th class="d-none d-sm-table-cell">Chamada</th>
+                            <th class="d-none d-lg-table-cell">Situação</th>
+                            <th class="text-center" width="20%">
+                                <?php
+                                if ($this->Dados['botao']['cod_bar']) {
+                                    echo "<input type='submit' name='CodBarCopia' value='Gerar Código' class='btn btn-outline-success btn-sm'>";
+                                }
+                                ?>
+                            </th>
                         </tr>
+                    </thead>
+                    <tbody>
                         <?php
-                    }
-                    ?>
-                </tbody>
-            </table>
-            <?php
-            echo $this->Dados['paginacao'];
-            ?>
-        </div>
+                        //var_dump($this->Dados['listCopia']);
+                        if (!empty($this->Dados['listCopia'])) {
+                            foreach ($this->Dados['listCopia'] as $copia) {
+                                extract($copia);
+                                ?>
+                                <tr>
+                                    <th><?php echo "<input type='checkbox' name='codebar[$cop_id]' value=''"; ?></th>
+                                    <th><?php echo $cop_id; ?></th>
+                                    <td class="d-none d-sm-table-cell"><?php echo $titulo; ?></td>
+                                    <td class="d-none d-sm-table-cell"><?php echo $sub_titulo; ?></td>
+                                    <td class="d-none d-sm-table-cell"><?php echo $autor; ?></td>
+                                    <td class="d-none d-sm-table-cell"><?php echo $editora; ?></td>
+                                    <td class="d-none d-sm-table-cell"><?php echo $cod_bar; ?></td>
+                                    <td class="d-none d-sm-table-cell"><?php echo $chamada; ?></td>
+                                    <td class="d-none d-lg-table-cell">
+                                        <span class="badge badge-<?php echo $cor_cr; ?>"><?php echo $nome_stc; ?></span>
+                                    </td>
+                                    <td class="text-center">
+                                        <span class="d-none d-md-block">
+                                            <?php
+                                            if ($this->Dados['botao']['vis_copia']) {
+                                                echo "<a href='" . URLADM . "ver-copia/ver-copia/$cop_id' class='btn btn-outline-primary btn-sm'>Ver</a> ";
+                                            }
+                                            if ($this->Dados['botao']['edit_copia']) {
+                                                echo "<a href='" . URLADM . "editar-copia/edit-copia/$cop_id' class='btn btn-outline-warning btn-sm'>Edit</a> ";
+                                            }
+                                            if ($this->Dados['botao']['del_copia']) {
+                                                echo "<a href='" . URLADM . "apagar-copia/apagar-copia/$cop_id' class='btn btn-outline-danger btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?'>Del</a> ";
+                                            }
+                                            ?>
+                                        </span>
+                                        <div class="dropdown d-block d-md-none">
+                                            <button class="btn btn-primary dropdown-toggle btn-sm" type="button" id="acoesListar" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                Ações
+                                            </button>
+                                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="acoesListar">
+                                                <?php
+                                                if ($this->Dados['botao']['vis_copia']) {
+                                                    echo "<a class='dropdown-item' href='" . URLADM . "ver-copia/ver-copia/$cop_id'>Visualizar</a>";
+                                                }
+                                                if ($this->Dados['botao']['edit_copia']) {
+                                                    echo "<a class='dropdown-item' href='" . URLADM . "editar-copia/edit-copia/$cop_id'>Editar</a>";
+                                                }
+                                                if ($this->Dados['botao']['del_copia']) {
+                                                    echo "<a class='dropdown-item' href='" . URLADM . "apagar-copia/apagar-copia/$cop_id' data-confirm='Tem certeza de que deseja excluir o item selecionado?'>Apagar</a>";
+                                                }
+                                                ?>
+
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <?php
+                            }
+                        }
+                        ?>
+                    </tbody>
+                </table>
+                <?php
+                echo $this->Dados['paginacao'];
+                ?>
+            </div>
+        </form>
     </div>
     <?php
     echo '<span class="text-info">Termo procurado: </span>';

@@ -10,14 +10,21 @@ if (!defined('URL')) {
             <div class="mr-auto p-2">
                 <h2 class="display-4 titulo">Relatório de Bibliografias</h2>
             </div>
-            <div class="p-2">
-                <?php
-                if ($this->Dados['botao']['imprimir']) {
-                    echo "<a href='" . URLADM . "imprimir/imprimir/1' class='btn btn-outline-dark btn-sm'>Imprimir</a> ";
-                }
-                ?>                
+            <div class="btn-group dropleft">
+                <button type="button" class="btn btn-outline-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="fas fa-print" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></span>
+                </button>                    
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                    <?php
+                    if ($this->Dados['botao']['xls']) {
+                        echo "<li><a href='" . URLADM . "relatorio-bibliografias/listar/?xls=1'>Baixar Relatório XLS</a></li> ";
+                    }
+                    if ($this->Dados['botao']['pdf']) {
+                        echo "<li><a href='" . URLADM . "relatorio-bibliografias/listar/?pdf=1'>Baixar Relatório PDF</a></li> ";
+                    }
+                    ?>  
+                </ul>
             </div>
-
         </div>
         <?php
         if (empty($this->Dados['listBiblio'])) {

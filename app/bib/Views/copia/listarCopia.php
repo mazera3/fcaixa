@@ -23,6 +23,21 @@ if (!defined('URL')) {
                 <?php
             }
             ?>
+            <div class="btn-group dropleft">
+                <button type="button" class="btn btn-outline-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="fas fa-print" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></span>
+                </button>                    
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                    <?php
+                    if ($this->Dados['botao']['xls']) {
+                        echo "<li><a href='" . URLADM . "copias/listar/?xls=1'>Baixar Relatório XLS</a></li> ";
+                    }
+                    if ($this->Dados['botao']['pdf']) {
+                        echo "<li><a href='" . URLADM . "copias/listar/?pdf=1'>Baixar Relatório PDF</a></li> ";
+                    }
+                    ?>  
+                </ul>
+            </div>
         </div>
         <?php
         if (empty($this->Dados['listCopia'])) {
@@ -52,7 +67,7 @@ if (!defined('URL')) {
                         <th class="d-none d-sm-table-cell">Código de Barras</th>
                         <th class="d-none d-sm-table-cell">Chamada</th>
                         <th class="d-none d-lg-table-cell">Situação</th>
-                        <th class="text-center" width="15%">Ações</th>
+                        <th class="text-center" width="20%">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -74,6 +89,9 @@ if (!defined('URL')) {
                             <td class="text-center">
                                 <span class="d-none d-md-block">
                                     <?php
+                                    if ($this->Dados['botao']['ver_copia']) {
+                                        echo "<a href='" . URLADM . "ver-copia/ver-copia/$cop_id' class='btn btn-outline-info btn-sm'>Ver</a> ";
+                                    }
                                     if ($this->Dados['botao']['edit_copia']) {
                                         echo "<a href='" . URLADM . "editar-copia/edit-copia/$cop_id' class='btn btn-outline-warning btn-sm'>Editar</a> ";
                                     }

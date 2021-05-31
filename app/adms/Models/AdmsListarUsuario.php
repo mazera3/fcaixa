@@ -17,7 +17,7 @@ class AdmsListarUsuario
 
     private $Resultado;
     private $PageId;
-    private $LimiteResultado = 2;
+    private $LimiteResultado = 5;
     private $ResultadoPg;
     
     function getResultadoPg()
@@ -46,7 +46,7 @@ class AdmsListarUsuario
                 INNER JOIN adms_cors cr ON cr.id=sit.adms_cor_id
                 INNER JOIN adms_niveis_acessos nivac ON nivac.id=user.adms_niveis_acesso_id
                 WHERE nivac.ordem >=:ordem
-                ORDER BY id DESC LIMIT :limit OFFSET :offset", "ordem=".$_SESSION['ordem_nivac']."&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+                ORDER BY id ASC LIMIT :limit OFFSET :offset", "ordem=".$_SESSION['ordem_nivac']."&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         $this->Resultado = $listarUsuario->getResultado();
         return $this->Resultado;
     }
