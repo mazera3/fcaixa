@@ -10,6 +10,45 @@ if (!defined('URL')) {
             <div class="mr-auto p-2">
                 <h2 class="display-4 titulo">Listar Saidas</h2>
             </div>
+            <div class="mr-auto p-2">
+                <form method="GET" action="">
+                    <label>Ano</label>
+                    <?php $a = date('Y') - 1; ?>
+                    <?php $b = date('Y') ?>
+                    <?php $c = date('Y') + 1; ?>
+                    <?php $d = date('Y') + 2; ?>
+                    <?php $e = date('Y') + 3; ?>
+                    <select name="ano" id="ano">
+                        <?php
+                        echo "<option value='$a'>$a</option>";
+                        echo "<option value='$b' selected>$b</option>";
+                        echo "<option value='$c'>$c</option>";
+                        echo "<option value='$d'>$d</option>";
+                        echo "<option value='$e'>$e</option>";
+                        ?>
+                    </select>
+                    <label>Mês</label>
+                    <select name="mes" id="mes">
+                        <option>Selecione</option>
+                        <?php
+                        foreach ($this->Dados['select']['mes'] as $m) {
+                            extract($m);
+                            if (date('m') == $id_mes) {
+                                echo "<option value='$id_mes' selected>$mes</option>";
+                            } else {
+                                echo "<option value='$id_mes'>$mes</option>";
+                            }
+                        }
+                        ?>
+                    </select>
+                    <input type="submit" class="btn btn-warning btn-sm" value="Enviar">
+                </form>
+            </div>
+            <div class="p-2">
+                <?php
+                echo "<a href='" . URLADM . "saida/listar?all=1' class='btn btn-outline-primary btn-sm'>Listar Todos</a> ";
+                ?>
+            </div>
             <div class="p-2">
                 <?php
                 if ($this->Dados['botao']['cad_sai']) {
@@ -17,14 +56,14 @@ if (!defined('URL')) {
                 }
                 ?>
             </div>
-            
+
         </div>
         <?php
-        
+
         if (empty($this->Dados['listSai'])) {
         ?>
             <div class="alert alert-danger" role="alert">
-                Nenhuma descrição encontrada!
+                Nenhuma Saida encontrada!
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -59,7 +98,7 @@ if (!defined('URL')) {
                             <td><?php echo $descricao; ?></td>
                             <td><?php echo $categoria; ?></td>
                             <td><?php echo $valor; ?></td>
-                            <td><?php echo $mes .'/'. $ano; ?></td>
+                            <td><?php echo $mes . '/' . $ano; ?></td>
                             <td class="text-center">
                                 <span class="d-none d-md-block">
                                     <?php

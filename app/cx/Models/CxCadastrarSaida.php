@@ -17,6 +17,9 @@ class CxCadastrarSaida
 
     private $Resultado;
     private $Dados;
+    private $VazioVencimento;
+    private $VazioCodigo;
+    private $VazioObs;
 
     function getResultado()
     {
@@ -26,6 +29,13 @@ class CxCadastrarSaida
     public function cadSaida(array $Dados)
     {
         $this->Dados = $Dados;
+
+        $this->VazioVencimento = $this->Dados['vencimento'];
+        unset($this->Dados['vencimento']);
+        $this->VazioCodigo = $this->Dados['codigo'];
+        unset($this->Dados['codigo']);
+        $this->VazioObs = $this->Dados['observacao'];
+        unset($this->Dados['observacao']);
 
         $valCampoVazio = new \App\adms\Models\helper\AdmsCampoVazio;
         $valCampoVazio->validarDados($this->Dados);
@@ -41,6 +51,9 @@ class CxCadastrarSaida
     {
         $this->Dados['created'] = date("Y-m-d H:i:s");
         $this->Dados['ano'] = date("Y");
+        $this->Dados['vencimento'] = $this->VazioVencimento;
+        $this->Dados['codigo'] = $this->VazioCodigo;
+        $this->Dados['observacao'] = $this->VazioObs;
 
         $cadSaida = new \App\adms\Models\helper\AdmsCreate;
         $cadSaida->exeCreate("cx_saida", $this->Dados);

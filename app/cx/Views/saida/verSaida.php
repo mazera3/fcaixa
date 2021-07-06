@@ -67,8 +67,19 @@ if (!empty($this->Dados['dados_sai'][0])) {
                 <dt class="col-sm-3">Valor</dt>
                 <dd class="col-sm-9"><?php echo $valor; ?></dd>
 
+                <dt class="col-sm-3">Vencimento</dt>
+                <dd class="col-sm-9"><?php if (!empty($modified)) {
+                        echo date('d/M/Y', strtotime($vencimento));
+                    } ?></dd>
+
                 <dt class="col-sm-3">Mês</dt>
                 <dd class="col-sm-9"><?php echo $mes .'/'. $ano; ?></dd>
+
+                <dt class="col-sm-3">Código</dt>
+                <dd class="col-sm-9"><?php echo $codigo; ?></dd>
+
+                <dt class="col-sm-3">Observações</dt>
+                <dd class="col-sm-9"><?php echo $observacao; ?></dd>
 
                 <dt class="col-sm-3">Inserido</dt>
                 <dd class="col-sm-9"><?php echo date('d/m/Y H:i:s', strtotime($created)); ?></dd>

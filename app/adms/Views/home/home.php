@@ -6,13 +6,12 @@ if (!defined('URL')) {
 ?>
 <div class="content p-1">
     <div class="col-lg-12 col-sm-6">
-        <div class="card text-light text-center" style="background-color: #000000">
+        <div class="card text-dark text-center" style="background-color: #ffffff">
             <div class="card-body">
                 <div class="row">
                     <div class="col-sm-9">
-                        <h2 class="card-title"><i class="fas fa-book fa-1x"></i> Fluxo de Caixa</h2>
-                        <h5>Fluxo de Caixa</h5>
-                        <p>Organizador: Profº Édio Mazera - mazera3@gmail.com </p>
+                        <h2 class="card-title"><i class="fas fa-dollar-sign fa-1x"></i> Fluxo de Caixa</h2>
+                        <span>Organizador: Profº Édio Mazera - mazera3@gmail.com </span>
                     </div>
                     <?php if (empty($_SESSION['usuario_id'])) { ?>
                         <div class="col-sm-3">

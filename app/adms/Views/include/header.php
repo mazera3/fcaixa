@@ -8,7 +8,7 @@ if (!defined('URL')) {
     <a class="sidebar-toggle text-light mr-3">
         <span class="navbar-toggler-icon"></span>
     </a>
-    <img class="rounded-circle" src="<?php echo URLADM . './assets/imagens/icone/livros.jpeg'; ?>" width="40" height="40"> &nbsp;<a class="navbar-brand" href="<?php echo URLADM . 'home/index'; ?>">Biblioteca Profº Francisco Mazzola</a>
+    <img class="rounded-circle" src="<?php echo URLADM . './assets/imagens/icone/fluxo-de-caixa.png'; ?>" width="40" height="40"> &nbsp;<a class="navbar-brand" href="<?php echo URLADM . 'home/index'; ?>">Fluxo de Caixa</a>
     <li class="text-white">
         &nbsp;&nbsp;Data de Hoje: <?php echo date("d-m-Y"); ?>
     </li>

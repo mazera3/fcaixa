@@ -22,6 +22,9 @@ class Entrada
     {
         $this->PageId = (int) $PageId ? $PageId : 1;
 
+        $listarSelect = new \App\cx\Models\CxListarEntrada();
+        $this->Dados['select'] = $listarSelect->listarCadastrar();
+
         $botao = [
             'cad_ent' => ['menu_controller' => 'cadastrar-entrada', 'menu_metodo' => 'cad-entrada'],
             'vis_ent' => ['menu_controller' => 'ver-entrada', 'menu_metodo' => 'ver-entrada'],
@@ -34,12 +37,24 @@ class Entrada
         $listarMenu = new \App\adms\Models\AdmsMenu();
         $this->Dados['menu'] = $listarMenu->itemMenu();
 
-        $listarEntrada = new \App\cx\Models\CxListarEntrada();
-        $this->Dados['listEnt'] = $listarEntrada->listarEntrada($this->PageId);
-        $this->Dados['paginacao'] = $listarEntrada->getResultadoPg();
+        $this->DadosMes = filter_input(INPUT_GET, "mes", FILTER_SANITIZE_NUMBER_INT);
+        $this->DadosAno = filter_input(INPUT_GET, "ano", FILTER_SANITIZE_NUMBER_INT);
+        $this->DadosAll = filter_input(INPUT_GET, "all", FILTER_SANITIZE_NUMBER_INT);
+        if (!empty($this->DadosMes)) {
+            $listarEntrada = new \App\cx\Models\CxListarEntrada();
+            $this->Dados['listEnt'] = $listarEntrada->listarEntrada($this->PageId, $this->DadosAno, $this->DadosMes);
+            $this->Dados['paginacao'] = $listarEntrada->getResultadoPg();
+        } elseif (!empty($this->DadosAll)) {
+            $listarEntrada = new \App\cx\Models\CxListarEntrada();
+            $this->Dados['listEnt'] = $listarEntrada->listarEntradaFull($this->PageId);
+            $this->Dados['paginacao'] = $listarEntrada->getResultadoPg();
+        } else {
+            $listarEntrada = new \App\cx\Models\CxListarEntrada();
+            $this->Dados['listEnt'] = $listarEntrada->listarEntradaFull($this->PageId);
+            $this->Dados['paginacao'] = $listarEntrada->getResultadoPg();
+        }
 
         $carregarView = new \App\cx\core\ConfigView("cx/Views/entrada/listarEntrada", $this->Dados);
         $carregarView->renderizar();
     }
-
 }

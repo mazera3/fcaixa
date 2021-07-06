@@ -57,7 +57,7 @@ if (isset($this->Dados['form'][0])) {
                         </select>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-2">
                     <!-- Valor -->
                     <div class="form-group">
                         <label><span class="text-danger">*</span> Valor (R$)</label>
@@ -66,9 +66,18 @@ if (isset($this->Dados['form'][0])) {
                                                                                                             } ?>">
                     </div>
                 </div>
+                <div class="col-md-2">
+                    <!-- Vencimento -->
+                    <div class="form-group">
+                        <label>Vencimento</label>
+                        <input name="vencimento" type="date" class="form-control" value="<?php if (isset($valorForm['vencimento'])) {
+                                                                                                echo $valorForm['vencimento'];
+                                                                                            } ?>">
+                    </div>
+                </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                    <label><span class="text-danger">*</span> Mês</label>
+                        <label><span class="text-danger">*</span> Mês</label>
                         <select name="mes" id="mes" class="form-control">
                             <option>Selecione</option>
                             <?php
@@ -82,6 +91,26 @@ if (isset($this->Dados['form'][0])) {
                             }
                             ?>
                         </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <!-- Codigo de Barras -->
+                    <div class="form-group">
+                        <label>Código de Barras</label>
+                        <input name="codigo" type="text" class="form-control" placeholder="Código de baras" value="<?php if (isset($valorForm['codigo'])) {
+                                                                                                            echo $valorForm['codigo'];
+                                                                                                        } ?>">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <!-- Observações -->
+                    <div class="form-group">
+                        <label>Observações</label>
+                        <textarea name="observacao" class="form-control" rows="2"><?php if (isset($valorForm['observacao'])) {
+                                                                                        echo $valorForm['observacao'];
+                                                                                    } ?></textarea>
                     </div>
                 </div>
             </div>

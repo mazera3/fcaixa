@@ -17,6 +17,9 @@ class CxCadastrarEntrada
 
     private $Resultado;
     private $Dados;
+    private $VazioVencimento;
+    private $VazioCodigo;
+    private $VazioObs;
 
     function getResultado()
     {
@@ -26,6 +29,13 @@ class CxCadastrarEntrada
     public function cadEntrada(array $Dados)
     {
         $this->Dados = $Dados;
+
+        $this->VazioVencimento = $this->Dados['vencimento'];
+        unset($this->Dados['vencimento']);
+        $this->VazioCodigo = $this->Dados['codigo'];
+        unset($this->Dados['codigo']);
+        $this->VazioObs = $this->Dados['observacao'];
+        unset($this->Dados['observacao']);
 
         $valCampoVazio = new \App\adms\Models\helper\AdmsCampoVazio;
         $valCampoVazio->validarDados($this->Dados);
@@ -41,7 +51,10 @@ class CxCadastrarEntrada
     {
         $this->Dados['created'] = date("Y-m-d H:i:s");
         $this->Dados['ano'] = date("Y");
-
+        $this->Dados['vencimento'] = $this->VazioVencimento;
+        $this->Dados['codigo'] = $this->VazioCodigo;
+        $this->Dados['observacao'] = $this->VazioObs;
+        
         $cadEntrada = new \App\adms\Models\helper\AdmsCreate;
         $cadEntrada->exeCreate("cx_entrada", $this->Dados);
 
@@ -54,7 +67,8 @@ class CxCadastrarEntrada
         }
     }
 
-    public function listarCadastrar() {
+    public function listarCadastrar()
+    {
         $listar = new \App\adms\Models\helper\AdmsRead();
 
         $listar->fullRead("SELECT id_des, descricao FROM cx_descricao ORDER BY descricao ASC");

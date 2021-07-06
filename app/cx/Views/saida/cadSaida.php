@@ -50,13 +50,22 @@ if (isset($this->Dados['form'][0])) {
                         </select>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-2">
                     <!-- Valor -->
                     <div class="form-group">
                         <label><span class="text-danger">*</span> Valor (R$)</label>
                         <input name="valor" type="number" min="0" step=".01" class="form-control" value="<?php if (isset($valorForm['valor'])) {
                                                                                                                 echo $valorForm['valor'];
                                                                                                             } ?>">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <!-- Vencimento -->
+                    <div class="form-group">
+                        <label>Vencimento</label>
+                        <input name="vencimento" type="date" class="form-control" value="<?php if (isset($valorForm['vencimento'])) {
+                                                                                                echo $valorForm['vencimento'];
+                                                                                            } ?>">
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -75,6 +84,26 @@ if (isset($this->Dados['form'][0])) {
                             }
                             ?>
                         </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <!-- Codigo de Barras -->
+                    <div class="form-group">
+                        <label>Código de Barras</label>
+                        <input name="codigo" type="text" class="form-control" placeholder="Código de barras" value="<?php if (isset($valorForm['codigo'])) {
+                                                                                                            echo $valorForm['codigo'];
+                                                                                                        } ?>">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <!-- Observações -->
+                    <div class="form-group">
+                        <label>Observações</label>
+                        <textarea name="observacao" class="form-control" rows="2"><?php if (isset($valorForm['observacao'])) {
+                                                                                        echo $valorForm['observacao'];
+                                                                                    } ?></textarea>
                     </div>
                 </div>
             </div>

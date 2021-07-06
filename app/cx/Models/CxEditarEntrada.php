@@ -18,6 +18,9 @@ class CxEditarEntrada
     private $Resultado;
     private $Dados;
     private $DadosId;
+    private $VazioVencimento;
+    private $VazioCodigo;
+    private $VazioObs;
 
     function getResultado()
     {
@@ -38,6 +41,13 @@ class CxEditarEntrada
     {
         $this->Dados = $Dados;
 
+        $this->VazioVencimento = $this->Dados['vencimento'];
+        unset($this->Dados['vencimento']);
+        $this->VazioCodigo = $this->Dados['codigo'];
+        unset($this->Dados['codigo']);
+        $this->VazioObs = $this->Dados['observacao'];
+        unset($this->Dados['observacao']);
+
         $valCampoVazio = new \App\adms\Models\helper\AdmsCampoVazio;
         $valCampoVazio->validarDados($this->Dados);
 
@@ -52,6 +62,10 @@ class CxEditarEntrada
     {
         $this->Dados['modified'] = date("Y-m-d H:i:s");
         $this->Dados['ano'] = date("Y");
+        $this->Dados['vencimento'] = $this->VazioVencimento;
+        $this->Dados['codigo'] = $this->VazioCodigo;
+        $this->Dados['observacao'] = $this->VazioObs;
+        
         $upAltEntrada = new \App\adms\Models\helper\AdmsUpdate();
         $upAltEntrada->exeUpdate("cx_entrada", $this->Dados, "WHERE id_ent =:id_ent", "id_ent=" . $this->Dados['id_ent']);
         if ($upAltEntrada->getResultado()) {

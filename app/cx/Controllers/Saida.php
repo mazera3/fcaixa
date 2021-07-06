@@ -22,6 +22,9 @@ class Saida
     {
         $this->PageId = (int) $PageId ? $PageId : 1;
 
+        $listarSelect = new \App\cx\Models\CxListarEntrada();
+        $this->Dados['select'] = $listarSelect->listarCadastrar();
+
         $botao = [
             'cad_sai' => ['menu_controller' => 'cadastrar-saida', 'menu_metodo' => 'cad-saida'],
             'vis_sai' => ['menu_controller' => 'ver-saida', 'menu_metodo' => 'ver-saida'],
@@ -34,12 +37,24 @@ class Saida
         $listarMenu = new \App\adms\Models\AdmsMenu();
         $this->Dados['menu'] = $listarMenu->itemMenu();
 
-        $listarSaida = new \App\cx\Models\CxListarSaida();
-        $this->Dados['listSai'] = $listarSaida->listarSaida($this->PageId);
-        $this->Dados['paginacao'] = $listarSaida->getResultadoPg();
+        $this->DadosMes = filter_input(INPUT_GET, "mes", FILTER_SANITIZE_NUMBER_INT);
+        $this->DadosAno = filter_input(INPUT_GET, "ano", FILTER_SANITIZE_NUMBER_INT);
+        $this->DadosAll = filter_input(INPUT_GET, "all", FILTER_SANITIZE_NUMBER_INT);
+        if (!empty($this->DadosMes)) {
+            $listarSaida = new \App\cx\Models\CxListarSaida();
+            $this->Dados['listSai'] = $listarSaida->listarSaida($this->PageId, $this->DadosAno, $this->DadosMes);
+            $this->Dados['paginacao'] = $listarSaida->getResultadoPg();
+        } elseif (!empty($this->DadosAll)) {
+            $listarSaida = new \App\cx\Models\CxListarSaida();
+            $this->Dados['listSai'] = $listarSaida->listarSaidaFull($this->PageId);
+            $this->Dados['paginacao'] = $listarSaida->getResultadoPg();
+        } else {
+            $listarSaida = new \App\cx\Models\CxListarSaida();
+            $this->Dados['listSai'] = $listarSaida->listarSaidaFull($this->PageId);
+            $this->Dados['paginacao'] = $listarSaida->getResultadoPg();
+        }
 
         $carregarView = new \App\cx\core\ConfigView("cx/Views/saida/listarSaida", $this->Dados);
         $carregarView->renderizar();
     }
-
 }
