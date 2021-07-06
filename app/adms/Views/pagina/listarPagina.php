@@ -8,7 +8,7 @@ if (!defined('URL')) {
     <div class="list-group-item">
         <div class="d-flex">
             <div class="mr-auto p-2">
-                <h2 class="display-4 titulo">Listar Página</h2>
+                <h2 class="display-4 titulo">Listar Páginas</h2>
             </div>
             <?php
             if ($this->Dados['botao']['cad_pagina']) {

@@ -1,6 +1,6 @@
 {
-    "name": "biblivre/app",
-    "description": "Projeto PHP OO",
+    "name": "caixa/app",
+    "description": "Projeto Fluxo de Caixa PHP",
     "authors": [
         {
             "name": "Édio Mazera",
@@ -14,7 +14,6 @@
         }
     },
     "require": {
-        "phpmailer/phpmailer": "^6.0",
         "php": "^7.4",
         "chillerlan/php-qrcode": "^4.2",
         "dompdf/dompdf": "^1.0",
