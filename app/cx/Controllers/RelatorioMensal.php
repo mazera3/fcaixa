@@ -37,6 +37,7 @@ class RelatorioMensal
             $listarRelatorioMensal = new \App\cx\Models\CxListarRelatorioMensal();
             $this->Dados['listRelEnt'] = $listarRelatorioMensal->listarRelatorioMensalEnt($this->DadosMes);
             $this->Dados['listRelSai'] = $listarRelatorioMensal->listarRelatorioMensalSai($this->DadosMes);
+            $this->Dados['listSal'] = $listarRelatorioMensal->listarSaldoAnterior($this->DadosMes);
         } else {
             $listarRelatorioMensal = new \App\cx\Models\CxListarRelatorioMensal();
             $this->Dados['listRelEnt'] = $listarRelatorioMensal->listarRelatorioFullEnt();

@@ -51,6 +51,19 @@ class CxListarRelatorioMensal
         return $this->Resultado;
     }
 
+    public function listarSaldoAnterior($DadosMes = null)
+    {
+        $this->DadosMes = (int) $DadosMes-1;
+
+        $listarSaldo = new \App\adms\Models\helper\AdmsRead();
+        $listarSaldo->fullRead("SELECT sal.*, m.id_mes, m.mes, m.extenso FROM cx_saldo sal
+        INNER JOIN cx_mes m ON m.id_mes=sal.mes_id
+        WHERE id_mes=:id_mes
+        ORDER BY id_sal ASC", "id_mes={$this->DadosMes}");
+        $this->Resultado = $listarSaldo->getResultado();
+        return $this->Resultado;
+    }
+
     public function listarRelatorioFullEnt()
     {   
         $listarEntrada = new \App\adms\Models\helper\AdmsRead();

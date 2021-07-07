@@ -57,7 +57,7 @@ if (!defined('URL')) {
                 }
                 ?>
             </select>
-            <input type="submit" class="btn btn-warning btn-sm" value="Enviar">
+            <input type="submit" class="btn btn-dark btn-sm" value="Enviar">
         </form>
 
         <div class="table-responsive">
@@ -76,15 +76,39 @@ if (!defined('URL')) {
                         </thead>
                         <tbody>
                             <?php
+                            $total_entrada = 0;
                             foreach ($this->Dados['listRelEnt'] as $re) {
                                 extract($re);
+                                $total_entrada += $valor;
                             ?>
                                 <tr>
                                     <td><?php echo $descricao; ?></td>
-                                    <td><?php echo $valor; ?></td>
+                                    <td><?php echo 'R$ ' . number_format($valor, 2, ',', '.'); ?></td>
                                 <?php
                             }
                                 ?>
+                                </tr>
+                                <tr>
+                                    <td>----------------------------------------</td>
+                                    <td>------------------</td>
+                                </tr>
+                                <?php foreach ($this->Dados['listSal'] as $sa) {
+                                    extract($sa);
+                                ?>
+                                    <tr>
+                                        <td class="font-italic font-weight-bold">Saldo Anterior <?php echo '(' . $extenso . ')'; ?></td>
+                                        <td class="text-success"><?php echo 'R$ ' . number_format($saldo, 2, ',', '.'); ?></td>
+                                    </tr>
+                                <?php
+                                }
+                                ?>
+                                <tr>
+                                    <td>----------------------------------------</td>
+                                    <td>------------------</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Total de Entradas:</b></td>
+                                    <td class="text-primary"><?php echo 'R$ ' . number_format($total_entrada, 2, ',', '.'); ?></td>
                                 </tr>
                         </tbody>
                     </table>
@@ -103,21 +127,49 @@ if (!defined('URL')) {
                         </thead>
                         <tbody>
                             <?php
+                            $total_saida = 0;
                             foreach ($this->Dados['listRelSai'] as $rs) {
                                 extract($rs);
+                                $total_saida += $valor;
                             ?>
                                 <tr>
                                     <td><?php echo $descricao; ?></td>
-                                    <td><?php echo $valor; ?></td>
+                                    <td><?php echo 'R$ ' . number_format($valor, 2, ',', '.'); ?></td>
                                 <?php
                             }
                                 ?>
                                 </tr>
+                                <tr>
+                                    <td>----------------------------------------</td>
+                                    <td>------------------</td>
+                                </tr>
+                                <tr>
+                                    <td><b>Total de Saídas:</b></td>
+                                    <td class="text-danger"><?php echo 'R$ ' . number_format($total_saida, 2, ',', '.');  ?></td>
+                                </tr>
                         </tbody>
                     </table>
                 </div>
-
             </div>
+            <table class="table table-striped table-hover table-bordered table-sm">
+                <?php $saldo = ($total_entrada + $saldo - $total_saida);
+                $saldo = 'R$ ' . number_format($saldo, 2, ',', '.');
+                ?>
+                <tbody>
+                    <tr style="background-color: #cccccc">
+                        <td width="50%"><b>SALDO <?php if ($saldo >= 0) {
+                                                        echo "POSITIVO (+)";
+                                                    } else {
+                                                        echo "NEGATIVO (-)";
+                                                    } ?></b></td>
+                        <td width="50%"><?php if ($saldo >= 0) {
+                                            echo "<span class='text-primary'>$saldo</span>";
+                                        } else {
+                                            echo "<span class='text-danger'>$saldo</span>";
+                                        } ?></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
