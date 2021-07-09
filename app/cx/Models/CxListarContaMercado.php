@@ -82,15 +82,16 @@ class CxListarContaMercado
         }
     }
 
-    public function atualizar($Valor = null, $DadosMes = null)
+    public function atualizar($Valor = null, $DadosAno = null, $DadosMes = null)
     {
         $this->Valor = (string) $Valor;
         $this->DadosMes = (string) $DadosMes;
-        $ano = date('Y');
+        $this->DadosAno = (string) $DadosAno;
+
         $verMercado = new \App\adms\Models\helper\AdmsRead();
         $verMercado->fullRead("SELECT * FROM cx_saida sai
         INNER JOIN cx_descricao dc ON dc.id_des=sai.descricao_id
-        WHERE dc.descricao LIKE '%' :mer '%' AND ano=:ano AND mes=:mes", "mes={$this->DadosMes}&ano={$ano}&mer=Mercados");
+        WHERE dc.descricao LIKE '%' :mer '%' AND ano=:ano AND mes=:mes", "mes={$this->DadosMes}&ano={$this->DadosAno}&mer=Mercados");
         $this->Resultado = $verMercado->getResultado();
         if ($this->Resultado) {
             $this->Dados['modified'] = date("Y-m-d H:i:s");
@@ -99,6 +100,19 @@ class CxListarContaMercado
             $id = $this->Resultado[0]['id_sai'];
             $upAtualizar = new \App\adms\Models\helper\AdmsUpdate();
             $upAtualizar->exeUpdate("cx_saida", $this->Dados, "WHERE id_sai=:id_sai", "id_sai={$id}");
+        } else {
+            $this->Dados['created'] = date("Y-m-d H:i:s");
+            $this->Dados['ano'] = $this->DadosAno;
+            $this->Dados['mes'] = $this->DadosMes;
+            $this->Dados['valor'] = $this->Valor;
+            $this->Dados['vencimento'] = $this->DadosAno ."-" . $this->DadosMes ."-01";
+            $this->Dados['situacao'] = 1;
+            $this->Dados['descricao_id'] = 30;
+            $this->Dados['codigo'] = '****';
+            $this->Dados['observacao'] = 'IMPORTADO DE CONTA MERCADO';
+
+            $cadEntrada = new \App\adms\Models\helper\AdmsCreate;
+            $cadEntrada->exeCreate("cx_saida", $this->Dados);
         }
     }
 

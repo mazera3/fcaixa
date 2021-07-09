@@ -49,7 +49,7 @@ class CxCadastrarContaMercado
     {
         $this->Dados['created'] = date("Y-m-d H:i:s");
         $this->Dados['ano'] = date("Y");
-        $this->Dados['situacao'] = 0;
+        $this->Dados['situacao'] = 1;
         $this->Dados['codigo'] = $this->VazioCodigo;
         $this->Dados['vencimento'] = $this->VazioVencimento;
 

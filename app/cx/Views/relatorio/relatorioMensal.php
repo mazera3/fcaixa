@@ -3,12 +3,21 @@ if (!defined('URL')) {
     header("Location: /");
     exit();
 }
+if (isset($this->Dados['listRelEnt'])) {
+    foreach ($this->Dados['listRelEnt'] as $rl) {
+        extract($rl);
+    }
+}
 ?>
 <div class="content p-1">
     <div class="list-group-item">
         <div class="d-flex">
             <div class="mr-auto p-2">
-                <h2 class="display-4 titulo">Relatório Mensal</h2>
+                <h2 class="display-4 titulo">Relatório Mensal <?php
+                                                                if (isset($extenso)) {
+                                                                    echo '('.$extenso . '/' . $ano .')';
+                                                                }
+                                                                ?></h2>
             </div>
             <?php
             if (isset($this->Dados['listSal'])) {
@@ -29,7 +38,7 @@ if (!defined('URL')) {
             $saldo_atual = $total_entrada - $total_saida;
             ?>
             <div class="mr-auto p-2">
-                <a href="<?php echo URLADM . 'relatorio-mensal/listar/?mes=' . $id_mes . '&s=' . $saldo_atual . ''; ?>" class="btn btn-warning btn-sm">Atualizar Saldo Anterior</a>
+                <a href="<?php echo URLADM . 'relatorio-mensal/listar/?mes=' . $id_mes . '&ano=' . $ano . '&s=' . $saldo_atual . ''; ?>" class="btn btn-warning btn-sm">Atualizar Saldo Anterior</a>
             </div>
             <div class="btn-group dropleft">
                 <button type="button" class="btn btn-outline-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -64,6 +73,21 @@ if (!defined('URL')) {
         }
         ?>
         <form method="GET" action="">
+            <label>Ano</label>
+            <?php $a = date('Y') - 1; ?>
+            <?php $b = date('Y') ?>
+            <?php $c = date('Y') + 1; ?>
+            <?php $d = date('Y') + 2; ?>
+            <?php $e = date('Y') + 3; ?>
+            <select name="ano" id="ano">
+                <?php
+                echo "<option value='$a'>$a</option>";
+                echo "<option value='$b' selected>$b</option>";
+                echo "<option value='$c'>$c</option>";
+                echo "<option value='$d'>$d</option>";
+                echo "<option value='$e'>$e</option>";
+                ?>
+            </select>
             <label>Mês</label>
             <select name="mes" id="mes">
                 <option>Selecione</option>
@@ -130,7 +154,7 @@ if (!defined('URL')) {
                                         extract($sa);
                                 ?>
                                         <tr>
-                                            <td class="alert alert-warning">Saldo Anterior <?php echo '(' . $extenso . ')'; ?></td>
+                                            <td class="alert alert-warning">Saldo Anterior <?php echo '(' . $extenso . '/' . $ano . ')'; ?></td>
                                             <td class="text-success"><?php echo 'R$ ' . number_format($saldo, 2, ',', '.'); ?></td>
                                         </tr>
                                 <?php
@@ -178,7 +202,7 @@ if (!defined('URL')) {
                                         if ($situacao == 1) {
                                             echo "<a href='" . URLADM . "relatorio-mensal/listar?id=$id_sai&pg=0'><span class='badge badge-pill badge-success'>Pago</span></a>";
                                         } else {
-                                            echo "<a href='" . URLADM . "relatorio-mensal/listar?id=$id_sai&pg=1'><span class='badge badge-pill badge-danger' title='Vence: " . date('d/m/Y', strtotime($vencimento)) ."'>Pagar</span></a>";
+                                            echo "<a href='" . URLADM . "relatorio-mensal/listar?id=$id_sai&pg=1'><span class='badge badge-pill badge-danger' title='Vence: " . date('d/m/Y', strtotime($vencimento)) . "'>Pagar</span></a>";
                                         }
                                         ?>
                                     </td>

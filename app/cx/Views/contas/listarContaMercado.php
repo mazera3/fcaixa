@@ -53,7 +53,9 @@ if (!defined('URL')) {
                         $total_mercado += $valor;
                     }
                 }
-                echo "<a href='" . URLADM . "conta-mercado/listar?ms=$mes&mer=$total_mercado' class='btn btn-outline-danger btn-sm'>Atualizar Conta Mercado</a> ";
+                if (isset($ano)) {
+                    echo "<a href='" . URLADM . "conta-mercado/listar?ms=$mes&an=$ano&mer=$total_mercado' class='btn btn-outline-danger btn-sm'>Atualizar Conta Mercado</a> ";
+                }
                 ?>
             </div>
             <div class="p-2">

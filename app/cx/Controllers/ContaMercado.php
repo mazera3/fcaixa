@@ -65,9 +65,10 @@ class ContaMercado
 
         $this->Valor = filter_input(INPUT_GET, "mer", FILTER_SANITIZE_STRING);
         $this->DadosMes = filter_input(INPUT_GET, "ms", FILTER_SANITIZE_STRING);
+        $this->DadosAno = filter_input(INPUT_GET, "an", FILTER_SANITIZE_NUMBER_INT);
         if (isset($this->Valor)) {
             $Atualizar = new \App\cx\Models\CxListarContaMercado();
-            $this->Dados['value'] = $Atualizar->atualizar($this->Valor, $this->DadosMes);
+            $this->Dados['value'] = $Atualizar->atualizar($this->Valor, $this->DadosAno, $this->DadosMes);
             //$UrlDestino = URLADM . "conta-mercado/listar";
             //header("Location: $UrlDestino");
         }

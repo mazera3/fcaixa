@@ -32,15 +32,16 @@ class RelatorioMensal
         $listarMenu = new \App\adms\Models\AdmsMenu();
         $this->Dados['menu'] = $listarMenu->itemMenu();
 
+        $this->DadosAno = filter_input(INPUT_GET, "ano", FILTER_SANITIZE_NUMBER_INT);
         $this->DadosMes = filter_input(INPUT_GET, "mes", FILTER_SANITIZE_NUMBER_INT);
         $this->DadosSaldo = filter_input(INPUT_GET, "s", FILTER_SANITIZE_STRING);
         if (!empty($this->DadosMes)) {
             $listarRelatorioMensal = new \App\cx\Models\CxListarRelatorioMensal();
-            $this->Dados['listRelEnt'] = $listarRelatorioMensal->listarRelatorioMensalEnt($this->DadosMes);
-            $this->Dados['listRelSai'] = $listarRelatorioMensal->listarRelatorioMensalSai($this->DadosMes);
-            $this->Dados['listSal'] = $listarRelatorioMensal->listarSaldoAnterior($this->DadosMes);
-            $this->Dados['somaEnt'] = $listarRelatorioMensal->somarEntradaMensal($this->DadosMes);
-            $this->Dados['somaSai'] = $listarRelatorioMensal->somarSaidaMensal($this->DadosMes);
+            $this->Dados['listRelEnt'] = $listarRelatorioMensal->listarRelatorioMensalEnt($this->DadosMes,$this->DadosAno);
+            $this->Dados['listRelSai'] = $listarRelatorioMensal->listarRelatorioMensalSai($this->DadosMes,$this->DadosAno);
+            $this->Dados['listSal'] = $listarRelatorioMensal->listarSaldoAnterior($this->DadosMes,$this->DadosAno);
+            $this->Dados['somaEnt'] = $listarRelatorioMensal->somarEntradaMensal($this->DadosMes,$this->DadosAno);
+            $this->Dados['somaSai'] = $listarRelatorioMensal->somarSaidaMensal($this->DadosMes,$this->DadosAno);
         } else {
             $listarRelatorioMensal = new \App\cx\Models\CxListarRelatorioMensal();
             $this->Dados['listRelEnt'] = $listarRelatorioMensal->listarRelatorioFullEnt();
@@ -48,7 +49,7 @@ class RelatorioMensal
         }
         if (isset($this->DadosSaldo) AND isset($this->DadosMes) ) {
             $saldoMensal = new \App\cx\Models\CxListarRelatorioMensal();
-            $saldoMensal->updateSaldo($this->DadosMes, $this->DadosSaldo);
+            $saldoMensal->updateSaldo($this->DadosMes, $this->DadosAno, $this->DadosSaldo);
         }
         
         $this->DadosId = filter_input(INPUT_GET, "id", FILTER_SANITIZE_NUMBER_INT);
