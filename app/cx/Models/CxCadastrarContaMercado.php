@@ -8,62 +8,59 @@ if (!defined('URL')) {
 }
 
 /**
- * Description of CxCadastrarSaida
+ * Description of CxCadastrarContaMercado
  *
  * @copyright (c) year, Édio Mazera
  */
-class CxCadastrarSaida
+class CxCadastrarContaMercado
 {
 
     private $Resultado;
     private $Dados;
     private $VazioVencimento;
     private $VazioCodigo;
-    private $VazioObs;
 
     function getResultado()
     {
         return $this->Resultado;
     }
 
-    public function cadSaida(array $Dados)
+    public function cadConta(array $Dados)
     {
         $this->Dados = $Dados;
 
-        $this->VazioVencimento = $this->Dados['vencimento'];
-        unset($this->Dados['vencimento']);
+        
         $this->VazioCodigo = $this->Dados['codigo'];
         unset($this->Dados['codigo']);
-        $this->VazioObs = $this->Dados['observacao'];
-        unset($this->Dados['observacao']);
+        $this->VazioVencimento = $this->Dados['vencimento'];
+        unset($this->Dados['vencimento']);
 
         $valCampoVazio = new \App\adms\Models\helper\AdmsCampoVazio;
         $valCampoVazio->validarDados($this->Dados);
 
         if ($valCampoVazio->getResultado()) {
-            $this->inserirSaida();
+            $this->inserirConta();
         } else {
             $this->Resultado = false;
         }
     }
 
-    private function inserirSaida()
+    private function inserirConta()
     {
         $this->Dados['created'] = date("Y-m-d H:i:s");
         $this->Dados['ano'] = date("Y");
         $this->Dados['situacao'] = 0;
-        $this->Dados['vencimento'] = $this->VazioVencimento;
         $this->Dados['codigo'] = $this->VazioCodigo;
-        $this->Dados['observacao'] = $this->VazioObs;
+        $this->Dados['vencimento'] = $this->VazioVencimento;
 
-        $cadSaida = new \App\adms\Models\helper\AdmsCreate;
-        $cadSaida->exeCreate("cx_saida", $this->Dados);
+        $cadContaMercado = new \App\adms\Models\helper\AdmsCreate;
+        $cadContaMercado->exeCreate("cx_conta_mercado", $this->Dados);
 
-        if ($cadSaida->getResultado()) {
-            $_SESSION['msg'] = "<div class='alert alert-success'>Saida cadastrada com sucesso!</div>";
+        if ($cadContaMercado->getResultado()) {
+            $_SESSION['msg'] = "<div class='alert alert-success'>Conta cadastrada com sucesso!</div>";
             $this->Resultado = true;
         } else {
-            $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: A Saida não foi cadastrada!!</div>";
+            $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: A Conta não foi cadastrada!!</div>";
             $this->Resultado = false;
         }
     }
@@ -72,14 +69,10 @@ class CxCadastrarSaida
     {
         $listar = new \App\adms\Models\helper\AdmsRead();
 
-        $listar->fullRead("SELECT id_des, descricao FROM cx_descricao ORDER BY descricao ASC");
-        $registro['des'] = $listar->getResultado();
-
         $listar->fullRead("SELECT id_mes, mes FROM cx_mes ORDER BY id_mes ASC");
         $registro['mes'] = $listar->getResultado();
 
         $this->Resultado = [
-            'des' => $registro['des'],
             'mes' => $registro['mes']
         ];
 

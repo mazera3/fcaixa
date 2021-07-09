@@ -4,26 +4,26 @@ if (!defined('URL')) {
     exit();
 }
 
-if (!empty($this->Dados['dados_sai'][0])) {
-    extract($this->Dados['dados_sai'][0]);
+if (!empty($this->Dados['dados_mer'][0])) {
+    extract($this->Dados['dados_mer'][0]);
     ?>
     <div class="content p-1">
         <div class="list-group-item">
             <div class="d-flex">
                 <div class="mr-auto p-2">
-                    <h2 class="display-4 titulo">Ver Saidas</h2>
+                    <h2 class="display-4 titulo">Ver Conta Mercado</h2>
                 </div>
                 <div class="p-2">
                     <span class="d-none d-md-block">
                         <?php
-                        if ($this->Dados['botao']['list_sai']) {
-                            echo "<a href='" . URLADM . "saida/listar' class='btn btn-outline-info btn-sm'>Listar</a> ";
+                        if ($this->Dados['botao']['list_mer']) {
+                            echo "<a href='" . URLADM . "conta-mercado/listar' class='btn btn-outline-info btn-sm'>Listar</a> ";
                         }
-                        if ($this->Dados['botao']['edit_sai']) {
-                            echo "<a href='" . URLADM . "editar-saida/edit-saida/$id_sai' class='btn btn-outline-warning btn-sm'>Editar</a> ";
+                        if ($this->Dados['botao']['edit_mer']) {
+                            echo "<a href='" . URLADM . "editar-conta-mercado/edit-conta/$id_mer' class='btn btn-outline-warning btn-sm'>Editar</a> ";
                         }
-                        if ($this->Dados['botao']['del_sai']) {
-                            echo "<a href='" . URLADM . "apagar-saida/apagar-saida/$id_sai' class='btn btn-outline-danger btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?'>Apagar</a> ";
+                        if ($this->Dados['botao']['del_mer']) {
+                            echo "<a href='" . URLADM . "apagar-conta-mercado/apagar-conta/$id_mer' class='btn btn-outline-danger btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?'>Apagar</a> ";
                         }
                         ?>
                     </span>
@@ -33,14 +33,14 @@ if (!empty($this->Dados['dados_sai'][0])) {
                         </button>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="acoesListar"> 
                             <?php
-                            if ($this->Dados['botao']['list_sai']) {
-                                echo "<a class='dropdown-item' href='" . URLADM . "saida/listar'>Listar</a>";
+                            if ($this->Dados['botao']['list_mer']) {
+                                echo "<a class='dropdown-item' href='" . URLADM . "conta-mercado/listar'>Listar</a>";
                             }
-                            if ($this->Dados['botao']['edit_sai']) {
-                                echo "<a class='dropdown-item' href='" . URLADM . "editar-saida/edit-saida/$id_sai'>Editar</a>";
+                            if ($this->Dados['botao']['edit_mer']) {
+                                echo "<a class='dropdown-item' href='" . URLADM . "editar-conta-mercado/edit-conta/$id_mer'>Editar</a>";
                             }
-                            if ($this->Dados['botao']['del_sai']) {
-                                echo "<a class='dropdown-item' href='" . URLADM . "apagar-saida/apagar-saida/$id_sai' data-confirm='Tem certeza de que deseja excluir o item selecionado?'>Apagar</a>";
+                            if ($this->Dados['botao']['del_mer']) {
+                                echo "<a class='dropdown-item' href='" . URLADM . "apagar-conta-mercado/apagar-conta/$id_mer' data-confirm='Tem certeza de que deseja excluir o item selecionado?'>Apagar</a>";
                             }
                             ?>
                         </div>
@@ -56,21 +56,10 @@ if (!empty($this->Dados['dados_sai'][0])) {
             <dl class="row" style="background-color: #fcfccc;">
 
                 <dt class="col-sm-3">ID</dt>
-                <dd class="col-sm-9"><?php echo $id_sai; ?></dd>
-
-                <dt class="col-sm-3">Descrição</dt>
-                <dd class="col-sm-9"><?php echo $descricao; ?></dd>
-
-                <dt class="col-sm-3">Categoria</dt>
-                <dd class="col-sm-9"><?php echo $categoria; ?></dd>
+                <dd class="col-sm-9"><?php echo $id_mer; ?></dd>
 
                 <dt class="col-sm-3">Valor</dt>
                 <dd class="col-sm-9"><?php echo $valor; ?></dd>
-
-                <dt class="col-sm-3">Vencimento</dt>
-                <dd class="col-sm-9"><?php if (!empty($vencimento)) {
-                        echo date('d/M/Y', strtotime($vencimento));
-                    } ?></dd>
 
                 <dt class="col-sm-3">Mês</dt>
                 <dd class="col-sm-9"><?php echo $mes .'/'. $ano; ?></dd>
@@ -84,9 +73,6 @@ if (!empty($this->Dados['dados_sai'][0])) {
                 <dd class="col-sm-9"><?php
                 if($situacao == 1){echo "<span class='text-primary'>PAGO </span>";}else{echo "<span class='text-danger'>À PAGAR</span>";}
                 ?></dd>
-
-                <dt class="col-sm-3">Observações</dt>
-                <dd class="col-sm-9"><?php echo $observacao; ?></dd>
 
                 <dt class="col-sm-3">Inserido</dt>
                 <dd class="col-sm-9"><?php echo date('d/m/Y H:i:s', strtotime($created)); ?></dd>
@@ -105,8 +91,8 @@ if (!empty($this->Dados['dados_sai'][0])) {
     </div>
     <?php
 } else {
-    $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: Saida não encontrada!</div>";
-    $UrlDestino = URLADM . 'saida/listar';
+    $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: Conta não encontrada!</div>";
+    $UrlDestino = URLADM . 'conta-mercado/listar';
     header("Location: $UrlDestino");
 }
     

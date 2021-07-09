@@ -23,21 +23,21 @@ class CadastrarSaida
         if (!empty($this->Dados['CadSai'])) {
             unset($this->Dados['CadSai']);
 
-            $cadEnt = new \App\cx\Models\CxCadastrarSaida();
-            $cadEnt->cadSaida($this->Dados);
-            if ($cadEnt->getResultado()) {
+            $cadSai = new \App\cx\Models\CxCadastrarSaida();
+            $cadSai->cadSaida($this->Dados);
+            if ($cadSai->getResultado()) {
                 $UrlDestino = URLADM . 'saida/listar';
                 header("Location: $UrlDestino");
             } else {
                 $this->Dados['form'] = $this->Dados;
-                $this->cadEntViewPriv();
+                $this->cadSaiViewPriv();
             }
         } else {
-            $this->cadEntViewPriv();
+            $this->cadSaiViewPriv();
         }
     }
 
-    private function cadEntViewPriv()
+    private function cadSaiViewPriv()
     {
         $listarSelect = new \App\cx\Models\CxCadastrarSaida();
         $this->Dados['select'] = $listarSelect->listarCadastrar();

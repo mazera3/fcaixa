@@ -53,7 +53,7 @@ if (!empty($this->Dados['dados_ent'][0])) {
                 unset($_SESSION['msg']);
             }
             ?>
-            <dl class="row">
+            <dl class="row" style="background-color: #fcfccc;">
 
                 <dt class="col-sm-3">ID</dt>
                 <dd class="col-sm-9"><?php echo $id_ent; ?></dd>
@@ -76,7 +76,14 @@ if (!empty($this->Dados['dados_ent'][0])) {
                 <dd class="col-sm-9"><?php echo $mes .'/'. $ano; ?></dd>
 
                 <dt class="col-sm-3">Código</dt>
-                <dd class="col-sm-9"><?php echo $codigo; ?></dd>
+                <dd class="col-sm-9"><?php 
+                if(!empty($codigo)){echo $codigo;}else{echo "****************";};
+                ?></dd>
+
+                <dt class="col-sm-3">Situação</dt>
+                <dd class="col-sm-9"><?php
+                if($situacao == 1){echo "<span class='text-primary'>RECEBIDO </span>";}else{echo "<span class='text-danger'>À RECEBER</span>";}
+                ?></dd>
 
                 <dt class="col-sm-3">Observações</dt>
                 <dd class="col-sm-9"><?php echo $observacao; ?></dd>

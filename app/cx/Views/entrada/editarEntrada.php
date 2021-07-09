@@ -38,7 +38,7 @@ if (isset($this->Dados['form'][0])) {
                                                             echo $valorForm['id_ent'];
                                                         }
                                                         ?>">
-            <div class="row">
+            <div class="row" style="background-color: #cccccc;">
                 <div class="col-md-4">
                     <div class="form-group">
                         <label><span class="text-danger">*</span> Descrição</label>
@@ -94,23 +94,33 @@ if (isset($this->Dados['form'][0])) {
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-6">
+            <div class="row" style="background-color: #accccc;">
+                <div class="col-md-5">
                     <!-- Codigo de Barras -->
                     <div class="form-group">
                         <label>Código</label>
                         <input name="codigo" type="text" class="form-control" placeholder="Código" value="<?php if (isset($valorForm['codigo'])) {
-                                                                                                            echo $valorForm['codigo'];
-                                                                                                        } ?>">
+                                                                                                                echo $valorForm['codigo'];
+                                                                                                            } ?>">
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-5">
                     <!-- Observações -->
                     <div class="form-group">
                         <label>Observações</label>
                         <textarea name="observacao" class="form-control" rows="2"><?php if (isset($valorForm['observacao'])) {
                                                                                         echo $valorForm['observacao'];
                                                                                     } ?></textarea>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <!-- Situação -->
+                    <div class="form-group">
+                        <label>Situação</label>
+                        <select name="situacao" class="form-control">
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                        </select>
                     </div>
                 </div>
             </div>
