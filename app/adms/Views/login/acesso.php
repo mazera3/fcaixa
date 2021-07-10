@@ -1,8 +1,8 @@
 
 <body class="text-center">
     <form class="form-signin" method="POST" action="">
-        <img class="mb-4" src="<?php echo URLADM . 'assets/imagens/logo_login/logo.jpeg'; ?>" alt="Celke" width="72" height="72">
-        <a href="<?php echo URLADM . 'opac/listar' ?>"><h1 class="h3 mb-3 font-weight-normal">Catálogo Público (OPAC)</h1></a>
+        <img class="mb-4" src="<?php echo URLADM . 'assets/imagens/logo_login/logo.png'; ?>" alt="Caixa" width="72" height="72">
+        <a href="<?php echo URLADM . '/home' ?>"><h1 class="h3 mb-3 font-weight-normal">Fluxo de Caixa</h1></a>
         <?php
         if (isset($_SESSION['msg'])) {
             echo $_SESSION['msg'];

@@ -97,7 +97,8 @@ if (!defined('URL')) {
                         <th>ID</th>
                         <th class="d-none d-sm-table-cell">Valor</th>
                         <th class="d-none d-sm-table-cell">Data</th>
-                        <th>Situação</th>
+                        <th class="d-none d-sm-table-cell">Vencimento</th>
+                        <th class="d-none d-sm-table-cell text-center">Situação</th>
                         <th class="text-center">Ações</th>
                     </tr>
                 </thead>
@@ -110,6 +111,7 @@ if (!defined('URL')) {
                             <th><?php echo $id_mer; ?></th>
                             <td><?php echo $valor; ?></td>
                             <td><?php echo $mes . '/' . $ano; ?></td>
+                            <td><?php echo date('d/M/Y', strtotime($vencimento)); ?></td>
                             <td class="text-center">
                                 <?php
                                 if ($situacao == 1) {

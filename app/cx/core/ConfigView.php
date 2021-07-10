@@ -21,7 +21,7 @@ class ConfigView
 
     public function renderizar()
     {
-        include 'app/cx/Views/include/cabecalho_bib.php';
+        include 'app/cx/Views/include/cabecalho_cx.php';
         include 'app/adms/Views/include/header.php';
         include 'app/adms/Views/include/sidebar.php';
         if (file_exists('app/' . $this->Nome . '.php')) {
@@ -29,7 +29,7 @@ class ConfigView
         }else{
             echo "Erro ao carregar a Página: {$this->Nome}";
         }
-        include 'app/cx/Views/include/rodape_bib.php';
+        include 'app/cx/Views/include/rodape_cx.php';
     }
 
     public function renderizarListar()
