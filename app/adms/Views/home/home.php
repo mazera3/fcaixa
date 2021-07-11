@@ -43,46 +43,100 @@ if (!defined('URL')) {
                 </div>
                 <div class="row">
                     <?php if (isset($_SESSION['usuario_id'])) {
+                    ?>
+                        <form method="GET" action="">
+                            <label>Ano</label>
+                            <?php $a = date('Y') - 1; ?>
+                            <?php $b = date('Y') ?>
+                            <?php $c = date('Y') + 1; ?>
+                            <?php $d = date('Y') + 2; ?>
+                            <?php $e = date('Y') + 3; ?>
+                            <select name="ano" id="ano">
+                                <?php
+                                echo "<option value='$a'>$a</option>";
+                                echo "<option value='$b' selected>$b</option>";
+                                echo "<option value='$c'>$c</option>";
+                                echo "<option value='$d'>$d</option>";
+                                echo "<option value='$e'>$e</option>";
+                                ?>
+                            </select>
+                            <label>Mês</label>
+                            <select name="mes" id="mes">
+                                <option>Selecione</option>
+                                <?php
+                                foreach ($this->Dados['select']['mes'] as $m) {
+                                    extract($m);
+                                    if (date('m') == $id_mes) {
+                                        echo "<option value='$id_mes' selected>$extenso</option>";
+                                    } else {
+                                        echo "<option value='$id_mes'>$extenso</option>";
+                                    }
+                                }
+                                ?>
+                            </select>
+                            <input type="submit" class="btn btn-dark btn-sm" value="Enviar">
+                        </form>
+                        <?php
                         $labels = ' ';
                         $data = 0;
-                        foreach ($this->Dados['mes_atual'] as $ma) {
-                            extract($ma);
-                            $labels .= $descricao .',';
+                        foreach ($this->Dados['balanco'] as $ba) {
+                            extract($ba);
+                            $labels .= $descricao . ',';
                             $data .= intval($valor) . ',';
                         }
                         $labels = explode(',', $labels);
-                        $labels = json_encode($labels,JSON_UNESCAPED_UNICODE);
+                        $labels = json_encode($labels, JSON_UNESCAPED_UNICODE);
                         $data = explode(',', $data);
-                        $data = json_encode($data,JSON_UNESCAPED_UNICODE);
-                        
-                    ?>
-                        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                        $data = json_encode($data, JSON_UNESCAPED_UNICODE);
+                        $mes = $this->Dados['balanco'][0]['mes'];
+                        ?>
                         <div class="container" width="100px" height="100px">
                             <canvas id="myChart"></canvas>
                         </div>
                         <script>
                             const COLORS = [
-                                '#4dc9f6',
-                                '#f67019',
-                                '#f53794',
-                                '#537bc4',
+                                '#ff0000',
+                                '#00ff00',
+                                '#0000ff',
+                                '#ffff0f',
+                                '#000f0f',
+                                '#aca236',
+                                '#616a8f',
+                                '#80a950',
+                                '#58595b',
+                                '#8549ba',
+                                '#4dc96f',
+                                '#f67091',
+                                '#f53749',
+                                '#537b4c',
+                                '#acc263',
+                                '#166af8',
+                                '#00a905',
+                                '#5859b5',
+                                '#8549ab'
+                            ];
+                            const COLORS_BORD = [
+                                '#ff0000',
+                                '#00ff00',
+                                '#0000ff',
+                                '#ffff0f',
+                                '#000f0f',
                                 '#acc236',
                                 '#166a8f',
                                 '#00a950',
                                 '#58595b',
-                                '#8549ba'
+                                '#8549ba',
+                                '#4dc96f',
+                                '#f67091',
+                                '#f53749',
+                                '#537b4c',
+                                '#acc263',
+                                '#166af8',
+                                '#00a905',
+                                '#5859b5',
+                                '#8549ab'
                             ];
-                            const COLORS_BORD = [
-                                '#4dc9a1',
-                                '#c67019',
-                                '#f53194',
-                                '#537bf4',
-                                '#aff236',
-                                '#166f8f',
-                                '#00a95f',
-                                '#5f595b',
-                                '#8f49ba'
-                            ];
+                            let mes = "<?php echo $mes; ?>";
                             let data = <?php echo $data ?>;
                             let labels = <?php echo $labels ?>;
                             let legenda = "<?php echo 'Mês: ' . date('M') ?>";
@@ -90,10 +144,10 @@ if (!defined('URL')) {
                             var myChart = new Chart(ctx, {
                                 type: 'bar',
                                 data: {
-                                    labels: labels,//['Telefone Fixo','Energia Elétrica','Mirix Telecomunicações - Neorede','Loja Piffer','Hostgator Hospedagem','Mercado Livre','Agropecuária Popular','Tarifas BB','Farmácia','Gasolina','Celular','Peças para PC\/Celular','Farmácia','Peças para PC\/Celular','Pizza\/Salgados','Funcional','Biz 110i','Mercados'],
+                                    labels: labels, //['Telefone Fixo','Energia Elétrica','Mirix Telecomunicações - Neorede','Loja Piffer','Hostgator Hospedagem','Mercado Livre','Agropecuária Popular','Tarifas BB','Farmácia','Gasolina','Celular','Peças para PC\/Celular','Farmácia','Peças para PC\/Celular','Pizza\/Salgados','Funcional','Biz 110i','Mercados'],
                                     datasets: [{
                                         label: legenda,
-                                        data: data,//[017,333,80,359,34,194,528,22,177,103,20,100,26,150,60,198,340,1105,],
+                                        data: data, //[017,333,80,359,34,194,528,22,177,103,20,100,26,150,60,198,340,1105,],
                                         borderColor: COLORS_BORD,
                                         backgroundColor: COLORS,
                                         borderWidth: 1
@@ -104,12 +158,14 @@ if (!defined('URL')) {
                                         legend: {
                                             position: 'top',
                                             labels: {
-                                                usePointStyle: true,
+                                                font: {
+                                                    size: 24,
+                                                },
                                             },
                                         },
                                         title: {
                                             display: true,
-                                            text: "Balanço do mes Atual",
+                                            text: "Balanço do Mes: " + (mes),
                                             color: 'blue',
                                             font: {
                                                 size: 32,

@@ -15,7 +15,7 @@ if (isset($this->Dados['listRelEnt'])) {
             <div class="mr-auto p-2">
                 <h2 class="display-4 titulo">Relatório Mensal <?php
                                                                 if (isset($extenso)) {
-                                                                    echo '('.$extenso . '/' . $ano .')';
+                                                                    echo '(' . $extenso . '/' . $ano . ')';
                                                                 }
                                                                 ?></h2>
             </div>
@@ -25,17 +25,28 @@ if (isset($this->Dados['listRelEnt'])) {
                     extract($s);
                 }
             }
-            if (isset($this->Dados['somaEnt'])) {
-                foreach ($this->Dados['somaEnt'] as $si) {
-                    extract($si);
+             $saldo_anteanterior = 0;
+            if (isset($this->Dados['SalMesAntAnt'])) {
+                foreach ($this->Dados['SalMesAntAnt'] as $a) {
+                    extract($a);
+                    $saldo_anteanterior = $saldo;
                 }
             }
-            if (isset($this->Dados['somaSai'])) {
-                foreach ($this->Dados['somaSai'] as $so) {
-                    extract($so);
+            $total_entrada = 0;
+            if (isset($this->Dados['entMenAnt'])) {
+                foreach ($this->Dados['entMenAnt'] as $e) {
+                    extract($e);
+                    $total_entrada += $valor;
                 }
             }
-            $saldo_atual = $total_entrada - $total_saida;
+            $total_saida = 0;
+            if (isset($this->Dados['saiMenAnt'])) {
+                foreach ($this->Dados['saiMenAnt'] as $s) {
+                    extract($s);
+                    $total_saida += $valor;
+                }
+            }
+            $saldo_atual = $total_entrada - $total_saida + $saldo_anteanterior;
             ?>
             <div class="mr-auto p-2">
                 <a href="<?php echo URLADM . 'relatorio-mensal/listar/?mes=' . $id_mes . '&ano=' . $ano . '&s=' . $saldo_atual . ''; ?>" class="btn btn-warning btn-sm">Atualizar Saldo Anterior</a>
@@ -235,7 +246,7 @@ if (isset($this->Dados['listRelEnt'])) {
                                                         } else {
                                                             echo "NEGATIVO (-)";
                                                         } ?></b></td>
-                            <td width="50%"><?php if ($saldo_mes >= 0) {
+                            <td width="30%"><?php if ($saldo_mes >= 0) {
                                                 echo "<span class='text-primary'>$saldo_rs</span>";
                                             } else {
                                                 echo "<span class='text-danger'>$saldo_rs</span>";

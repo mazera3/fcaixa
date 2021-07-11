@@ -11,6 +11,8 @@ if (!defined('URL')) {
     <link rel="icon" href="<?php echo URLADM . './assets/imagens/icone/favicon.ico'; ?>">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
         <script defer src="<?php echo URLADM . './assets/js/fontawesome-all.min.js'; ?>"></script>
+        <script src="<?php echo URLADM . 'node_modules/chart.js/dist/chart.js'; ?>"></script>
+        <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
         <link rel="stylesheet" href="<?php echo URLADM . 'assets/css/fontawesome.min.css'; ?>">
         <link rel="stylesheet" href="<?php echo URLADM . './assets/css/dashboard.css'; ?>">
 </head>
