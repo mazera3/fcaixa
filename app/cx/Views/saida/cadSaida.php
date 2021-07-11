@@ -68,7 +68,7 @@ if (isset($this->Dados['form'][0])) {
                                                                                             } ?>">
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-2">
                     <div class="form-group">
                         <label><span class="text-danger">*</span> Mês</label>
                         <select name="mes" id="mes" class="form-control">
@@ -86,6 +86,26 @@ if (isset($this->Dados['form'][0])) {
                         </select>
                     </div>
                 </div>
+                <div class="col-md-2">
+                    <!-- Ano -->
+                    <div class="form-group">
+                        <label><span class="text-danger">*</span> Ano</label>
+                        <?php $a = date('Y') - 1; ?>
+                        <?php $b = date('Y') ?>
+                        <?php $c = date('Y') + 1; ?>
+                        <?php $d = date('Y') + 2; ?>
+                        <?php $e = date('Y') + 3; ?>
+                        <select name="ano" id="ano" class="form-control">
+                            <?php
+                            echo "<option value='$a'>$a</option>";
+                            echo "<option value='$b' selected>$b</option>";
+                            echo "<option value='$c'>$c</option>";
+                            echo "<option value='$d'>$d</option>";
+                            echo "<option value='$e'>$e</option>";
+                            ?>
+                        </select>
+                    </div>
+                </div>
             </div>
             <div class="row">
                 <div class="col-md-6">
@@ -93,8 +113,8 @@ if (isset($this->Dados['form'][0])) {
                     <div class="form-group">
                         <label>Código de Barras</label>
                         <input name="codigo" type="text" class="form-control" placeholder="Código de barras" value="<?php if (isset($valorForm['codigo'])) {
-                                                                                                            echo $valorForm['codigo'];
-                                                                                                        } ?>">
+                                                                                                                        echo $valorForm['codigo'];
+                                                                                                                    } ?>">
                     </div>
                 </div>
                 <div class="col-md-6">

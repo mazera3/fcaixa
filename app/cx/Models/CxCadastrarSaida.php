@@ -50,7 +50,7 @@ class CxCadastrarSaida
     private function inserirSaida()
     {
         $this->Dados['created'] = date("Y-m-d H:i:s");
-        $this->Dados['ano'] = date("Y");
+        //$this->Dados['ano'] = date("Y");
         $this->Dados['situacao'] = 0;
         $this->Dados['vencimento'] = $this->VazioVencimento;
         $this->Dados['codigo'] = $this->VazioCodigo;

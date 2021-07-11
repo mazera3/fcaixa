@@ -3,9 +3,15 @@ if (!defined('URL')) {
     header("Location: /");
     exit();
 }
+
 if (isset($this->Dados['listRelEnt'])) {
-    foreach ($this->Dados['listRelEnt'] as $rl) {
-        extract($rl);
+    foreach ($this->Dados['listRelEnt'] as $rle) {
+        extract($rle);
+    }
+}
+if (isset($this->Dados['listRelSai'])) {
+    foreach ($this->Dados['listRelSai'] as $rls) {
+        extract($rls);
     }
 }
 ?>
@@ -14,57 +20,22 @@ if (isset($this->Dados['listRelEnt'])) {
         <div class="d-flex">
             <div class="mr-auto p-2">
                 <h2 class="display-4 titulo">Relatório Mensal <?php
-                                                                if (isset($extenso)) {
-                                                                    echo '(' . $extenso . '/' . $ano . ')';
+                                                                if (isset($mes_ent)) {
+                                                                    echo '(' . $mes_ent . '/' . $ano . ')';
+                                                                } elseif (isset($mes_sai)) {
+                                                                    echo '(' . $mes_sai . '/' . $ano . ')';
                                                                 }
                                                                 ?></h2>
+                <?php if (!isset($mes_ent) and !isset($mes_sai)) {
+                    $_SESSION['msg'] = "<div class='alert alert-danger'>Selecione um mês e um ano e tecle ENTER!</div>";
+                } ?>
             </div>
-            <?php
-            if (isset($this->Dados['listSal'])) {
-                foreach ($this->Dados['listSal'] as $s) {
-                    extract($s);
+            <div class="auto p-2">
+                <?php
+                if ($this->Dados['botao']['pdf']) {
+                    echo "<a href='" . URLADM . "relatorio-mensal/listar/?pdf=1&mes=$id_mes&ano=$ano' class='btn btn-outline-success btn-sm'>Baixar Relatório PDF</a> ";
                 }
-            }
-             $saldo_anteanterior = 0;
-            if (isset($this->Dados['SalMesAntAnt'])) {
-                foreach ($this->Dados['SalMesAntAnt'] as $a) {
-                    extract($a);
-                    $saldo_anteanterior = $saldo;
-                }
-            }
-            $total_entrada = 0;
-            if (isset($this->Dados['entMenAnt'])) {
-                foreach ($this->Dados['entMenAnt'] as $e) {
-                    extract($e);
-                    $total_entrada += $valor;
-                }
-            }
-            $total_saida = 0;
-            if (isset($this->Dados['saiMenAnt'])) {
-                foreach ($this->Dados['saiMenAnt'] as $s) {
-                    extract($s);
-                    $total_saida += $valor;
-                }
-            }
-            $saldo_atual = $total_entrada - $total_saida + $saldo_anteanterior;
-            ?>
-            <div class="mr-auto p-2">
-                <a href="<?php echo URLADM . 'relatorio-mensal/listar/?mes=' . $id_mes . '&ano=' . $ano . '&s=' . $saldo_atual . ''; ?>" class="btn btn-warning btn-sm">Atualizar Saldo Anterior</a>
-            </div>
-            <div class="btn-group dropleft">
-                <button type="button" class="btn btn-outline-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="fas fa-print" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></span>
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                    <?php
-                    if ($this->Dados['botao']['xls']) {
-                        echo "<li><a href='" . URLADM . "relatorio-mensal/listar/?xls=1'>Baixar Relatório XLS</a></li> ";
-                    }
-                    if ($this->Dados['botao']['pdf']) {
-                        echo "<li><a href='" . URLADM . "relatorio-mensal/listar/?pdf=1'>Baixar Relatório PDF</a></li> ";
-                    }
-                    ?>
-                </ul>
+                ?>
             </div>
         </div>
         <?php
@@ -251,7 +222,21 @@ if (isset($this->Dados['listRelEnt'])) {
                                             } else {
                                                 echo "<span class='text-danger'>$saldo_rs</span>";
                                             }
+                                        } else {
+                                            $saldo_mes = 0;
                                         } ?></td>
+                            <td>
+                                <?php
+                                if (isset($this->Dados['SalAtual'])) {
+                                    foreach ($this->Dados['SalAtual'] as $sa) {
+                                        extract($sa);
+                                    }
+                                }
+                                ?>
+                                <a href="<?php echo URLADM . 'relatorio-mensal/listar/?mes=' . $id_mes_atual . '&ano=' . $ano . '&s=' . $saldo_mes . ''; ?>" class="btn btn-warning btn-sm">Atualizar Saldo Atual</a>
+                            </td>
+
+
                         </tr>
                     </tbody>
             </table>

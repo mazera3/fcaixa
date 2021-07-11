@@ -39,12 +39,11 @@ class RelatorioMensal
             $listarRelatorioMensal = new \App\cx\Models\CxListarRelatorioMensal();
             $this->Dados['listRelEnt'] = $listarRelatorioMensal->listarRelatorioMensalEnt($this->DadosMes,$this->DadosAno);
             $this->Dados['listRelSai'] = $listarRelatorioMensal->listarRelatorioMensalSai($this->DadosMes,$this->DadosAno);
-            $this->Dados['listSal'] = $listarRelatorioMensal->listarSaldoAnterior($this->DadosMes,$this->DadosAno);
+            $this->Dados['listSal'] = $listarRelatorioMensal->saldoAnterior($this->DadosMes,$this->DadosAno);
+
             $this->Dados['somaEnt'] = $listarRelatorioMensal->somarEntradaMensal($this->DadosMes,$this->DadosAno);
             $this->Dados['somaSai'] = $listarRelatorioMensal->somarSaidaMensal($this->DadosMes,$this->DadosAno);
-            $this->Dados['SalMesAntAnt'] = $listarRelatorioMensal->SaldoMesAnteAnterior($this->DadosMes,$this->DadosAno);
-            $this->Dados['entMenAnt'] = $listarRelatorioMensal->EntMensalAnterior($this->DadosMes,$this->DadosAno);
-            $this->Dados['saiMenAnt'] = $listarRelatorioMensal->SaiMensalAnterior($this->DadosMes,$this->DadosAno);
+            $this->Dados['SalAtual'] = $listarRelatorioMensal->SaldoAtual($this->DadosMes,$this->DadosAno);
         } else {
             $listarRelatorioMensal = new \App\cx\Models\CxListarRelatorioMensal();
             $this->Dados['listRelEnt'] = $listarRelatorioMensal->listarRelatorioFullEnt();
@@ -71,11 +70,12 @@ class RelatorioMensal
             $UrlDestino = URLADM . "relatorio-mensal/listar";
             header("Location: $UrlDestino");
         }
-        /* $this->DadosPdf = filter_input(INPUT_GET, "pdf", FILTER_SANITIZE_NUMBER_INT);
+        $this->DadosPdf = filter_input(INPUT_GET, "pdf", FILTER_SANITIZE_NUMBER_INT);
         if (!empty($this->DadosPdf)) {
             $imprime = new \App\cx\Models\CxPdfRelatorio();
-            $imprime->pdf($this->DadosPdf);
+            $imprime->pdf($this->DadosPdf,$this->DadosMes, $this->DadosAno);
         }
+        /* 
         $this->DadosXls = filter_input(INPUT_GET, "xls", FILTER_SANITIZE_NUMBER_INT);
         if (!empty($this->DadosXls)) {
             $imprime = new \App\cx\Models\CxXlsRelatorio();

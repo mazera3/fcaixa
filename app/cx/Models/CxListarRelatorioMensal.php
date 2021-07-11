@@ -21,13 +21,13 @@ class CxListarRelatorioMensal
     {
         return $this->Resultado;
     }
-
+    // Relatório Mensal atual de entrada
     public function listarRelatorioMensalEnt($DadosMes = null, $DadosAno = null)
     {
         $this->DadosMes = (int) $DadosMes;
         $this->DadosAno = (int) $DadosAno;
         $listarRelatorio = new \App\adms\Models\helper\AdmsRead();
-        $listarRelatorio->fullRead("SELECT ent.*, cat.categoria, dc.descricao, m.id_mes, m.extenso FROM cx_entrada ent
+        $listarRelatorio->fullRead("SELECT ent.*, cat.categoria, dc.descricao, m.id_mes id_mes_ent, m.extenso mes_ent FROM cx_entrada ent
         INNER JOIN cx_descricao dc ON dc.id_des=ent.descricao_id
         INNER JOIN cx_categoria cat ON cat.id_cat=dc.categoria_id
         INNER JOIN cx_mes m ON m.mes=ent.mes
@@ -36,14 +36,14 @@ class CxListarRelatorioMensal
         $this->Resultado = $listarRelatorio->getResultado();
         return $this->Resultado;
     }
-
+    // Relatório Mensal atual de saida
     public function listarRelatorioMensalSai($DadosMes = null, $DadosAno = null)
     {
         $this->DadosMes = (int) $DadosMes;
         $this->DadosAno = (int) $DadosAno;
 
         $listarRelatorio = new \App\adms\Models\helper\AdmsRead();
-        $listarRelatorio->fullRead("SELECT sai.*, cat.categoria, dc.descricao, m.id_mes FROM cx_saida sai
+        $listarRelatorio->fullRead("SELECT sai.*, cat.categoria, dc.descricao, m.id_mes, m.extenso mes_sai FROM cx_saida sai
         INNER JOIN cx_descricao dc ON dc.id_des=sai.descricao_id
         INNER JOIN cx_categoria cat ON cat.id_cat=dc.categoria_id
         INNER JOIN cx_mes m ON m.mes=sai.mes
@@ -52,40 +52,9 @@ class CxListarRelatorioMensal
         $this->Resultado = $listarRelatorio->getResultado();
         return $this->Resultado;
     }
-    // Entrada Mensal do Mes anterior
-    public function EntMensalAnterior($DadosMes = null, $DadosAno = null)
-    {
-        $this->DadosMes = (int) $DadosMes - 1;
-        $this->DadosAno = (int) $DadosAno;
-        $listarRelatorio = new \App\adms\Models\helper\AdmsRead();
-        $listarRelatorio->fullRead("SELECT ent.*, cat.categoria, dc.descricao, m.id_mes, m.extenso FROM cx_entrada ent
-        INNER JOIN cx_descricao dc ON dc.id_des=ent.descricao_id
-        INNER JOIN cx_categoria cat ON cat.id_cat=dc.categoria_id
-        INNER JOIN cx_mes m ON m.mes=ent.mes
-        WHERE id_mes=:id_mes AND ano=:ano
-        ORDER BY id_ent ASC", "ano={$this->DadosAno}&id_mes={$this->DadosMes}");
-        $this->Resultado = $listarRelatorio->getResultado();
-        return $this->Resultado;
-    }
-    // Saída Mensal do Mes anterior
-    public function SaiMensalAnterior($DadosMes = null, $DadosAno = null)
-    {
-        $this->DadosMes = (int) $DadosMes - 1;
-        $this->DadosAno = (int) $DadosAno;
 
-        $listarRelatorio = new \App\adms\Models\helper\AdmsRead();
-        $listarRelatorio->fullRead("SELECT sai.*, cat.categoria, dc.descricao, m.id_mes FROM cx_saida sai
-        INNER JOIN cx_descricao dc ON dc.id_des=sai.descricao_id
-        INNER JOIN cx_categoria cat ON cat.id_cat=dc.categoria_id
-        INNER JOIN cx_mes m ON m.mes=sai.mes
-        WHERE id_mes=:id_mes AND ano=:ano
-        ORDER BY id_sai ASC", "ano={$this->DadosAno}&id_mes={$this->DadosMes}");
-        $this->Resultado = $listarRelatorio->getResultado();
-        return $this->Resultado;
-    }
-    //
-
-    public function listarSaldoAnterior($DadosMes = null, $DadosAno = null)
+    // saldo do mes anterior
+    public function saldoAnterior($DadosMes = null, $DadosAno = null)
     {
         if ($DadosMes == 1) {
             $this->DadosMes = 12;
@@ -96,29 +65,65 @@ class CxListarRelatorioMensal
         }
 
         $listarSaldo = new \App\adms\Models\helper\AdmsRead();
-        $listarSaldo->fullRead("SELECT sal.*, m.id_mes, m.mes, m.extenso FROM cx_saldo sal
+        $listarSaldo->fullRead("SELECT sal.*, m.id_mes id_mes_anterior, m.mes, m.extenso FROM cx_saldo sal
         INNER JOIN cx_mes m ON m.id_mes=sal.mes_id
         WHERE id_mes=:id_mes AND ano=:ano
         ORDER BY id_sal ASC", "ano={$this->DadosAno}&id_mes={$this->DadosMes}");
         $this->Resultado = $listarSaldo->getResultado();
         return $this->Resultado;
     }
-    // Saldo do Mes ante-Anterior
-    public function SaldoMesAnteAnterior($DadosMes = null, $DadosAno = null)
+
+    // Saída Mensal do Mes anterior
+    public function SaiMensalAnterior($DadosMes = null, $DadosAno = null)
     {
         if ($DadosMes == 1) {
-            $this->DadosMes = 11;
-            $this->DadosAno = (int) $DadosAno - 1;
-        } elseif ($DadosMes == 2) {
             $this->DadosMes = 12;
             $this->DadosAno = (int) $DadosAno - 1;
         } else {
-            $this->DadosMes = (int) $DadosMes - 2;
+            $this->DadosMes = (int) $DadosMes - 1;
             $this->DadosAno = (int) $DadosAno;
         }
 
+        $listarRelatorio = new \App\adms\Models\helper\AdmsRead();
+        $listarRelatorio->fullRead("SELECT sai.*, cat.categoria, dc.descricao, m.id_mes FROM cx_saida sai
+        INNER JOIN cx_descricao dc ON dc.id_des=sai.descricao_id
+        INNER JOIN cx_categoria cat ON cat.id_cat=dc.categoria_id
+        INNER JOIN cx_mes m ON m.mes=sai.mes
+        WHERE id_mes=:id_mes AND ano=:ano AND situacao=:situacao
+        ORDER BY id_sai ASC", "ano={$this->DadosAno}&id_mes={$this->DadosMes}&situacao=1");
+        $this->Resultado = $listarRelatorio->getResultado();
+        return $this->Resultado;
+    }
+
+    // Entrada Mensal do Mes anterior
+    public function EntMensalAnterior($DadosMes = null, $DadosAno = null)
+    {
+        if ($DadosMes == 1) {
+            $this->DadosMes = 12;
+            $this->DadosAno = (int) $DadosAno - 1;
+        } else {
+            $this->DadosMes = (int) $DadosMes - 1;
+            $this->DadosAno = (int) $DadosAno;
+        }
+        $listarRelatorio = new \App\adms\Models\helper\AdmsRead();
+        $listarRelatorio->fullRead("SELECT ent.*, cat.categoria, dc.descricao, m.id_mes, m.extenso FROM cx_entrada ent
+        INNER JOIN cx_descricao dc ON dc.id_des=ent.descricao_id
+        INNER JOIN cx_categoria cat ON cat.id_cat=dc.categoria_id
+        INNER JOIN cx_mes m ON m.mes=ent.mes
+        WHERE id_mes=:id_mes AND ano=:ano AND situacao=:situacao
+        ORDER BY id_ent ASC", "ano={$this->DadosAno}&id_mes={$this->DadosMes}&situacao=1");
+        $this->Resultado = $listarRelatorio->getResultado();
+        return $this->Resultado;
+    }
+
+    // Saldo Atual
+    public function SaldoAtual($DadosMes = null, $DadosAno = null)
+    {
+        $this->DadosMes = (int) $DadosMes;
+        $this->DadosAno = (int) $DadosAno;
+
         $listarSaldo = new \App\adms\Models\helper\AdmsRead();
-        $listarSaldo->fullRead("SELECT sal.*, m.id_mes, m.mes, m.extenso FROM cx_saldo sal
+        $listarSaldo->fullRead("SELECT sal.*, m.id_mes id_mes_atual, m.mes, m.extenso FROM cx_saldo sal
         INNER JOIN cx_mes m ON m.id_mes=sal.mes_id
         WHERE id_mes=:id_mes AND ano=:ano
         ORDER BY id_sal ASC", "ano={$this->DadosAno}&id_mes={$this->DadosMes}");
