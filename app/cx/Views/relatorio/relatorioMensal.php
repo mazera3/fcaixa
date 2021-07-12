@@ -33,6 +33,8 @@ if (isset($this->Dados['listRelSai'])) {
             <div class="auto p-2">
                 <?php
                 if ($this->Dados['botao']['pdf']) {
+                    if(!isset($ano)){$ano = date('Y');}
+                    if(!isset($id_mes)){$id_mes = date('m');}
                     echo "<a href='" . URLADM . "relatorio-mensal/listar/?pdf=1&mes=$id_mes&ano=$ano' class='btn btn-outline-success btn-sm'>Baixar Relatório PDF</a> ";
                 }
                 ?>

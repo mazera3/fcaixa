@@ -10,7 +10,7 @@ if (!defined('URL')) {
             <div class="card-body">
                 <div class="row">
                     <div class="col-sm-9">
-                        <h2 class="card-title"><i class="fas fa-dollar-sign fa-1x"></i> Fluxo de Caixa</h2>
+                        <h2 class="card-title alert alert-secondary"><i class="fas fa-dollar-sign fa-1x"></i> Fluxo de Caixa - Data de Hoje: <?php echo date('d/M/Y', strtotime(date('Y-m-d')));?></h2>
                         <span>Organizador: Profº Édio Mazera - mazera3@gmail.com </span>
                     </div>
                     <?php if (empty($_SESSION['usuario_id'])) { ?>
