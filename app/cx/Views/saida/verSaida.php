@@ -1,8 +1,12 @@
 <?php
+namespace App\cx\Views;
+
 if (!defined('URL')) {
     header("Location: /");
     exit();
 }
+use function base64_encode;
+use Picqer\Barcode\BarcodeGeneratorPNG;
 
 if (!empty($this->Dados['dados_sai'][0])) {
     extract($this->Dados['dados_sai'][0]);
@@ -54,6 +58,7 @@ if (!empty($this->Dados['dados_sai'][0])) {
             }
             ?>
             <dl class="row" style="background-color: #fcfccc;">
+            
 
                 <dt class="col-sm-3">ID</dt>
                 <dd class="col-sm-9"><?php echo $id_sai; ?></dd>
@@ -77,7 +82,11 @@ if (!empty($this->Dados['dados_sai'][0])) {
 
                 <dt class="col-sm-3">Código</dt>
                 <dd class="col-sm-9"><?php 
-                if(!empty($codigo)){echo $codigo;}else{echo "****************";};
+                $generator = new BarcodeGeneratorPNG();
+                if(!empty($codigo)){
+                echo '<img src="data:image/png;base64,' . base64_encode($generator->getBarcode($codigo, $generator::TYPE_INTERLEAVED_2_5)) . '">';
+                echo '<br/>' . $codigo;
+                }else{echo "****************";};
                 ?></dd>
 
                 <dt class="col-sm-3">Situação</dt>

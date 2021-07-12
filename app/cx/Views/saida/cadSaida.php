@@ -112,18 +112,28 @@ if (isset($this->Dados['form'][0])) {
                     <!-- Codigo de Barras -->
                     <div class="form-group">
                         <label>Código de Barras</label>
-                        <input name="codigo" type="text" class="form-control" placeholder="Código de barras" value="<?php if (isset($valorForm['codigo'])) {
+                        <input name="codigo" type="number" class="form-control" value="<?php if (isset($valorForm['codigo'])) {
                                                                                                                         echo $valorForm['codigo'];
                                                                                                                     } ?>">
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <!-- Observações -->
                     <div class="form-group">
                         <label>Observações</label>
                         <textarea name="observacao" class="form-control" rows="2"><?php if (isset($valorForm['observacao'])) {
                                                                                         echo $valorForm['observacao'];
                                                                                     } ?></textarea>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <!-- Situação -->
+                    <div class="form-group">
+                        <label>Situação</label>
+                        <select name="situacao" class="form-control">
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                        </select>
                     </div>
                 </div>
             </div>

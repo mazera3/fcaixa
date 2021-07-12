@@ -33,7 +33,6 @@ class CxPdfRelatorio
         $this->DadosAno = (int) $DadosAno;
 
         //Criando a Instancia
-        $dompdf = new Dompdf();
 
         $options = new Options();
         $options->set('isRemoteEnabled', TRUE);
@@ -41,10 +40,7 @@ class CxPdfRelatorio
 
         //dados - cabecario
         $html = '';
-        //$html .= '<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">';
-        // 
-        //$html .= "<div>";
-
+        
         // tabela - entradas 
         $html .= "<div style='float:left;'>";
         $html .= "<table border='0.1' width='50%' style='font-size: 12px;'>";
@@ -65,8 +61,8 @@ class CxPdfRelatorio
         $listarRelatorio->fullRead("SELECT ent.*, dc.descricao, m.id_mes id_mes_ent, m.extenso mes_ent FROM cx_entrada ent
         INNER JOIN cx_descricao dc ON dc.id_des=ent.descricao_id
         INNER JOIN cx_mes m ON m.mes=ent.mes
-        WHERE id_mes=:id_mes AND ano=:ano
-        ORDER BY id_ent ASC", "ano={$this->DadosAno}&id_mes={$this->DadosMes}");
+        WHERE id_mes=:id_mes AND ano=:ano AND situacao=:situacao
+        ORDER BY id_ent ASC", "ano={$this->DadosAno}&id_mes={$this->DadosMes}&situacao=1");
         $this->Resultado = $listarRelatorio->getResultado();
         $total_entradas = 0;
         foreach ($this->Resultado as $e) {
@@ -144,8 +140,8 @@ class CxPdfRelatorio
         $listarRelatorio->fullRead("SELECT sai.*, dc.descricao, m.id_mes, m.extenso mes_sai FROM cx_saida sai
         INNER JOIN cx_descricao dc ON dc.id_des=sai.descricao_id
         INNER JOIN cx_mes m ON m.mes=sai.mes
-        WHERE id_mes=:id_mes AND ano=:ano
-        ORDER BY id_sai ASC", "ano={$this->DadosAno}&id_mes={$this->DadosMes}");
+        WHERE id_mes=:id_mes AND ano=:ano AND situacao=:situacao
+        ORDER BY id_sai ASC", "ano={$this->DadosAno}&id_mes={$this->DadosMes}&situacao=1");
         $this->Resultado = $listarRelatorio->getResultado();
         $total_saidas = 0;
         foreach ($this->Resultado as $s) {

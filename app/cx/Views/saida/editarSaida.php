@@ -95,16 +95,16 @@ if (isset($this->Dados['form'][0])) {
                 </div>
             </div>
             <div class="row" style="background-color: #accccc;">
-                <div class="col-md-5">
+                <div class="col-md-6">
                     <!-- Codigo de Barras -->
                     <div class="form-group">
                         <label>Código de Barras</label>
-                        <input name="codigo" type="text" class="form-control" placeholder="Código de baras" value="<?php if (isset($valorForm['codigo'])) {
+                        <input name="codigo" type="number" class="form-control" value="<?php if (isset($valorForm['codigo'])) {
                                                                                                             echo $valorForm['codigo'];
                                                                                                         } ?>">
                     </div>
                 </div>
-                <div class="col-md-5">
+                <div class="col-md-4">
                     <!-- Observações -->
                     <div class="form-group">
                         <label>Observações</label>

@@ -10,7 +10,7 @@ if (!defined('URL')) {
             <div class="card-body">
                 <div class="row">
                     <div class="col-sm-9">
-                        <h2 class="card-title alert alert-secondary"><i class="fas fa-dollar-sign fa-1x"></i> Fluxo de Caixa - Data de Hoje: <?php echo date('d/M/Y', strtotime(date('Y-m-d')));?></h2>
+                        <h2 class="card-title alert alert-secondary"><i class="fas fa-dollar-sign fa-1x"></i> Fluxo de Caixa - Data de Hoje: <?php echo date('d/M/Y', strtotime(date('Y-m-d'))); ?></h2>
                         <span>Organizador: Profº Édio Mazera - mazera3@gmail.com </span>
                     </div>
                     <?php if (empty($_SESSION['usuario_id'])) { ?>
@@ -81,8 +81,10 @@ if (!defined('URL')) {
                         $data = 0;
                         foreach ($this->Dados['balanco'] as $ba) {
                             extract($ba);
-                            $labels .= $descricao . ',';
-                            $data .= intval($valor) . ',';
+                            if ($situacao == 1) {
+                                $labels .= $descricao . ',';
+                                $data .= intval($valor) . ',';
+                            }
                         }
                         $labels = explode(',', $labels);
                         $labels = json_encode($labels, JSON_UNESCAPED_UNICODE);
