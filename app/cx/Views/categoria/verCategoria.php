@@ -61,6 +61,9 @@ if (!empty($this->Dados['dados_cat'][0])) {
                 <dt class="col-sm-3">Categoria</dt>
                 <dd class="col-sm-9"><?php echo $categoria; ?></dd>
 
+                <dt class="col-sm-3">Código</dt>
+                <dd class="col-sm-9"><?php echo $cod_cat; ?></dd>
+
                 <dt class="col-sm-3">Inserido</dt>
                 <dd class="col-sm-9"><?php echo date('d/m/Y H:i:s', strtotime($created)); ?></dd>
 

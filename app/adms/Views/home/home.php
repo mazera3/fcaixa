@@ -82,7 +82,7 @@ if (!defined('URL')) {
                         foreach ($this->Dados['balanco'] as $ba) {
                             extract($ba);
                             if ($situacao == 1) {
-                                $labels .= $descricao . ',';
+                                $labels .= $categoria . ',';
                                 $data .= intval($valor) . ',';
                             }
                         }

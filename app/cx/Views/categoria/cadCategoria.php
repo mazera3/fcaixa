@@ -44,6 +44,16 @@ if (isset($this->Dados['form'][0])) {
                         ?>">
                     </div>
                 </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label><span class="text-danger">*</span> código</label>
+                        <input name="cod_cat" type="number" step="1" min="1" class="form-control" placeholder="Código" value="<?php
+                                                                                                                if (isset($valorForm['cod_cat'])) {
+                                                                                                                    echo $valorForm['cod_cat'];
+                                                                                                                }
+                                                                                                                ?>">
+                    </div>
+                </div>
             </div>
             <p>
                 <span class="text-danger">* </span>Campo obrigatório

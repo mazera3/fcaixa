@@ -19,6 +19,7 @@ class CxCadastrarContaMercado
     private $Dados;
     private $VazioVencimento;
     private $VazioCodigo;
+    private $VazioObs;
 
     function getResultado()
     {
@@ -34,6 +35,8 @@ class CxCadastrarContaMercado
         unset($this->Dados['codigo']);
         $this->VazioVencimento = $this->Dados['vencimento'];
         unset($this->Dados['vencimento']);
+        $this->VazioObs = $this->Dados['observacao'];
+        unset($this->Dados['observacao']);
 
         $valCampoVazio = new \App\adms\Models\helper\AdmsCampoVazio;
         $valCampoVazio->validarDados($this->Dados);
@@ -49,9 +52,9 @@ class CxCadastrarContaMercado
     {
         $this->Dados['created'] = date("Y-m-d H:i:s");
         $this->Dados['ano'] = date("Y");
-        $this->Dados['situacao'] = 1;
         $this->Dados['codigo'] = $this->VazioCodigo;
         $this->Dados['vencimento'] = $this->VazioVencimento;
+        $this->Dados['observacao'] = $this->VazioObs;
 
         $cadContaMercado = new \App\adms\Models\helper\AdmsCreate;
         $cadContaMercado->exeCreate("cx_conta_mercado", $this->Dados);

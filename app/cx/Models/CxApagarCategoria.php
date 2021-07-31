@@ -52,8 +52,8 @@ class CxApagarCategoria
     private function verDescricaoCad()
     {
         $verEntradas = new \App\adms\Models\helper\AdmsRead();
-        $verEntradas->fullRead("SELECT id_des FROM cx_descricao
-                WHERE id_des =:id_des LIMIT :limit", "id_des=" . $this->DadosId . "&limit=1");
+        $verEntradas->fullRead("SELECT categoria_id FROM cx_descricao
+                WHERE categoria_id =:categoria_id LIMIT :limit", "categoria_id=" . $this->DadosId . "&limit=1");
         if ($verEntradas->getResultado()) {
             $_SESSION['msg'] = "<div class='alert alert-warning'>Erro: A Categoria não pode ser apagada, há descição cadastrada com esta Categoria!</div>";
             $this->Resultado = false;

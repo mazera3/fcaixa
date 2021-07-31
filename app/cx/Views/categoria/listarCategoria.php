@@ -43,6 +43,7 @@ if (!defined('URL')) {
                     <tr>
                         <th>ID</th>
                         <th class="d-none d-sm-table-cell">Categoria</th>
+                        <th class="d-none d-sm-table-cell">Código</th>
                         <th class="text-center">Ações</th>
                     </tr>
                 </thead>
@@ -54,6 +55,7 @@ if (!defined('URL')) {
                         <tr>
                             <th><?php echo $id_cat; ?></th>
                             <td><?php echo $categoria; ?></td>
+                            <td><?php echo $cod_cat; ?></td>
                             <td class="text-center">
                                 <span class="d-none d-md-block">
                                     <?php

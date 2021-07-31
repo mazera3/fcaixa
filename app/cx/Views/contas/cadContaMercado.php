@@ -31,7 +31,7 @@ if (isset($this->Dados['form'][0])) {
         ?>
         <form method="POST" action="" enctype="multipart/form-data">
             <div class="row" style="background-color: #cfcfaf;">
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <!-- Valor -->
                     <div class="form-group">
                         <label><span class="text-danger">*</span> Valor (R$)</label>
@@ -40,7 +40,7 @@ if (isset($this->Dados['form'][0])) {
                                                                                                             } ?>">
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-2">
                     <!-- Mes -->
                     <div class="form-group">
                         <label><span class="text-danger">*</span> Mês</label>
@@ -59,9 +59,28 @@ if (isset($this->Dados['form'][0])) {
                         </select>
                     </div>
                 </div>
+                <div class="col-md-2">
+                    <!-- Situação -->
+                    <div class="form-group">
+                        <label>Situação</label>
+                        <select name="situacao" class="form-control">
+                            <option value="0">0</option>
+                            <option value="1" selected>1</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <!-- Observações -->
+                    <div class="form-group">
+                        <label>Observações</label>
+                        <textarea name="observacao" class="form-control" rows="2"><?php if (isset($valorForm['observacao'])) {
+                                                                                        echo $valorForm['observacao'];
+                                                                                    } ?></textarea>
+                    </div>
+                </div>
             </div>
             <div class="row" style="background-color: #afcfaf;">
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <!-- Vencimento -->
                     <div class="form-group">
                         <label>Vencimento</label>
@@ -70,7 +89,7 @@ if (isset($this->Dados['form'][0])) {
                                                                                             } ?>">
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-8">
                     <!-- Codigo de Barras -->
                     <div class="form-group">
                         <label>Código de Barras</label>

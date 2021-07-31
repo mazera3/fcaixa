@@ -20,6 +20,7 @@ class CxEditarContaMercado
     private $DadosId;
     private $VazioVencimento;
     private $VazioCodigo;
+    private $VazioObs;
 
     function getResultado()
     {
@@ -44,6 +45,8 @@ class CxEditarContaMercado
         unset($this->Dados['codigo']);
         $this->VazioVencimento = $this->Dados['vencimento'];
         unset($this->Dados['vencimento']);
+        $this->VazioObs = $this->Dados['observacao'];
+        unset($this->Dados['observacao']);
 
         $valCampoVazio = new \App\adms\Models\helper\AdmsCampoVazio;
         $valCampoVazio->validarDados($this->Dados);
@@ -61,6 +64,7 @@ class CxEditarContaMercado
         $this->Dados['ano'] = date("Y");
         $this->Dados['codigo'] = $this->VazioCodigo;
         $this->Dados['vencimento'] = $this->VazioVencimento;
+        $this->Dados['observacao'] = $this->VazioObs;
 
         $upAltConta = new \App\adms\Models\helper\AdmsUpdate();
         $upAltConta->exeUpdate("cx_conta_mercado", $this->Dados, "WHERE id_mer =:id_mer", "id_mer=" . $this->Dados['id_mer']);

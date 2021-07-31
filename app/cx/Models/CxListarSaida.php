@@ -16,7 +16,7 @@ class CxListarSaida {
 
     private $Resultado;
     private $PageId;
-    private $LimiteResultado = 10;
+    private $LimiteResultado = 100;
     private $ResultadoPg;
 
     function getResultadoPg() {

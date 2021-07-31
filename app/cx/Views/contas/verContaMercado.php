@@ -58,6 +58,9 @@ if (!empty($this->Dados['dados_mer'][0])) {
                 <dt class="col-sm-3">ID</dt>
                 <dd class="col-sm-9"><?php echo $id_mer; ?></dd>
 
+                <dt class="col-sm-3">Observações</dt>
+                <dd class="col-sm-9"><?php echo $observacao; ?></dd>
+
                 <dt class="col-sm-3">Valor</dt>
                 <dd class="col-sm-9"><?php echo $valor; ?></dd>
 

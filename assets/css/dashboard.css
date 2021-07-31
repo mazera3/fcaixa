@@ -44,7 +44,8 @@ body {
 }
 .sidebar [data-toggle="collapse"]:before{
     content: "\f0d7";
-    font-family: "Font Awesome 5 Free";
+    /* font-family: "Font Awesome 5 Free"; */
+    font-family: "Font Awesome Free 5.15.2";
     font-weight: 900;
     position: absolute;
     right: 1rem;
