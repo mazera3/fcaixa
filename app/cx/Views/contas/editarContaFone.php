@@ -5,20 +5,19 @@ if (isset($this->Dados['form'])) {
 if (isset($this->Dados['form'][0])) {
     $valorForm = $this->Dados['form'][0];
 }
-//var_dump($this->Dados['select']);
 ?>
 <div class="content p-1">
     <div class="list-group-item">
         <div class="d-flex">
             <div class="mr-auto p-2">
-                <h2 class="display-4 titulo">Editar Saida</h2>
+                <h2 class="display-4 titulo">Editar Conta Fone</h2>
             </div>
 
             <?php
-            if ($this->Dados['botao']['vis_sai']) {
+            if ($this->Dados['botao']['vis_fon']) {
             ?>
                 <div class="p-2">
-                    <a href="<?php echo URLADM . 'ver-saida/ver-saida/' . $valorForm['id_sai']; ?>" class="btn btn-outline-primary btn-sm">Visualizar</a>
+                    <a href="<?php echo URLADM . 'ver-conta-fone/ver-conta/' . $valorForm['id_fon']; ?>" class="btn btn-outline-primary btn-sm">Visualizar</a>
                 </div>
             <?php
             }
@@ -33,31 +32,13 @@ if (isset($this->Dados['form'][0])) {
         }
         ?>
         <form method="POST" action="" enctype="multipart/form-data">
-            <input name="id_sai" type="hidden" value="<?php
-                                                        if (isset($valorForm['id_sai'])) {
-                                                            echo $valorForm['id_sai'];
+            <input name="id_fon" type="hidden" value="<?php
+                                                        if (isset($valorForm['id_fon'])) {
+                                                            echo $valorForm['id_fon'];
                                                         }
                                                         ?>">
             <div class="row" style="background-color: #cccccc;">
                 <div class="col-md-4">
-                    <div class="form-group">
-                        <label><span class="text-danger">*</span> Descrição</label>
-                        <select name="descricao_id" class="form-control">
-                            <option value="1">Selecione</option>
-                            <?php
-                            foreach ($this->Dados['select']['des'] as $des) {
-                                extract($des);
-                                if ($valorForm['descricao_id'] == $id_des) {
-                                    echo "<option value='$id_des' selected>$descricao</option>";
-                                } else {
-                                    echo "<option value='$id_des'>$descricao</option>";
-                                }
-                            }
-                            ?>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-2">
                     <!-- Valor -->
                     <div class="form-group">
                         <label><span class="text-danger">*</span> Valor (R$)</label>
@@ -67,19 +48,10 @@ if (isset($this->Dados['form'][0])) {
                     </div>
                 </div>
                 <div class="col-md-2">
-                    <!-- Vencimento -->
-                    <div class="form-group">
-                        <label>Vencimento</label>
-                        <input name="vencimento" type="date" class="form-control" value="<?php if (isset($valorForm['vencimento'])) {
-                                                                                                echo $valorForm['vencimento'];
-                                                                                            } ?>">
-                    </div>
-                </div>
-                <div class="col-md-4">
                     <!-- Mês -->
                     <div class="form-group">
                         <label><span class="text-danger">*</span> Mês</label>
-                        <select name="mes_id" id="mes_id" class="form-control">
+                        <select name="mes_id" id="mes" class="form-control">
                             <option>Selecione</option>
                             <?php
                             foreach ($this->Dados['select']['mes'] as $m) {
@@ -94,15 +66,14 @@ if (isset($this->Dados['form'][0])) {
                         </select>
                     </div>
                 </div>
-            </div>
-            <div class="row" style="background-color: #accccc;">
-                <div class="col-md-6">
-                    <!-- Codigo de Barras -->
+                <div class="col-md-2">
+                    <!-- Situação -->
                     <div class="form-group">
-                        <label>Código de Barras</label>
-                        <input name="codigo" type="number" class="form-control" value="<?php if (isset($valorForm['codigo'])) {
-                                                                                                            echo $valorForm['codigo'];
-                                                                                                        } ?>">
+                        <label>Situação</label>
+                        <select name="situacao" class="form-control">
+                            <option value="0">0</option>
+                            <option value="1" selected>1</option>
+                        </select>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -114,21 +85,31 @@ if (isset($this->Dados['form'][0])) {
                                                                                     } ?></textarea>
                     </div>
                 </div>
-                <div class="col-md-2">
-                    <!-- Situação -->
+            </div>
+            <div class="row" style="background-color: #accccc;">
+                <div class="col-md-4">
+                    <!-- Vencimento -->
                     <div class="form-group">
-                        <label>Situação</label>
-                        <select name="situacao" class="form-control">
-                            <option value="0">0</option>
-                            <option value="1">1</option>
-                        </select>
+                        <label>Vencimento</label>
+                        <input name="vencimento" type="date" class="form-control" value="<?php if (isset($valorForm['vencimento'])) {
+                                                                                                echo $valorForm['vencimento'];
+                                                                                            } ?>">
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <!-- Codigo de Barras -->
+                    <div class="form-group">
+                        <label>Código de Barras</label>
+                        <input name="codigo" type="text" class="form-control" placeholder="Código de baras" value="<?php if (isset($valorForm['codigo'])) {
+                                                                                                                        echo $valorForm['codigo'];
+                                                                                                                    } ?>">
                     </div>
                 </div>
             </div>
             <p>
                 <span class="text-danger">* </span>Campo obrigatório
             </p>
-            <input name="EditSai" type="submit" class="btn btn-warning" value="Atualizar">
+            <input name="EditFon" type="submit" class="btn btn-warning" value="Atualizar">
         </form>
     </div>
 </div>

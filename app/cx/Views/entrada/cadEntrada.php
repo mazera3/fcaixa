@@ -72,15 +72,15 @@ if (isset($this->Dados['form'][0])) {
                     <!-- Mês -->
                     <div class="form-group">
                         <label><span class="text-danger">*</span> Mês</label>
-                        <select name="mes" id="mes" class="form-control">
+                        <select name="mes_id" id="mes_id" class="form-control">
                             <option>Selecione</option>
                             <?php
                             foreach ($this->Dados['select']['mes'] as $m) {
                                 extract($m);
-                                if ($valorForm['mes'] == $mes) {
-                                    echo "<option value='$mes' selected>$id_mes - $mes</option>";
+                                if ($valorForm['mes_id'] == $id_mes) {
+                                    echo "<option value='$id_mes' selected>$id_mes - $mes</option>";
                                 } else {
-                                    echo "<option value='$mes'>$id_mes - $mes</option>";
+                                    echo "<option value='$id_mes'>$id_mes - $mes</option>";
                                 }
                             }
                             ?>

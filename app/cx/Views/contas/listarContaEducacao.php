@@ -3,12 +3,15 @@ if (!defined('URL')) {
     header("Location: /");
     exit();
 }
+foreach ($this->Dados['listEdu'] as $edu) {
+    extract($edu);
+}
 ?>
 <div class="content p-1">
     <div class="list-group-item">
         <div class="d-flex">
             <div class="mr-auto p-2">
-                <h2 class="display-4 titulo">Conta Educacao</h2>
+                <h2 class="display-4 titulo">Conta Educação</h2>
             </div>
             <div class="mr-auto p-2">
                 <form method="GET" action="">
@@ -33,7 +36,7 @@ if (!defined('URL')) {
                         <?php
                         foreach ($this->Dados['select']['mes'] as $m) {
                             extract($m);
-                            if (date('m') == $id_mes) {
+                            if ($mes_id == $id_mes) {
                                 echo "<option value='$id_mes' selected>$mes</option>";
                             } else {
                                 echo "<option value='$id_mes'>$mes</option>";
@@ -54,7 +57,7 @@ if (!defined('URL')) {
                     }
                 }
                 if (isset($ano)) {
-                    echo "<a href='" . URLADM . "conta-educacao/listar?ms=$mes&an=$ano&edu=$total_educacao' class='btn btn-outline-danger btn-sm'>Atualizar Conta Educacao</a> ";
+                    echo "<a href='" . URLADM . "conta-educacao/listar?ms=$mes_id&an=$ano&edu=$total_educacao' class='btn btn-outline-danger btn-sm'>Atualizar Conta Educação</a> ";
                 }
                 ?>
             </div>
@@ -98,6 +101,7 @@ if (!defined('URL')) {
                         <th class="d-none d-sm-table-cell">Valor</th>
                         <th class="d-none d-sm-table-cell">Data</th>
                         <th class="d-none d-sm-table-cell">Vencimento</th>
+                        <th class="d-none d-sm-table-cell" width="40%">Observação</th>
                         <th class="d-none d-sm-table-cell text-center">Situação</th>
                         <th class="text-center">Ações</th>
                     </tr>
@@ -112,6 +116,7 @@ if (!defined('URL')) {
                             <td><?php echo $valor; ?></td>
                             <td><?php echo $mes . '/' . $ano; ?></td>
                             <td><?php echo date('d/M/Y', strtotime($vencimento)); ?></td>
+                            <td><?php echo $observacao; ?></td>
                             <td class="text-center">
                                 <?php
                                 if ($situacao == 1) {
@@ -160,6 +165,7 @@ if (!defined('URL')) {
                     ?>
                 </tbody>
             </table>
+            <h3><?php if(isset($extenso)){echo 'Total: R$ ' . number_format($total_educacao, 2, ',', '.') .' (' . $extenso . ')';} ?></h3>
             <?php
             echo $this->Dados['paginacao'];
             ?>

@@ -38,7 +38,7 @@ class CxListarContaEducacao
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listarContaEducacao = new \App\adms\Models\helper\AdmsRead();
-        $listarContaEducacao->fullRead("SELECT edu.*, m.mes, m.id_mes FROM cx_conta_educacao edu
+        $listarContaEducacao->fullRead("SELECT edu.*, m.* FROM cx_conta_educacao edu
         INNER JOIN cx_mes m ON m.id_mes=edu.mes_id
         WHERE id_mes=:id_mes AND ano=:ano
         ORDER BY id_edu ASC LIMIT :limit OFFSET :offset", "ano={$this->DadosAno}&id_mes={$this->DadosMes}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
@@ -57,7 +57,7 @@ class CxListarContaEducacao
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listarContaEducacao = new \App\adms\Models\helper\AdmsRead();
-        $listarContaEducacao->fullRead("SELECT edu.*, m.mes, m.id_mes FROM cx_conta_educacao edu
+        $listarContaEducacao->fullRead("SELECT edu.*, m.* FROM cx_conta_educacao edu
         INNER JOIN cx_mes m ON m.id_mes=edu.mes_id
         ORDER BY id_edu ASC LIMIT :limit OFFSET :offset", "limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         $this->Resultado = $listarContaEducacao->getResultado();
@@ -91,7 +91,7 @@ class CxListarContaEducacao
         $verEducacao = new \App\adms\Models\helper\AdmsRead();
         $verEducacao->fullRead("SELECT * FROM cx_saida sai
         INNER JOIN cx_descricao dc ON dc.id_des=sai.descricao_id
-        WHERE dc.descricao LIKE '%' :edu '%' AND ano=:ano AND mes=:mes", "mes={$this->DadosMes}&ano={$this->DadosAno}&edu=Educação");
+        WHERE dc.descricao LIKE '%' :edu '%' AND ano=:ano AND mes_id=:mes_id", "mes_id={$this->DadosMes}&ano={$this->DadosAno}&edu=Educação");
         $this->Resultado = $verEducacao->getResultado();
         if ($this->Resultado) {
             $this->Dados['modified'] = date("Y-m-d H:i:s");

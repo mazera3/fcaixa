@@ -8,11 +8,11 @@ if (!defined('URL')) {
 }
 
 /**
- * Description of CxListarContaCombustivel
+ * Description of CxListarContaLoja
  *
  * @copyright (c) year, Édio Mazera
  */
-class CxListarContaCombustivel
+class CxListarContaLoja
 {
 
     private $Resultado;
@@ -25,42 +25,42 @@ class CxListarContaCombustivel
         return $this->ResultadoPg;
     }
 
-    public function listarContaCombustivel($PageId = null, $DadosAno = null, $DadosMes = null)
+    public function listarContaLoja($PageId = null, $DadosAno = null, $DadosMes = null)
     {
         $this->PageId = (int) $PageId;
         $this->DadosAno = (int) $DadosAno;
         $this->DadosMes = (int) $DadosMes;
 
-        $paginacao = new \App\cx\Models\helper\CxPaginacao(URLADM . 'conta-combustivel/listar');
+        $paginacao = new \App\cx\Models\helper\CxPaginacao(URLADM . 'conta-loja/listar');
         $paginacao->condicao($this->PageId, $this->LimiteResultado);
-        $paginacao->paginacao("SELECT COUNT(id_comb) AS num_result FROM cx_conta_combustivel comb
-        INNER JOIN cx_mes m ON m.id_mes=comb.mes_id");
+        $paginacao->paginacao("SELECT COUNT(id_loj) AS num_result FROM cx_conta_loja loj
+        INNER JOIN cx_mes m ON m.id_mes=loj.mes_id");
         $this->ResultadoPg = $paginacao->getResultado();
 
-        $listarContaCombustivel = new \App\adms\Models\helper\AdmsRead();
-        $listarContaCombustivel->fullRead("SELECT comb.*, m.* FROM cx_conta_combustivel comb
-        INNER JOIN cx_mes m ON m.id_mes=comb.mes_id
+        $listarContaLoja = new \App\adms\Models\helper\AdmsRead();
+        $listarContaLoja->fullRead("SELECT loj.*, m.* FROM cx_conta_loja loj
+        INNER JOIN cx_mes m ON m.id_mes=loj.mes_id
         WHERE id_mes=:id_mes AND ano=:ano
-        ORDER BY id_comb ASC LIMIT :limit OFFSET :offset", "ano={$this->DadosAno}&id_mes={$this->DadosMes}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
-        $this->Resultado = $listarContaCombustivel->getResultado();
+        ORDER BY id_loj ASC LIMIT :limit OFFSET :offset", "ano={$this->DadosAno}&id_mes={$this->DadosMes}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+        $this->Resultado = $listarContaLoja->getResultado();
         return $this->Resultado;
     }
 
-    public function listarContaCombustivelFull($PageId = null)
+    public function listarContaLojaFull($PageId = null)
     {
         $this->PageId = (int) $PageId;
 
-        $paginacao = new \App\cx\Models\helper\CxPaginacao(URLADM . 'conta-combustivel/listar');
+        $paginacao = new \App\cx\Models\helper\CxPaginacao(URLADM . 'conta-loja/listar');
         $paginacao->condicao($this->PageId, $this->LimiteResultado);
-        $paginacao->paginacao("SELECT COUNT(id_comb) AS num_result FROM cx_conta_combustivel comb
-        INNER JOIN cx_mes m ON m.id_mes=comb.mes_id");
+        $paginacao->paginacao("SELECT COUNT(id_loj) AS num_result FROM cx_conta_loja loj
+        INNER JOIN cx_mes m ON m.id_mes=loj.mes_id");
         $this->ResultadoPg = $paginacao->getResultado();
 
-        $listarContaCombustivel = new \App\adms\Models\helper\AdmsRead();
-        $listarContaCombustivel->fullRead("SELECT comb.*, m.* FROM cx_conta_combustivel comb
-        INNER JOIN cx_mes m ON m.id_mes=comb.mes_id
-        ORDER BY id_comb ASC LIMIT :limit OFFSET :offset", "limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
-        $this->Resultado = $listarContaCombustivel->getResultado();
+        $listarContaLoja = new \App\adms\Models\helper\AdmsRead();
+        $listarContaLoja->fullRead("SELECT loj.*, m.* FROM cx_conta_loja loj
+        INNER JOIN cx_mes m ON m.id_mes=loj.mes_id
+        ORDER BY id_loj ASC LIMIT :limit OFFSET :offset", "limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
+        $this->Resultado = $listarContaLoja->getResultado();
         return $this->Resultado;
     }
 
@@ -72,13 +72,13 @@ class CxListarContaCombustivel
             $this->Dados['modified'] = date("Y-m-d H:i:s");
             $this->Dados['situacao'] = 1;
             $upPagar = new \App\adms\Models\helper\AdmsUpdate();
-            $upPagar->exeUpdate("cx_conta_combustivel", $this->Dados, "WHERE id_comb=:id_comb", "id_comb=" . $this->DadosId);
+            $upPagar->exeUpdate("cx_conta_loja", $this->Dados, "WHERE id_loj=:id_loj", "id_loj=" . $this->DadosId);
         }
         if ($this->Pagar == 0) {
             $this->Dados['modified'] = date("Y-m-d H:i:s");
             $this->Dados['situacao'] = 0;
             $upPagar = new \App\adms\Models\helper\AdmsUpdate();
-            $upPagar->exeUpdate("cx_conta_combustivel", $this->Dados, "WHERE id_comb=:id_comb", "id_comb=" . $this->DadosId);
+            $upPagar->exeUpdate("cx_conta_loja", $this->Dados, "WHERE id_loj=:id_loj", "id_loj=" . $this->DadosId);
         }
     }
 
@@ -88,11 +88,11 @@ class CxListarContaCombustivel
         $this->DadosMes = (string) $DadosMes;
         $this->DadosAno = (string) $DadosAno;
 
-        $verCombustivel = new \App\adms\Models\helper\AdmsRead();
-        $verCombustivel->fullRead("SELECT * FROM cx_saida sai
+        $verLoja = new \App\adms\Models\helper\AdmsRead();
+        $verLoja->fullRead("SELECT * FROM cx_saida sai
         INNER JOIN cx_descricao dc ON dc.id_des=sai.descricao_id
-        WHERE dc.descricao LIKE '%' :comb '%' AND ano=:ano AND mes_id=:mes_id", "mes_id={$this->DadosMes}&ano={$this->DadosAno}&comb=Combustivel");
-        $this->Resultado = $verCombustivel->getResultado();
+        WHERE dc.descricao LIKE '%' :loj '%' AND ano=:ano AND mes_id=:mes_id", "mes_id={$this->DadosMes}&ano={$this->DadosAno}&loj=Lojas");
+        $this->Resultado = $verLoja->getResultado();
         if ($this->Resultado) {
             $this->Dados['modified'] = date("Y-m-d H:i:s");
             $this->Dados['valor'] = $this->Valor;
@@ -107,13 +107,14 @@ class CxListarContaCombustivel
             $this->Dados['valor'] = $this->Valor;
             $this->Dados['vencimento'] = $this->DadosAno ."-" . $this->DadosMes ."-01";
             $this->Dados['situacao'] = 1;
-            $this->Dados['descricao_id'] = 30;
+            $this->Dados['descricao_id'] = 9;
             $this->Dados['codigo'] = '****';
-            $this->Dados['observacao'] = 'IMPORTADO DE CONTA COMBUSTIVEL';
+            $this->Dados['observacao'] = 'IMPORTADO DE CONTA LOJA';
 
             $cadEntrada = new \App\adms\Models\helper\AdmsCreate;
             $cadEntrada->exeCreate("cx_saida", $this->Dados);
         }
+        //var_dump($this->Dados);
     }
 
     public function listarCadastrar()

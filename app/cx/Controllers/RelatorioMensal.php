@@ -59,7 +59,7 @@ class RelatorioMensal
         if (isset($this->Pagar)) {
             $Pagar = new \App\cx\Models\CxListarRelatorioMensal();
             $Pagar->pagar($this->DadosId, $this->Pagar);
-            $UrlDestino = URLADM . "relatorio-mensal/listar?mes={$this->DadosMes}";
+            $UrlDestino = URLADM . "relatorio-mensal/listar?ano={$this->DadosAno}&mes={$this->DadosMes}";
             header("Location: $UrlDestino");
         }
 
@@ -67,7 +67,7 @@ class RelatorioMensal
         if (isset($this->Receber)) {
             $Receber = new \App\cx\Models\CxListarRelatorioMensal();
             $Receber->receber($this->DadosId, $this->Receber);
-            $UrlDestino = URLADM . "relatorio-mensal/listar";
+            $UrlDestino = URLADM . "relatorio-mensal/listar?ano={$this->DadosAno}&mes={$this->DadosMes}";
             header("Location: $UrlDestino");
         }
         $this->DadosPdf = filter_input(INPUT_GET, "pdf", FILTER_SANITIZE_NUMBER_INT);

@@ -27,7 +27,7 @@ if (isset($this->Dados['listRelSai'])) {
                                                                 }
                                                                 ?></h2>
                 <?php if (!isset($mes_ent) and !isset($mes_sai)) {
-                    $_SESSION['msg'] = "<div class='alert alert-danger'>Selecione um mês e um ano e tecle ENTER!</div>";
+                    $_SESSION['msg'] = "<div class='alert alert-danger'>Selecione um mês e um ano para ver!</div>";
                 } ?>
             </div>
             <div class="auto p-2">
@@ -78,7 +78,7 @@ if (isset($this->Dados['listRelSai'])) {
                 <?php
                 foreach ($this->Dados['select']['mes'] as $m) {
                     extract($m);
-                    if (date('m') == $id_mes) {
+                    if ($mes_id == $id_mes) {
                         echo "<option value='$id_mes' selected>$extenso</option>";
                     } else {
                         echo "<option value='$id_mes'>$extenso</option>";
@@ -118,9 +118,9 @@ if (isset($this->Dados['listRelSai'])) {
                                     <td class="text-center">
                                         <?php
                                         if ($situacao == 1) {
-                                            echo "<a href='" . URLADM . "relatorio-mensal/listar?id=$id_ent&rc=0'><span class='badge badge-pill badge-success'>Recebido</span></a>";
+                                            echo "<a href='" . URLADM . "relatorio-mensal/listar?id=$id_ent&rc=0&ano=$ano&mes=$mes_id'><span class='badge badge-pill badge-success'>Recebido</span></a>";
                                         } else {
-                                            echo "<a href='" . URLADM . "relatorio-mensal/listar?id=$id_ent&rc=1'><span class='badge badge-pill badge-danger'>A Receber</span></a>";
+                                            echo "<a href='" . URLADM . "relatorio-mensal/listar?id=$id_ent&rc=1&ano=$ano&mes=$mes_id'><span class='badge badge-pill badge-danger'>A Receber</span></a>";
                                         }
                                         ?>
                                     </td>
@@ -184,9 +184,9 @@ if (isset($this->Dados['listRelSai'])) {
                                     <td class="text-center">
                                         <?php
                                         if ($situacao == 1) {
-                                            echo "<a href='" . URLADM . "relatorio-mensal/listar?id=$id_sai&pg=0'><span class='badge badge-pill badge-success'>Pago</span></a>";
+                                            echo "<a href='" . URLADM . "relatorio-mensal/listar?id=$id_sai&pg=0&ano=$ano&mes=$mes_id'><span class='badge badge-pill badge-success'>Pago</span></a>";
                                         } else {
-                                            echo "<a href='" . URLADM . "relatorio-mensal/listar?id=$id_sai&pg=1'><span class='badge badge-pill badge-danger' title='Vence: " . date('d/m/Y', strtotime($vencimento)) . "'>Pagar</span></a>";
+                                            echo "<a href='" . URLADM . "relatorio-mensal/listar?id=$id_sai&pg=1&ano=$ano&mes=$mes_id'><span class='badge badge-pill badge-danger' title='Vence: " . date('d/m/Y', strtotime($vencimento)) . "'>Pagar</span></a>";
                                         }
                                         ?>
                                     </td>

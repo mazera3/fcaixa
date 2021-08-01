@@ -38,7 +38,7 @@ class CxListarContaMercado
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listarContaMercado = new \App\adms\Models\helper\AdmsRead();
-        $listarContaMercado->fullRead("SELECT mer.*, m.mes, m.id_mes FROM cx_conta_mercado mer
+        $listarContaMercado->fullRead("SELECT mer.*, m.* FROM cx_conta_mercado mer
         INNER JOIN cx_mes m ON m.id_mes=mer.mes_id
         WHERE id_mes=:id_mes AND ano=:ano
         ORDER BY id_mer ASC LIMIT :limit OFFSET :offset", "ano={$this->DadosAno}&id_mes={$this->DadosMes}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
@@ -57,7 +57,7 @@ class CxListarContaMercado
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listarContaMercado = new \App\adms\Models\helper\AdmsRead();
-        $listarContaMercado->fullRead("SELECT mer.*, m.mes, m.id_mes FROM cx_conta_mercado mer
+        $listarContaMercado->fullRead("SELECT mer.*, m.* FROM cx_conta_mercado mer
         INNER JOIN cx_mes m ON m.id_mes=mer.mes_id
         ORDER BY id_mer ASC LIMIT :limit OFFSET :offset", "limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         $this->Resultado = $listarContaMercado->getResultado();
@@ -91,7 +91,7 @@ class CxListarContaMercado
         $verMercado = new \App\adms\Models\helper\AdmsRead();
         $verMercado->fullRead("SELECT * FROM cx_saida sai
         INNER JOIN cx_descricao dc ON dc.id_des=sai.descricao_id
-        WHERE dc.descricao LIKE '%' :mer '%' AND ano=:ano AND mes=:mes", "mes={$this->DadosMes}&ano={$this->DadosAno}&mer=Mercados");
+        WHERE dc.descricao LIKE '%' :mer '%' AND ano=:ano AND mes_id=:mes_id", "mes_id={$this->DadosMes}&ano={$this->DadosAno}&mer=Mercados");
         $this->Resultado = $verMercado->getResultado();
         if ($this->Resultado) {
             $this->Dados['modified'] = date("Y-m-d H:i:s");
@@ -103,7 +103,7 @@ class CxListarContaMercado
         } else {
             $this->Dados['created'] = date("Y-m-d H:i:s");
             $this->Dados['ano'] = $this->DadosAno;
-            $this->Dados['mes'] = $this->DadosMes;
+            $this->Dados['mes_id'] = $this->DadosMes;
             $this->Dados['valor'] = $this->Valor;
             $this->Dados['vencimento'] = $this->DadosAno ."-" . $this->DadosMes ."-01";
             $this->Dados['situacao'] = 1;
@@ -114,6 +114,7 @@ class CxListarContaMercado
             $cadEntrada = new \App\adms\Models\helper\AdmsCreate;
             $cadEntrada->exeCreate("cx_saida", $this->Dados);
         }
+        //var_dump($this->Dados);
     }
 
     public function listarCadastrar()

@@ -30,7 +30,7 @@ class CxListarRelatorioMensal
         $listarRelatorio->fullRead("SELECT ent.*, cat.categoria, dc.descricao, m.id_mes id_mes_ent, m.extenso mes_ent FROM cx_entrada ent
         INNER JOIN cx_descricao dc ON dc.id_des=ent.descricao_id
         INNER JOIN cx_categoria cat ON cat.id_cat=dc.categoria_id
-        INNER JOIN cx_mes m ON m.mes=ent.mes
+        INNER JOIN cx_mes m ON m.id_mes=ent.mes_id
         WHERE id_mes=:id_mes AND ano=:ano
         ORDER BY id_ent ASC", "ano={$this->DadosAno}&id_mes={$this->DadosMes}");
         $this->Resultado = $listarRelatorio->getResultado();
@@ -43,10 +43,10 @@ class CxListarRelatorioMensal
         $this->DadosAno = (int) $DadosAno;
 
         $listarRelatorio = new \App\adms\Models\helper\AdmsRead();
-        $listarRelatorio->fullRead("SELECT sai.*, cat.categoria, dc.descricao, m.id_mes, m.extenso mes_sai FROM cx_saida sai
+        $listarRelatorio->fullRead("SELECT sai.*, cat.categoria, dc.descricao, m.id_mes,m.mes, m.extenso mes_sai FROM cx_saida sai
         INNER JOIN cx_descricao dc ON dc.id_des=sai.descricao_id
         INNER JOIN cx_categoria cat ON cat.id_cat=dc.categoria_id
-        INNER JOIN cx_mes m ON m.mes=sai.mes
+        INNER JOIN cx_mes m ON m.id_mes=sai.mes_id
         WHERE id_mes=:id_mes AND ano=:ano
         ORDER BY id_sai ASC", "ano={$this->DadosAno}&id_mes={$this->DadosMes}");
         $this->Resultado = $listarRelatorio->getResultado();

@@ -3,15 +3,15 @@ if (!defined('URL')) {
     header("Location: /");
     exit();
 }
-foreach ($this->Dados['listEne'] as $ene) {
-    extract($ene);
+foreach ($this->Dados['listFon'] as $fon) {
+    extract($fon);
 }
 ?>
 <div class="content p-1">
     <div class="list-group-item">
         <div class="d-flex">
             <div class="mr-auto p-2">
-                <h2 class="display-4 titulo">Conta Energia</h2>
+                <h2 class="display-4 titulo">Conta Fone</h2>
             </div>
             <div class="mr-auto p-2">
                 <form method="GET" action="">
@@ -49,27 +49,27 @@ foreach ($this->Dados['listEne'] as $ene) {
             </div>
             <div class="p-2">
                 <?php
-                $total_energia = 0;
-                foreach ($this->Dados['listEne'] as $ene) {
-                    extract($ene);
+                $total_fone = 0;
+                foreach ($this->Dados['listFon'] as $fon) {
+                    extract($fon);
                     if ($situacao == 1) {
-                        $total_energia += $valor;
+                        $total_fone += $valor;
                     }
                 }
                 if (isset($ano)) {
-                    echo "<a href='" . URLADM . "conta-energia/listar?ms=$mes_id&an=$ano&ene=$total_energia' class='btn btn-outline-danger btn-sm'>Atualizar Conta Energia</a> ";
+                    echo "<a href='" . URLADM . "conta-fone/listar?ms=$mes_id&an=$ano&fon=$total_fone' class='btn btn-outline-danger btn-sm'>Atualizar Conta Foncado</a> ";
                 }
                 ?>
             </div>
             <div class="p-2">
                 <?php
-                echo "<a href='" . URLADM . "conta-energia/listar?all=1' class='btn btn-outline-primary btn-sm'>Listar Todos</a> ";
+                echo "<a href='" . URLADM . "conta-fone/listar?all=1' class='btn btn-outline-primary btn-sm'>Listar Todos</a> ";
                 ?>
             </div>
             <div class="p-2">
                 <?php
-                if ($this->Dados['botao']['cad_ene']) {
-                    echo "<a href='" . URLADM . "cadastrar-conta-energia/cad-conta' class='btn btn-outline-success btn-sm'>Cadastrar</a> ";
+                if ($this->Dados['botao']['cad_fon']) {
+                    echo "<a href='" . URLADM . "cadastrar-conta-fone/cad-conta' class='btn btn-outline-success btn-sm'>Cadastrar</a> ";
                 }
                 ?>
             </div>
@@ -77,7 +77,7 @@ foreach ($this->Dados['listEne'] as $ene) {
         </div>
         <?php
 
-        if (empty($this->Dados['listEne'])) {
+        if (empty($this->Dados['listFon'])) {
         ?>
             <div class="alert alert-danger" role="alert">
                 Nenhuma Saida encontrada!
@@ -108,11 +108,11 @@ foreach ($this->Dados['listEne'] as $ene) {
                 </thead>
                 <tbody>
                     <?php
-                    foreach ($this->Dados['listEne'] as $ene) {
-                        extract($ene);
+                    foreach ($this->Dados['listFon'] as $fon) {
+                        extract($fon);
                     ?>
                         <tr>
-                            <th><?php echo $id_ene; ?></th>
+                            <th><?php echo $id_fon; ?></th>
                             <td><?php echo $valor; ?></td>
                             <td><?php echo $mes . '/' . $ano; ?></td>
                             <td><?php echo date('d/M/Y', strtotime($vencimento)); ?></td>
@@ -120,23 +120,23 @@ foreach ($this->Dados['listEne'] as $ene) {
                             <td class="text-center">
                                 <?php
                                 if ($situacao == 1) {
-                                    echo "<a href='" . URLADM . "conta-energia/listar?id=$id_ene&pg=0'><span class='badge badge-pill badge-success'>Pago</span></a>";
+                                    echo "<a href='" . URLADM . "conta-fone/listar?id=$id_fon&pg=0'><span class='badge badge-pill badge-success'>Pago</span></a>";
                                 } else {
-                                    echo "<a href='" . URLADM . "conta-energia/listar?id=$id_ene&pg=1'><span class='badge badge-pill badge-danger'>A Pagar</span></a>";
+                                    echo "<a href='" . URLADM . "conta-fone/listar?id=$id_fon&pg=1'><span class='badge badge-pill badge-danger'>A Pagar</span></a>";
                                 }
                                 ?>
                             </td>
                             <td class="text-center">
                                 <span class="d-none d-md-block">
                                     <?php
-                                    if ($this->Dados['botao']['vis_ene']) {
-                                        echo "<a href='" . URLADM . "ver-conta-energia/ver-conta/$id_ene' class='btn btn-outline-primary btn-sm'>Visualizar</a> ";
+                                    if ($this->Dados['botao']['vis_fon']) {
+                                        echo "<a href='" . URLADM . "ver-conta-fone/ver-conta/$id_fon' class='btn btn-outline-primary btn-sm'>Visualizar</a> ";
                                     }
-                                    if ($this->Dados['botao']['edit_ene']) {
-                                        echo "<a href='" . URLADM . "editar-conta-energia/edit-conta/$id_ene' class='btn btn-outline-warning btn-sm'>Editar</a> ";
+                                    if ($this->Dados['botao']['edit_fon']) {
+                                        echo "<a href='" . URLADM . "editar-conta-fone/edit-conta/$id_fon' class='btn btn-outline-warning btn-sm'>Editar</a> ";
                                     }
-                                    if ($this->Dados['botao']['del_ene']) {
-                                        echo "<a href='" . URLADM . "apagar-conta-energia/apagar-conta/$id_ene' class='btn btn-outline-danger btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?'>Apagar</a> ";
+                                    if ($this->Dados['botao']['del_fon']) {
+                                        echo "<a href='" . URLADM . "apagar-conta-fone/apagar-conta/$id_fon' class='btn btn-outline-danger btn-sm' data-confirm='Tem certeza de que deseja excluir o item selecionado?'>Apagar</a> ";
                                     }
                                     ?>
                                 </span>
@@ -146,14 +146,14 @@ foreach ($this->Dados['listEne'] as $ene) {
                                     </button>
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="acoesListar">
                                         <?php
-                                        if ($this->Dados['botao']['vis_ene']) {
-                                            echo "<a class='dropdown-item' href='" . URLADM . "ver-conta-energia/ver-conta/$id_ene'>Visualizar</a>";
+                                        if ($this->Dados['botao']['vis_fon']) {
+                                            echo "<a class='dropdown-item' href='" . URLADM . "ver-conta-fone/ver-conta/$id_fon'>Visualizar</a>";
                                         }
-                                        if ($this->Dados['botao']['edit_ene']) {
-                                            echo "<a class='dropdown-item' href='" . URLADM . "editar-conta-energia/edit-conta/$id_ene'>Editar</a>";
+                                        if ($this->Dados['botao']['edit_fon']) {
+                                            echo "<a class='dropdown-item' href='" . URLADM . "editar-conta-fone/edit-conta/$id_fon'>Editar</a>";
                                         }
-                                        if ($this->Dados['botao']['del_ene']) {
-                                            echo "<a class='dropdown-item' href='" . URLADM . "apagar-conta-energia/apagar-conta/$id_ene' data-confirm='Tem certeza de que deseja excluir o item selecionado?'>Apagar</a>";
+                                        if ($this->Dados['botao']['del_fon']) {
+                                            echo "<a class='dropdown-item' href='" . URLADM . "apagar-conta-fone/apagar-conta/$id_fon' data-confirm='Tem certeza de que deseja excluir o item selecionado?'>Apagar</a>";
                                         }
                                         ?>
                                     </div>
@@ -165,7 +165,7 @@ foreach ($this->Dados['listEne'] as $ene) {
                     ?>
                 </tbody>
             </table>
-            <h3><?php if(isset($extenso)){echo 'Total: R$ ' . number_format($total_energia, 2, ',', '.') .' (' . $extenso . ')';} ?></h3>
+            <h3><?php if(isset($extenso)){echo 'Total: R$ ' . number_format($total_fone, 2, ',', '.') .' (' . $extenso . ')';} ?></h3>
             <?php
             echo $this->Dados['paginacao'];
             ?>

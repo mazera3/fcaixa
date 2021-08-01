@@ -37,10 +37,10 @@ class CxListarSaida {
         $this->ResultadoPg = $paginacao->getResultado();
         
         $listarSaida = new \App\adms\Models\helper\AdmsRead();
-        $listarSaida->fullRead("SELECT sai.*, cat.categoria, dc.descricao, m.id_mes FROM cx_saida sai
+        $listarSaida->fullRead("SELECT sai.*, cat.categoria, dc.descricao, m.id_mes, m.mes FROM cx_saida sai
         INNER JOIN cx_descricao dc ON dc.id_des=sai.descricao_id
         INNER JOIN cx_categoria cat ON cat.id_cat=dc.categoria_id
-        INNER JOIN cx_mes m ON m.mes=sai.mes
+        INNER JOIN cx_mes m ON m.id_mes=sai.mes_id
         WHERE id_mes=:id_mes AND ano=:ano
         ORDER BY id_sai ASC LIMIT :limit OFFSET :offset", "ano={$this->DadosAno}&id_mes={$this->DadosMes}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         $this->Resultado = $listarSaida->getResultado();
@@ -59,9 +59,10 @@ class CxListarSaida {
         $this->ResultadoPg = $paginacao->getResultado();
         
         $listarSaida = new \App\adms\Models\helper\AdmsRead();
-        $listarSaida->fullRead("SELECT sai.*, cat.categoria, dc.descricao FROM cx_saida sai
+        $listarSaida->fullRead("SELECT sai.*, cat.categoria, dc.descricao, m.mes, m.id_mes FROM cx_saida sai
         INNER JOIN cx_descricao dc ON dc.id_des=sai.descricao_id
         INNER JOIN cx_categoria cat ON cat.id_cat=dc.categoria_id
+        INNER JOIN cx_mes m ON m.id_mes=sai.mes_id
         ORDER BY id_sai ASC LIMIT :limit OFFSET :offset", "limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         $this->Resultado = $listarSaida->getResultado();
         return $this->Resultado;

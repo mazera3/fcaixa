@@ -38,7 +38,7 @@ class CxListarContaEnergia
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listarContaEnergia = new \App\adms\Models\helper\AdmsRead();
-        $listarContaEnergia->fullRead("SELECT ene.*, m.mes, m.id_mes FROM cx_conta_energia ene
+        $listarContaEnergia->fullRead("SELECT ene.*, m.* FROM cx_conta_energia ene
         INNER JOIN cx_mes m ON m.id_mes=ene.mes_id
         WHERE id_mes=:id_mes AND ano=:ano
         ORDER BY id_ene ASC LIMIT :limit OFFSET :offset", "ano={$this->DadosAno}&id_mes={$this->DadosMes}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
@@ -57,7 +57,7 @@ class CxListarContaEnergia
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listarContaEnergia = new \App\adms\Models\helper\AdmsRead();
-        $listarContaEnergia->fullRead("SELECT ene.*, m.mes, m.id_mes FROM cx_conta_energia ene
+        $listarContaEnergia->fullRead("SELECT ene.*, m.* FROM cx_conta_energia ene
         INNER JOIN cx_mes m ON m.id_mes=ene.mes_id
         ORDER BY id_ene ASC LIMIT :limit OFFSET :offset", "limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         $this->Resultado = $listarContaEnergia->getResultado();
@@ -91,7 +91,7 @@ class CxListarContaEnergia
         $verEnergia = new \App\adms\Models\helper\AdmsRead();
         $verEnergia->fullRead("SELECT * FROM cx_saida sai
         INNER JOIN cx_descricao dc ON dc.id_des=sai.descricao_id
-        WHERE dc.descricao LIKE '%' :ene '%' AND ano=:ano AND mes=:mes", "mes={$this->DadosMes}&ano={$this->DadosAno}&ene=Energia");
+        WHERE dc.descricao LIKE '%' :ene '%' AND ano=:ano AND mes_id=:mes_id", "mes_id={$this->DadosMes}&ano={$this->DadosAno}&ene=Energia");
         $this->Resultado = $verEnergia->getResultado();
         if ($this->Resultado) {
             $this->Dados['modified'] = date("Y-m-d H:i:s");
@@ -103,7 +103,7 @@ class CxListarContaEnergia
         } else {
             $this->Dados['created'] = date("Y-m-d H:i:s");
             $this->Dados['ano'] = $this->DadosAno;
-            $this->Dados['mes'] = $this->DadosMes;
+            $this->Dados['mes_id'] = $this->DadosMes;
             $this->Dados['valor'] = $this->Valor;
             $this->Dados['vencimento'] = $this->DadosAno ."-" . $this->DadosMes ."-01";
             $this->Dados['situacao'] = 1;

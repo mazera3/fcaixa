@@ -33,7 +33,7 @@ if (!defined('URL')) {
                         <?php
                         foreach ($this->Dados['select']['mes'] as $m) {
                             extract($m);
-                            if (date('m') == $id_mes) {
+                            if ($mes_id == $id_mes) {
                                 echo "<option value='$id_mes' selected>$mes</option>";
                             } else {
                                 echo "<option value='$id_mes'>$mes</option>";

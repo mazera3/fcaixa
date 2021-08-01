@@ -38,7 +38,7 @@ class CxListarContaInformatica
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listarContaInformatica = new \App\adms\Models\helper\AdmsRead();
-        $listarContaInformatica->fullRead("SELECT inf.*, m.mes, m.id_mes FROM cx_conta_informatica inf
+        $listarContaInformatica->fullRead("SELECT inf.*, m.* FROM cx_conta_informatica inf
         INNER JOIN cx_mes m ON m.id_mes=inf.mes_id
         WHERE id_mes=:id_mes AND ano=:ano
         ORDER BY id_inf ASC LIMIT :limit OFFSET :offset", "ano={$this->DadosAno}&id_mes={$this->DadosMes}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
@@ -57,7 +57,7 @@ class CxListarContaInformatica
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listarContaInformatica = new \App\adms\Models\helper\AdmsRead();
-        $listarContaInformatica->fullRead("SELECT inf.*, m.mes, m.id_mes FROM cx_conta_informatica inf
+        $listarContaInformatica->fullRead("SELECT inf.*, m.* FROM cx_conta_informatica inf
         INNER JOIN cx_mes m ON m.id_mes=inf.mes_id
         ORDER BY id_inf ASC LIMIT :limit OFFSET :offset", "limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         $this->Resultado = $listarContaInformatica->getResultado();
@@ -91,7 +91,7 @@ class CxListarContaInformatica
         $verInformatica = new \App\adms\Models\helper\AdmsRead();
         $verInformatica->fullRead("SELECT * FROM cx_saida sai
         INNER JOIN cx_descricao dc ON dc.id_des=sai.descricao_id
-        WHERE dc.descricao LIKE '%' :inf '%' AND ano=:ano AND mes=:mes", "mes={$this->DadosMes}&ano={$this->DadosAno}&inf=Informatica");
+        WHERE dc.descricao LIKE '%' :inf '%' AND ano=:ano AND mes_id=:mes_id", "mes_id={$this->DadosMes}&ano={$this->DadosAno}&inf=Informatica");
         $this->Resultado = $verInformatica->getResultado();
         if ($this->Resultado) {
             $this->Dados['modified'] = date("Y-m-d H:i:s");
@@ -103,7 +103,7 @@ class CxListarContaInformatica
         } else {
             $this->Dados['created'] = date("Y-m-d H:i:s");
             $this->Dados['ano'] = $this->DadosAno;
-            $this->Dados['mes'] = $this->DadosMes;
+            $this->Dados['mes_id'] = $this->DadosMes;
             $this->Dados['valor'] = $this->Valor;
             $this->Dados['vencimento'] = $this->DadosAno ."-" . $this->DadosMes ."-01";
             $this->Dados['situacao'] = 1;
