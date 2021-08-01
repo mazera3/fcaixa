@@ -14,7 +14,6 @@ if (!defined('URL')) {
     <link rel="icon" href="data:;base64,iVBORw0KGgo=">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <script type="text/javascript" src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"></script>
         <script defer src="<?php echo URLADM . 'assets/js/fontawesome-all.min.js'; ?>"></script>
         <script defer src="<?php echo URLADM . 'app/cx/assets/js/form.js'; ?>"></script>
         <script defer src="<?php echo URLADM . 'assets/fontawesome/js/fontawesome.min.js'; ?>"></script>

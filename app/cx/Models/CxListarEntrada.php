@@ -39,10 +39,10 @@ class CxListarEntrada
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listarEntrada = new \App\adms\Models\helper\AdmsRead();
-        $listarEntrada->fullRead("SELECT ent.*, cat.categoria, dc.descricao, m.id_mes FROM cx_entrada ent
+        $listarEntrada->fullRead("SELECT ent.*, cat.categoria, dc.descricao, m.* FROM cx_entrada ent
         INNER JOIN cx_descricao dc ON dc.id_des=ent.descricao_id
         INNER JOIN cx_categoria cat ON cat.id_cat=dc.categoria_id
-        INNER JOIN cx_mes m ON m.mes=ent.mes
+        INNER JOIN cx_mes m ON m.id_mes=ent.mes_id
         WHERE id_mes=:id_mes AND ano=:ano
         ORDER BY id_ent ASC LIMIT :limit OFFSET :offset", "ano={$this->DadosAno}&id_mes={$this->DadosMes}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         $this->Resultado = $listarEntrada->getResultado();
@@ -61,9 +61,10 @@ class CxListarEntrada
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listarEntrada = new \App\adms\Models\helper\AdmsRead();
-        $listarEntrada->fullRead("SELECT ent.*, cat.categoria, dc.descricao FROM cx_entrada ent
+        $listarEntrada->fullRead("SELECT ent.*, cat.categoria, dc.descricao, m.* FROM cx_entrada ent
         INNER JOIN cx_descricao dc ON dc.id_des=ent.descricao_id
         INNER JOIN cx_categoria cat ON cat.id_cat=dc.categoria_id
+        INNER JOIN cx_mes m ON m.id_mes=ent.mes_id
         ORDER BY id_ent ASC LIMIT :limit OFFSET :offset", "limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         $this->Resultado = $listarEntrada->getResultado();
         return $this->Resultado;

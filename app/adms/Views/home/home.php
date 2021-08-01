@@ -141,15 +141,15 @@ if (!defined('URL')) {
                             let mes = "<?php echo $mes; ?>";
                             let data = <?php echo $data ?>;
                             let labels = <?php echo $labels ?>;
-                            let legenda = "<?php echo 'Mês: ' . date('M') ?>";
+                            let legenda = "<?php echo 'Mês: ' . $mes ?>";
                             var ctx = document.getElementById('myChart').getContext('2d');
                             var myChart = new Chart(ctx, {
                                 type: 'bar',
                                 data: {
-                                    labels: labels, //['Telefone Fixo','Energia Elétrica','Mirix Telecomunicações - Neorede','Loja Piffer','Hostgator Hospedagem','Mercado Livre','Agropecuária Popular','Tarifas BB','Farmácia','Gasolina','Celular','Peças para PC\/Celular','Farmácia','Peças para PC\/Celular','Pizza\/Salgados','Funcional','Biz 110i','Mercados'],
+                                    labels: labels, //['Telefone','Energia Elétrica','Informatica','Lojas','Mercado','Agropecuária','Tarifas BB','Saude','Combustivel','Educação','Mecanica'],
                                     datasets: [{
                                         label: legenda,
-                                        data: data, //[017,333,80,359,34,194,528,22,177,103,20,100,26,150,60,198,340,1105,],
+                                        data: data, //[017,333,80,359,34,194,528,22,177,103,20,],
                                         borderColor: COLORS_BORD,
                                         backgroundColor: COLORS,
                                         borderWidth: 1
@@ -175,6 +175,12 @@ if (!defined('URL')) {
                                                 weight: 'normal',
                                                 style: 'bold'
                                             }
+                                        },
+                                        chartAreaBorder: {
+                                            borderColor: 'black',
+                                            borderWidth: 1,
+                                            borderDash: [0, 0],
+                                            borderDashOffset: 2,
                                         },
                                     },
                                     scales: {

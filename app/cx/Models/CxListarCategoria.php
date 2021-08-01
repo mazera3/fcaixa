@@ -16,7 +16,7 @@ class CxListarCategoria {
 
     private $Resultado;
     private $PageId;
-    private $LimiteResultado = 10;
+    private $LimiteResultado = 30;
     private $ResultadoPg;
 
     function getResultadoPg() {
