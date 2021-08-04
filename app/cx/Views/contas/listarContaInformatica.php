@@ -11,7 +11,7 @@ foreach ($this->Dados['listInf'] as $inf) {
     <div class="list-group-item">
         <div class="d-flex">
             <div class="mr-auto p-2">
-                <h2 class="display-4 titulo">Conta Informatica</h2>
+                <h2 class="display-4 titulo">Conta Informática</h2>
             </div>
             <div class="mr-auto p-2">
                 <form method="GET" action="">

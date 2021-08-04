@@ -91,13 +91,36 @@ class CxPdfRelatorio
             extract($qs);
             $qts;
         }
-        $n = $qts +1 - $qte;
+        $n = $qts - $qte;
         for($i=1;$i<$n;$i++){
             $html .= '<tr>';
             $html .= "<td>&nbsp;</td>";
             $html .= "<td>&nbsp;</td>";
             $html .= '</tr>';
         }
+        // saldo anterior
+        if($this->DadosMes == 1){
+            $mes_ant = 12;
+            $ano = $this->DadosAno - 1;
+        }else{
+            $mes_ant = $this->DadosMes - 1;
+            $ano = $this->DadosAno;
+        }
+        
+        $listarSaldo = new \App\adms\Models\helper\AdmsRead();
+        $listarSaldo->fullRead("SELECT sal.* FROM cx_saldo sal
+        INNER JOIN cx_mes m ON m.id_mes=sal.mes_id
+        WHERE id_mes=:id_mes AND ano=:ano LIMIT :limit", "limit=1&ano={$ano}&id_mes={$mes_ant}
+        ");
+        $this->Resultado = $listarSaldo->getResultado();
+        foreach ($this->Resultado as $sd) {
+            extract($sd);
+        }
+        $html .= "<tr>";
+        $html .= "<th>Saldo Anterior</th>";
+        $html .= "<th>R$ " . number_format($saldo, 2, ',', '.') . "</th>";
+        $html .= '</tr>';
+        //
         $html .= "<tr>";
         $html .= "<th>Total de Entradas</th>";
         $html .= "<th>R$ " . number_format($total_entradas, 2, ',', '.') . "</th>";

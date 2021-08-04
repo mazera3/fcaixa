@@ -20,5 +20,6 @@ if (!defined('URL')) {
         <link rel="stylesheet" href="<?php echo URLADM . 'assets/css/fontawesome.min.css'; ?>">
         <link rel="stylesheet" href="<?php echo URLADM . 'assets/fontawesome/css/fontawesome.min.css'; ?>">
         <link rel="stylesheet" href="<?php echo URLADM . 'assets/css/dashboard.css'; ?>">
+        <link rel="stylesheet" href="<?php echo URLADM . 'app/cx/assets/js/dashboard_cx.js'; ?>">
 </head>
 <body>

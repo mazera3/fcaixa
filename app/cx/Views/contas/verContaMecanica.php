@@ -11,7 +11,7 @@ if (!empty($this->Dados['dados_mec'][0])) {
         <div class="list-group-item">
             <div class="d-flex">
                 <div class="mr-auto p-2">
-                    <h2 class="display-4 titulo">Ver Conta Mecanica</h2>
+                    <h2 class="display-4 titulo">Conta Mecanica</h2>
                 </div>
                 <div class="p-2">
                     <span class="d-none d-md-block">

@@ -11,7 +11,7 @@ foreach ($this->Dados['listComb'] as $comb) {
     <div class="list-group-item">
         <div class="d-flex">
             <div class="mr-auto p-2">
-                <h2 class="display-4 titulo">Conta Combustivel</h2>
+                <h2 class="display-4 titulo">Conta Combustível</h2>
             </div>
             <div class="mr-auto p-2">
                 <form method="GET" action="">

@@ -17,7 +17,6 @@ class CxCadastrarDescricao
 
     private $Resultado;
     private $Dados;
-    private $Logo;
 
     function getResultado()
     {

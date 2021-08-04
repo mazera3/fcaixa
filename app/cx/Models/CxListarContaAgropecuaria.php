@@ -33,13 +33,13 @@ class CxListarContaAgropecuaria
 
         $paginacao = new \App\cx\Models\helper\CxPaginacao(URLADM . 'conta-agropecuaria/listar');
         $paginacao->condicao($this->PageId, $this->LimiteResultado);
-        $paginacao->paginacao("SELECT COUNT(id_agr) AS num_result FROM cx_conta_agropecuaria mec
-        INNER JOIN cx_mes m ON m.id_mes=mec.mes_id");
+        $paginacao->paginacao("SELECT COUNT(id_agr) AS num_result FROM cx_conta_agropecuaria agr
+        INNER JOIN cx_mes m ON m.id_mes=agr.mes_id");
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listarContaAgropecuaria = new \App\adms\Models\helper\AdmsRead();
-        $listarContaAgropecuaria->fullRead("SELECT mec.*, m.* FROM cx_conta_agropecuaria mec
-        INNER JOIN cx_mes m ON m.id_mes=mec.mes_id
+        $listarContaAgropecuaria->fullRead("SELECT agr.*, m.* FROM cx_conta_agropecuaria agr
+        INNER JOIN cx_mes m ON m.id_mes=agr.mes_id
         WHERE id_mes=:id_mes AND ano=:ano
         ORDER BY id_agr ASC LIMIT :limit OFFSET :offset", "ano={$this->DadosAno}&id_mes={$this->DadosMes}&limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         $this->Resultado = $listarContaAgropecuaria->getResultado();
@@ -52,13 +52,13 @@ class CxListarContaAgropecuaria
 
         $paginacao = new \App\cx\Models\helper\CxPaginacao(URLADM . 'conta-agropecuaria/listar');
         $paginacao->condicao($this->PageId, $this->LimiteResultado);
-        $paginacao->paginacao("SELECT COUNT(id_agr) AS num_result FROM cx_conta_agropecuaria mec
-        INNER JOIN cx_mes m ON m.id_mes=mec.mes_id");
+        $paginacao->paginacao("SELECT COUNT(id_agr) AS num_result FROM cx_conta_agropecuaria agr
+        INNER JOIN cx_mes m ON m.id_mes=agr.mes_id");
         $this->ResultadoPg = $paginacao->getResultado();
 
         $listarContaAgropecuaria = new \App\adms\Models\helper\AdmsRead();
-        $listarContaAgropecuaria->fullRead("SELECT mec.*, m.* FROM cx_conta_agropecuaria mec
-        INNER JOIN cx_mes m ON m.id_mes=mec.mes_id
+        $listarContaAgropecuaria->fullRead("SELECT agr.*, m.* FROM cx_conta_agropecuaria agr
+        INNER JOIN cx_mes m ON m.id_mes=agr.mes_id
         ORDER BY id_agr ASC LIMIT :limit OFFSET :offset", "limit={$this->LimiteResultado}&offset={$paginacao->getOffset()}");
         $this->Resultado = $listarContaAgropecuaria->getResultado();
         return $this->Resultado;
@@ -91,7 +91,7 @@ class CxListarContaAgropecuaria
         $verAgropecuaria = new \App\adms\Models\helper\AdmsRead();
         $verAgropecuaria->fullRead("SELECT * FROM cx_saida sai
         INNER JOIN cx_descricao dc ON dc.id_des=sai.descricao_id
-        WHERE dc.descricao LIKE '%' :mec '%' AND ano=:ano AND mes_id=:mes_id", "mes_id={$this->DadosMes}&ano={$this->DadosAno}&mec=Agropecuaria");
+        WHERE dc.descricao LIKE '%' :agr '%' AND ano=:ano AND mes_id=:mes_id", "mes_id={$this->DadosMes}&ano={$this->DadosAno}&agr=Agropecuaria");
         $this->Resultado = $verAgropecuaria->getResultado();
         if ($this->Resultado) {
             $this->Dados['modified'] = date("Y-m-d H:i:s");
