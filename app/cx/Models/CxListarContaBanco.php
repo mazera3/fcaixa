@@ -90,7 +90,7 @@ class CxListarContaBanco
         $verConta = new \App\adms\Models\helper\AdmsRead();
         $verConta->fullRead("SELECT * FROM cx_saida sai
         INNER JOIN cx_descricao dc ON dc.id_des=sai.descricao_id
-        WHERE dc.descricao LIKE '%' :ban '%' AND ano=:ano AND mes_id=:mes_id", "mes_id={$this->DadosMes}&ano={$this->DadosAno}&ban=banco");
+        WHERE dc.descricao LIKE '%' :ban '%' AND ano=:ano AND mes_id=:mes_id", "mes_id={$this->DadosMes}&ano={$this->DadosAno}&ban=Banco");
         $this->Resultado = $verConta->getResultado();
         if ($this->Resultado) {
             $this->Dados['modified'] = date('Y-m-d H:i:s');
@@ -106,7 +106,7 @@ class CxListarContaBanco
             $this->Dados['valor'] = $this->Valor;
             $this->Dados['vencimento'] = $this->DadosAno .'-' . $this->DadosMes .'-01';
             $this->Dados['situacao'] = 1;
-            $this->Dados['descricao_id'] = 36;
+            $this->Dados['descricao_id'] = 49;
             $this->Dados['codigo'] = '****';
             $this->Dados['observacao'] = 'IMPORTADO DE CONTA Banco';
 

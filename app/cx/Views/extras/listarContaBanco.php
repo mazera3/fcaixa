@@ -57,7 +57,7 @@ foreach ($this->Dados['listBan'] as $c) {
                     }
                 }
                 if (isset($ano)) {
-                    echo "<a href='" . URLADM . "conta-banco/listar?ms=$mes_id&an=$ano&ban=$total_banco' class='btn btn-outline-danger btn-sm'>Atualizar Conta Mercado</a> ";
+                    echo "<a href='" . URLADM . "conta-banco/listar?ms=$mes_id&an=$ano&ban=$total_banco' class='btn btn-outline-danger btn-sm'>Atualizar Conta Banco</a> ";
                 }
                 ?>
             </div>
@@ -80,7 +80,7 @@ foreach ($this->Dados['listBan'] as $c) {
         if (empty($this->Dados['listBan'])) {
         ?>
             <div class="alert alert-danger" role="alert">
-                Nenhuma Saida encontrada!
+                Nenhum Valor encontrado!
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

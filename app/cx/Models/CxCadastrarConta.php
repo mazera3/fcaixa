@@ -41,6 +41,10 @@ class CxCadastrarConta
     {
         $this->Dados['created'] = date("Y-m-d H:i:s");
 
+        $slugConta = new \App\cx\Models\helper\CxSlug();
+        $this->Dados['conta'] = $slugConta->nomeSlug($this->Dados['conta']);
+        $this->Dados['conta'] = ucwords(trim($this->Dados['conta']));
+
         $cadConta = new \App\adms\Models\helper\AdmsCreate;
         $cadConta->exeCreate("cx_contas", $this->Dados);
 
