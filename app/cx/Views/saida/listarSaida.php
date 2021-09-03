@@ -3,6 +3,12 @@ if (!defined('URL')) {
     header("Location: /");
     exit();
 }
+if (!empty($this->Dados['listSai'])) {
+    foreach ($this->Dados['listSai'] as $sai) {
+        extract($sai);
+    }
+   // var_dump($this->Dados['listSai']);
+}
 ?>
 <div class="content p-1">
     <div class="list-group-item">

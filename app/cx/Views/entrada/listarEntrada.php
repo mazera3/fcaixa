@@ -3,6 +3,11 @@ if (!defined('URL')) {
     header("Location: /");
     exit();
 }
+if (!empty($this->Dados['listEnt'])) {
+    foreach ($this->Dados['listEnt'] as $ent) {
+        extract($ent);
+    }
+}
 ?>
 <div class="content p-1">
     <div class="list-group-item">
@@ -33,7 +38,7 @@ if (!defined('URL')) {
                         <?php
                         foreach ($this->Dados['select']['mes'] as $m) {
                             extract($m);
-                            if (date('m') == $id_mes) {
+                            if ($mes_id == $id_mes) {
                                 echo "<option value='$id_mes' selected>$mes</option>";
                             } else {
                                 echo "<option value='$id_mes'>$mes</option>";

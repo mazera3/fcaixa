@@ -69,7 +69,7 @@ if (!empty($this->Dados['dados_ent'][0])) {
 
                 <dt class="col-sm-3">Vencimento</dt>
                 <dd class="col-sm-9"><?php if (!empty($modified)) {
-                        echo date('d/M/Y', strtotime($vencimento));
+                        echo strftime('%d/%b/%Y', strtotime($vencimento));
                     } ?></dd>
 
                 <dt class="col-sm-3">Mês</dt>

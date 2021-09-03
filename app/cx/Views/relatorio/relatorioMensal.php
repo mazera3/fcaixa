@@ -186,7 +186,7 @@ if (isset($this->Dados['listRelSai'])) {
                                         if ($situacao == 1) {
                                             echo "<a href='" . URLADM . "relatorio-mensal/listar?id=$id_sai&pg=0&ano=$ano&mes=$mes_id'><span class='badge badge-pill badge-success'>Pago</span></a>";
                                         } else {
-                                            echo "<a href='" . URLADM . "relatorio-mensal/listar?id=$id_sai&pg=1&ano=$ano&mes=$mes_id'><span class='badge badge-pill badge-danger' title='Vence: " . date('d/m/Y', strtotime($vencimento)) . "'>Pagar</span></a>";
+                                            echo "<a href='" . URLADM . "relatorio-mensal/listar?id=$id_sai&pg=1&ano=$ano&mes=$mes_id'><span class='badge badge-pill badge-danger' title='Vence: " . strftime('%d/%b/%Y', strtotime($vencimento)) . "'>Pagar</span></a>";
                                         }
                                         ?>
                                     </td>

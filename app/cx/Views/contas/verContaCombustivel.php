@@ -65,7 +65,7 @@ if (!empty($this->Dados['dados_comb'][0])) {
                 <dd class="col-sm-9"><?php echo $valor; ?></dd>
 
                 <dt class="col-sm-3">Vencimento</dt>
-                <dd class="col-sm-9"><?php echo date('d/M/Y', strtotime($vencimento)); ?></dd>
+                <dd class="col-sm-9"><?php echo strftime('%d/%b/%Y', strtotime($vencimento)); ?></dd>
 
                 <dt class="col-sm-3">Mês</dt>
                 <dd class="col-sm-9"><?php echo $mes .'/'. $ano; ?></dd>

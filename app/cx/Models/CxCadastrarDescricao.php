@@ -31,7 +31,10 @@ class CxCadastrarDescricao
         $valCampoVazio->validarDados($this->Dados);
 
         if ($valCampoVazio->getResultado()) {
-            $this->inserirDescricao();
+            $this->verDescricaoCad();
+            if ($this->Resultado) {
+                $this->inserirDescricao();
+            }
         } else {
             $this->Resultado = false;
         }
@@ -50,6 +53,20 @@ class CxCadastrarDescricao
         } else {
             $_SESSION['msg'] = "<div class='alert alert-danger'>Erro: A Descricao não foi cadastrada!!</div>";
             $this->Resultado = false;
+        }
+    }
+
+    private function verDescricaoCad()
+    {
+        $listarCategoria = new \App\adms\Models\helper\AdmsRead();
+        $listarCategoria->fullRead("SELECT * FROM cx_descricao
+        WHERE descricao=:descricao
+        LIMIT :limit", "limit=1&descricao={$this->Dados['descricao']}");
+        if ($listarCategoria->getResultado()) {
+            $_SESSION['msg'] = "<div class='alert alert-warning'>Erro: A descricao {$this->Dados['descricao']} Já existe!</div>";
+            $this->Resultado = false;
+        } else {
+            $this->Resultado = true;
         }
     }
 

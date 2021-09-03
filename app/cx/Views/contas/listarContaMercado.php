@@ -115,7 +115,7 @@ foreach ($this->Dados['listMer'] as $mer) {
                             <th><?php echo $id_mer; ?></th>
                             <td><?php echo $valor; ?></td>
                             <td><?php echo $mes . '/' . $ano; ?></td>
-                            <td><?php echo date('d/M/Y', strtotime($vencimento)); ?></td>
+                            <td><?php echo strftime('%d/%b/%Y', strtotime($vencimento)); ?></td>
                             <td><?php echo $observacao; ?></td>
                             <td class="text-center">
                                 <?php

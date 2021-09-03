@@ -95,7 +95,7 @@ class CxBackup {
 
         //Nome do arquivo de backup
         $data = date('Y-m-d-h-i-s');
-        $nome_arquivo = $diretorio . "backup_db_" . $data;
+        $nome_arquivo = $diretorio . "caixa_backup_db_" . $data;
         //echo $nome_arquivo;
         $handle = fopen($nome_arquivo . '.sql', 'w+');
         fwrite($handle, $result);
@@ -129,7 +129,7 @@ class CxBackup {
             mkdir($diretorio_bk, 0777, true);
             chmod($diretorio_bk, 0777);
         }
-        $arquivo = date('Y-m-d-H-i').'_backup.zip';
+        $arquivo = date('Y-m-d-H-i').'_caixa-backup.zip';
 
         // Apaga o backup anterior para que ele não seja compactado junto com o atual.
         //if (file_exists($arquivo)) unlink(realpath($arquivo));
