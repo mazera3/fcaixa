@@ -107,7 +107,7 @@ class CxListarContaCombustivel
             $this->Dados['valor'] = $this->Valor;
             $this->Dados['vencimento'] = $this->DadosAno ."-" . $this->DadosMes ."-01";
             $this->Dados['situacao'] = 1;
-            $this->Dados['descricao_id'] = 30;
+            $this->Dados['descricao_id'] = 25;
             $this->Dados['codigo'] = '****';
             $this->Dados['observacao'] = 'IMPORTADO DE CONTA COMBUSTIVEL';
 

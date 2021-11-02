@@ -103,13 +103,13 @@ class CxListarContaEducacao
         } else {
             $this->Dados['created'] = date("Y-m-d H:i:s");
             $this->Dados['ano'] = $this->DadosAno;
-            $this->Dados['mes'] = $this->DadosMes;
+            $this->Dados['mes_id'] = $this->DadosMes;
             $this->Dados['valor'] = $this->Valor;
             $this->Dados['vencimento'] = $this->DadosAno ."-" . $this->DadosMes ."-01";
             $this->Dados['situacao'] = 1;
             $this->Dados['descricao_id'] = 32;
             $this->Dados['codigo'] = '****';
-            $this->Dados['observacao'] = 'IMPORTADO DE CONTA MERCADO';
+            $this->Dados['observacao'] = 'IMPORTADO DE CONTA EDUCAÇÃO';
 
             $cadEntrada = new \App\adms\Models\helper\AdmsCreate;
             $cadEntrada->exeCreate("cx_saida", $this->Dados);

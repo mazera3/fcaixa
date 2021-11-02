@@ -57,7 +57,7 @@ foreach ($this->Dados['listFon'] as $fon) {
                     }
                 }
                 if (isset($ano)) {
-                    echo "<a href='" . URLADM . "conta-fone/listar?ms=$mes_id&an=$ano&fon=$total_fone' class='btn btn-outline-danger btn-sm'>Atualizar Conta Foncado</a> ";
+                    echo "<a href='" . URLADM . "conta-fone/listar?ms=$mes_id&an=$ano&fon=$total_fone' class='btn btn-outline-danger btn-sm'>Atualizar Conta Telefone</a> ";
                 }
                 ?>
             </div>
